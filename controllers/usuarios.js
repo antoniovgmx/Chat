@@ -2,48 +2,7 @@
 //Para el manejo de base de datos: https://www.npmjs.com/package/mysql
 //Para la encriptación de contraseñas: https://www.npmjs.com/package/bcrypt
 
-var mysql = require('mysql');
 var bcrypt = require('bcrypt');
-
-//Creamos la conexión a la base de datos, 
-    //a través del nombre de la variable 
-    //de abajo nos referiremos a la base de datos.
-
-var connection  = mysql.createConnection({
-    connectionLimit : 10,
-    host            : '198.71.225.60',
-    user            : 'tony',
-    password        : 'tony159',
-    database        : 'chatbetas'
-});
-
-// //Nos conectamos a la base de datos capturando un posible error
-// connection.connect((err)=>{
-//     if(err){
-//         console.log(console.error('Error conectando: ' + err.stack));
-//         return;
-//     }
-//     console.log('conectado con el id: ' + connection.threadId);
-// });
-
-//Manejar una desconexión
-connection.on('error', function(err) {
-    console.log('Error en la base de datos: ', err);
-    if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-      manejarDesconexion();                         // lost due to either server restart, or a
-    } else {                                      // connnection idle timeout (the wait_timeout
-      throw err;                                  // server variable configures this)
-    }
-  });
-function manejarDesconexion(){
-    connection.connect((err)=>{
-        if(err){
-            console.log(console.error('Error reconectando: ' + err.stack));
-            return;
-        }
-        console.log('conectado con el id: ' + connection.threadId);
-    });
-}
 
 //FUNCIONES EXPORTADAS A 'app.js'
 module.exports = (app)=>{
