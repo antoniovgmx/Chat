@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 const publicPath = path.resolve(__dirname + "/public");
 const server = http.createServer(app);
 let io = socketIO(server);
+require('./controllers/db_setup');
 require('./controllers/usuarios')(app);
 
 
