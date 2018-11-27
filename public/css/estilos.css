@@ -87,7 +87,7 @@ body{
 }
 .contenedores{
     width: 100%;
-    height: auto ;
+    height: calc(100vh - 10rem);
     /* background: lawngreen; */
     /* top: -120vh; */
     position: relative;
@@ -96,6 +96,7 @@ body{
     padding-right: 3%;
     padding-top: 3%;
     box-sizing: border-box;
+    overflow-y: scroll;
 }
 .contenedor{
     width: 100%;
@@ -270,11 +271,27 @@ footer{
 }
 .mensajes{
     width: 100%;
-    height: calc(100% - 3rem);
+    height: calc(100vh - 8rem);
+    overflow-y: scroll;
     /* background: red; */
     padding: 3%;
     box-sizing: border-box;
 }
+ ::-webkit-scrollbar {
+     width: 10px;
+     /* display: none; */
+ }
+
+ ::-webkit-scrollbar-track {
+     background: purple;
+     /* background: transparent; */
+ }
+
+ ::-webkit-scrollbar-thumb {
+     border-radius: 10px;
+     background: white;
+ }
+
 .fecha{
     width: 4rem;
     height: 1.5rem;
@@ -466,6 +483,7 @@ footer{
      }
      .buscar{
         border-color: gray;
+        outline: none;
      }
      .cabecera{
          background: none;
