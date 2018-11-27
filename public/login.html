@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="js/login.js"></script>
+    <link rel="stylesheet" href="css/estilos_login.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="background-web">
+    <div class="img"></div>
+    <div class="formulario" id="login">
+        <div class="form" id="form">
+            <!-- CONTENEDOR DE DATOS LOGIN -->
+        <h2>Iniciar Sesión</h2>
+                <br><br>
+                <p><span class="fontawesome-user"></span><input type="text" id="logUser" name="user" placeholder="Correo"></p><br>
+                <p><span class="fontawesome-lock"></span><input type="password" id="logPassword" name="password" placeholder="Contraseña"></p><br>
+                <a><input type="submit" onclick="#" value="Aceptar"></a>
+                <br>
+                <p>¿Ya estás registrado? <a id="reg" onclick="mostrarRegistro()">Inicia Sesión</a></p>
+        </div>
+        <div id="registro" style="display: none;">
+        <p><h2>Registro</h2></p>
+                <br><br><p><span class="fontawesome-user"></span><input type="text" id="nCorreo" name="user" placeholder="Correo"></p><br>
+                <p><span class="fontawesome-lock"></span><input type="password" id="nPassword1" name="password" placeholder="Contraseña" ></p><br>
+                <p><span class="fontawesome-lock"></span><input type="password" id="nPassword2" name="password" placeholder="Confirmar Contraseña" ></p><br>
+                <a><input type="submit" onclick="#" value="Aceptar"></a>
+            <br>
+            <p><a id="text">¿Ya estás registrado?</a> <a id="reg" onclick="mostrarInicio()">Inicia Sesión</a></p>
+    </div>      
+    </div>
+    <!-- Info -->
+    <div class="container-info">
+        <!-- MENSAJE DE DISPONIBLE -->
+        <div id="disponible">
+                <h2>¡Disponible para dispositivos móviles!</h2>
+            </div>
+        <div class="container-images">
+            <!-- CONTENEDOR DE IMAGEN IPAD -->
+            <div class="container-ipad">
+            </div>
+            <div class="space"></div>
+            <!-- CONTENEDOR DE IMAGEN IPHONE -->
+            <div class="container-iphone">
+                
+            </div>
+        </div>
+    </div>
+<div class="img segunda"></div>
+</div>
+</body>
+</html>
