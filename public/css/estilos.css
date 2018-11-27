@@ -23,7 +23,7 @@ body{
    z-index: 0;
 }
 .todo{
-    z-index: 999999;
+    z-index: 0;
     position: absolute;
     top:0;
     width: 100%;
@@ -33,8 +33,10 @@ body{
     /* top: -600px; */
     position: relative;
     width: 100%;
-    height: 80px;
-    /* background: red; */
+    height: 100px;
+    background: url(../img/junglaM.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     padding: 3%;
     padding-left: 8%;
     box-sizing: border-box;
@@ -75,12 +77,13 @@ body{
     text-align: center;
     padding: .5%;
     box-sizing: border-box;
-    color: white;
+    color: grey;
     border-radius: 12px;
 }
 .op1{
     background:rgba(64, 33,74,.95);
-        box-shadow: -3px 9px 10px -10px rgba(0, 0, 0, 0.72);
+    color: white;
+        box-shadow: -3px 10px 10px -12px rgba(0, 0, 0, 0.72);
 }
 .contenedores{
     width: 100%;
@@ -101,7 +104,7 @@ body{
     padding: 10px;
     box-sizing: border-box;
     border-radius: 10px;
-     box-shadow: -3px 9px 10px -10px rgba(0, 0, 0, 0.72);
+     box-shadow: 5px 10px 10px -10px rgba(0, 0, 0, 0.72);
 }
 .lado{
     width:20%;
@@ -131,7 +134,9 @@ text-align: center;
     display: flex;
     /* align-content: center; */
     align-items: center;
+    color: silver;
     /* padding: 3%; */
+    font-size: 1.5rem;
     box-sizing: border-box;
 }
 .ii{
@@ -162,7 +167,7 @@ text-align: center;
     border-radius: 50%;
     background-size: contain;
     background-repeat: no-repeat;
-    width: 3rem;;
+    width: 3rem;
     height: 3rem;
     position: relative;
     float: left;
@@ -177,6 +182,7 @@ footer{
     padding-right: 3%;
     padding-left: 3%;
     box-sizing: border-box;
+    z-index: 999999;
 }
 .Icon{
     position: relative;
@@ -185,6 +191,7 @@ footer{
     /* margin-left: calc(100%/6); */
     margin-left: 11%;
     height: 100%;
+    /* border: 1px white; */
     /* text-align: center; */
     font-size: 3ex;
     display: flex;
@@ -198,7 +205,7 @@ footer{
 }
 .chats:hover{
     color: brown;
-    border-top: 1px brown;
+    /* border-top: 1px brown; */
 }
 .Icon:hover{
     border-top: 1px brown;
@@ -210,39 +217,269 @@ footer{
 }
 
 
-
-.more-vertical-solid.icon {
-    color: #000;
-    position: absolute;
-    margin-left: 9px;
-    /* margin-top: 9px; */
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    border: solid 1px silver;
-    background-color: silver;
+.cabecera{
+    width: 100%;
+    height: 3rem;
+    /* padding: 2%; */
+    box-sizing: border-box;
+    background: url(../img/junglaM.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.atras{
+    position: relative;
+    width: 10%;
+    /* height: 100%; */
+    text-align: center;
+    font-size: 2rem;
+    /* padding: 1%; */
+    color: white;
+    box-sizing: border-box;
+    position: relative;
+    float: left;
+    /* background: orange; */
+}
+.Coon{
+    margin-top: 1.5%;
+    width: 2rem;
+    height: 2rem;
+    float: left;
+    position: relative;
+}
+.nombreP{
+    height: 100%;
+    width: 40%;
+    padding-top: 2.6%;
+    box-sizing: border-box;
+    /* background: pink; */
+    position: relative;
+    float: left;
+    color: white;
+    font-size: 1.2rem;
+}
+.derecha{
+    float: right;
+    position: relative;
+    width: 10%;
+    height: 100%;
+    text-align: center;
+    color: white;
+    padding-top: 2.6%;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+}
+.mensajes{
+    width: 100%;
+    height: calc(100% - 3rem);
+    /* background: red; */
+    padding: 3%;
+    box-sizing: border-box;
+}
+.fecha{
+    width: 4rem;
+    height: 1.5rem;
+    background: rgba(142, 199, 211, 0.431);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-left: 40%;
+    color: rgba(3, 3, 3, 0.459);
+    font-size: .8rem;
+}
+.enviado{
+    width: 100%;
+    height: auto;
+    /* background: red; */
+    padding: 1rem;
+    box-sizing: border-box;
+}
+.mensaje{
+    width: 13rem;
+    background: lightblue;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+}
+.basura{
+    margin-left: 20px;
+    margin-top: 3%;
+    color: rgba(128, 128, 128, 0.568);
+}
+.hora{
+    font-size: .7rem;
+    margin-top: 15px;
+}
+.recibido{
+    width: 100%;
+    padding: 1rem;
+    /* background: palevioletred; */
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+.mensajeR{
+    width: 13rem;
+    background: rgb(68, 161, 192);
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+    float: right;
+    box-sizing: border-box;
+}
+.basuraR{
+    float: right;
+    margin-right: 20px;
+    margin-top: 3%;
+    color: rgba(128, 128, 128, 0.568);
+}
+.horaR{
+    font-size: .7rem;
+    /* float: right; */
+    /* position: relative; */
+    margin-top: 45px;
+    margin-left: 92%;
+}
+.abajoM{
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 3.5rem;
+    position: fixed;
+    /* background: gray; */
+    bottom: 0px;
+    padding: 2%;
+    box-sizing: border-box;
+}
+.textoM{
+    width: 95%;
+    height: 100%;
+    border-radius: 15px;
+    background: rgba(194, 190, 190, 0.753);
+}
+.archivos{
+    width: 10%;
+    height: 100%;
+    position: relative;
+    float: left;
+    /* background:fuchsia; */
+    text-align: center;
+    padding: 2%;
+    color: lightseagreen;
+    box-sizing: border-box;
+}
+.mensajeT{
+    width: 80%;
+    height: 100%;
+    padding: 5px; box-sizing: border-box;
+    border-style: none;
+    background: none;
+    outline: none;
+    color: gray
+}
+.enviar{
+     width: 10%;
+     height: 100%;
+     position: relative;
+     float: right;
+     text-align: center;
+     padding: 2%;
+     color: lightseagreen;
+     box-sizing: border-box;
 }
 
-.more-vertical-solid.icon:before {
-    content: '';
-    position: absolute;
-    left: -1px;
-    top: -10px;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    border: solid 1px silver;
-    background-color: silver;
+
+@media (min-width:320px) and (max-width:767px) {
+    .CONTACTOS {
+        display: none;
+        background: gold;
+    }
+
+    .PERFIL {
+        display: none;
+        background: lightcoral;
+    }
+
+    .CONVER {
+        display: none;
+        background: white;
+    }
+
 }
 
-.more-vertical-solid.icon:after {
-    content: '';
-    position: absolute;
-    left: -1px;
-    top: 8px;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    border: solid 1px silver;
-    background-color: silver;
+
+@media (min-width:768px) {
+    .CHATS{
+        width: 35%;
+        position: relative;
+        float: left;
+    }
+    .CONTACTOS {
+        display: block;
+        background: gold;
+        position: relative;
+        float: left;
+    }
+
+    .PERFIL {
+        display: none;
+        background: lightcoral;
+         position: relative;
+         float: left;
+    }
+
+    .CONVER {
+        display: block;
+        background: white;
+         position: relative;
+         float: left;
+         width: 62%;
+    }
+     footer{
+         position: relative;
+         width: 3%;
+         height: 100vh;
+         float: left;
+         background: url(../img/junglaM.png);
+         background-size: cover;
+         background-repeat: no-repeat;
+         padding: 0;
+         display: flex;
+         flex-direction: column;
+         align-content: center;
+         justify-content: center;
+         align-items: center;
+     }
+     .abajoM{
+         padding: 10px;
+         width: 60%;
+     }
+     .titulo{
+         background: none;
+         color: gray;
+     }
+     .titulo h1{
+         color: gray;
+     }
+     .buscar{
+        border-color: gray;
+     }
+     .cabecera{
+         background: none;
+        border-top: 0ch;
+        border-left: 0ch;
+        border-right: 0ch;
+        width: 100%;
+        padding: 2px;
+        box-sizing: border-box;
+        background: none;
+        border-color: rgba(211, 211, 211, 0.294);
+         /* border: 1px rgba(211, 211, 211, 0.294); */
+     }
+     .atras, .nombreP, .derecha{
+         color: gray;
+     }
 }
