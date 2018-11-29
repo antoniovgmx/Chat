@@ -21,18 +21,19 @@
                 <br><br>
                 <p><span class="fontawesome-user"></span><input type="text" id="logUser" name="user" placeholder="Correo"></p><br>
                 <p><span class="fontawesome-lock"></span><input type="password" id="logPassword" name="password" placeholder="Contraseña"></p><br>
-                <a><input type="submit" value="Aceptar"></a>
+                <a><input type="submit" onclick="getLogin();" value="Aceptar"></a>
                 <br>
-                <p>¿Ya estás registrado? <a id="reg" onclick="mostrarRegistro()">Inicia Sesión</a></p>
+                <p>¿Ya estás registrado? <a id="reg" onclick="mostrarRegistro();">Inicia Sesión</a></p>
+                <!-- <input type="submit" onclick="alert(localStorage.getItem('user'))" value="Ok"> -->
         </div>
         <div id="registro" style="display: none;">
         <p><h2>Registro</h2></p>
                 <br><br><p><span class="fontawesome-user"></span><input type="text" id="nCorreo" name="user" placeholder="Correo"></p><br>
                 <p><span class="fontawesome-lock"></span><input type="password" id="nPassword1" name="password" placeholder="Contraseña" ></p><br>
                 <p><span class="fontawesome-lock"></span><input type="password" id="nPassword2" name="password" placeholder="Confirmar Contraseña" ></p><br>
-                <a><input type="submit" onclick="#" value="Aceptar"></a>
+                <a><input type="submit" onclick="getRegistro();" value="Aceptar"></a>
             <br>
-            <p><a id="text">¿Ya estás registrado?</a> <a id="reg" onclick="mostrarInicio()">Inicia Sesión</a></p>
+            <p><a id="text">¿Ya estás registrado?</a> <a id="reg" onclick="mostrarInicio();">Inicia Sesión</a></p>
     </div>      
     </div>
     <!-- Info -->
