@@ -34,5 +34,12 @@
 
 
                 document.getElementById("mensajes").appendChild(enviado);
+
+                var divH = document.getElementById("mensajes").scrollHeight
+                 document.getElementById("mensajes").scrollTop = divH;
+            
+
+                console.log("scroll"+divH);
+
              });
             
