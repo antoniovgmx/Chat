@@ -120,3 +120,24 @@ function callbackLogin(response){
 			
 		}
 	}
+
+	//ENVIA LOS DATOS A REGISTRAR
+	function registro(nuser,npass1){
+		var config = [{
+		//MÉTODO
+		method: "POST",
+		isFormData: false,
+		//RUTA
+		path: "registro.php",
+		
+	},{
+		userCorreo: nuser, 
+		userPassword: npass1
+	}];
+	ajax(config,callbackRegistro);
+	}
+
+	//RESPUESTA DEL REGISTRO
+	function callbackRegistro(response){
+		console.log(response);
+	}
