@@ -106,3 +106,11 @@ function back(){
             })
 
 
+            ///////////////////////MENSAJES///////////////////////////
+
+
+            var buttonEnviar = document.getElementById('enviar');
+             buttonEnviar.addEventListener("click", function(){
+
+             });
+
