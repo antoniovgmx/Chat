@@ -39,6 +39,17 @@ body {
     z-index: 0;
     transform: rotate(35deg);
 }
+
+.logo{
+    position: absolute;
+    background: url(../img/logochat2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    size: 100%;
+    width: 50%;
+    height: 80px;
+    top: 5%;
+}
 .formulario{
     position: absolute;
     height: 100%;

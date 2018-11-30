@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/Validaciones.js"></script>
     <link rel="stylesheet" href="css/estilos_login.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -15,27 +16,33 @@
     <div class="background-web">
     <div class="img"></div>
     <div class="formulario" id="login">
+        <div class="logo"></div>
         <div class="form" id="form">
             <!-- CONTENEDOR DE DATOS LOGIN -->
+            <form method="POST">
         <h2>Iniciar Sesión</h2>
                 <br><br>
                 <p><span class="fontawesome-user"></span><input type="text" id="logUser" name="user" placeholder="Correo"></p><br>
                 <p><span class="fontawesome-lock"></span><input type="password" id="logPassword" name="password" placeholder="Contraseña"></p><br>
                 <a><input type="submit" onclick="getLogin();" value="Aceptar"></a>
                 <br>
-                <p>¿Ya estás registrado? <a id="reg" onclick="mostrarRegistro();">Inicia Sesión</a></p>
+                <p>¿No estás registrado? <a id="reg" onclick="mostrarRegistro();">Inicia Registro</a></p>
                 <!-- <input type="submit" onclick="alert(localStorage.getItem('user'))" value="Ok"> -->
         </div>
+    </form>
         <div id="registro" style="display: none;">
+            <form method="POST">
         <p><h2>Registro</h2></p>
-                <br><br><p><span class="fontawesome-user"></span><input type="text" id="nCorreo" name="user" placeholder="Correo"></p><br>
-                <p><span class="fontawesome-lock"></span><input type="password" id="nPassword1" name="password" placeholder="Contraseña" ></p><br>
-                <p><span class="fontawesome-lock"></span><input type="password" id="nPassword2" name="password" placeholder="Confirmar Contraseña" ></p><br>
-                <a><input type="submit" onclick="getRegistro();" value="Aceptar"></a>
+                <br><br><p><span class="fontawesome-user"></span><input type="email" required id="nCorreo" name="user" placeholder="Correo"></p><br>
+                <p><span class="fontawesome-lock"></span><input type="password" required id="nPassword1" name="password" placeholder="Contraseña" ></p><br>
+                <p><span class="fontawesome-lock"></span><input type="password" required id="nPassword2" name="password" placeholder="Confirmar Contraseña" ></p><br>
+                <a><input type="submit" onclick="validarRegistro();" value="Aceptar"></a>
             <br>
             <p><a id="text">¿Ya estás registrado?</a> <a id="reg" onclick="mostrarInicio();">Inicia Sesión</a></p>
-    </div>      
+    </div> 
+</form>     
     </div>
+
     <!-- Info -->
     <div class="container-info">
         <!-- MENSAJE DE DISPONIBLE -->
