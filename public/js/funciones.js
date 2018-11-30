@@ -18,7 +18,14 @@ function chats(){
         document.getElementById("CONTACTOS").style.display = "none";
         document.getElementById("PERFIL").style.display = "none";
     }else{
-        alert("nooo");
+       document.getElementById("chat").style.color = "brown"
+       document.getElementById("perfil").style.color = "gray";
+       document.getElementById("conver").style.color = "gray";
+
+
+       document.getElementById("CHATS").style.display = "block";
+       document.getElementById("CONTACTOS").style.display = "none";
+       document.getElementById("PERFIL").style.display = "none";
     }
         
 }
@@ -55,7 +62,14 @@ function per(){
          document.getElementById("CHATS").style.display = "none";
          document.getElementById("CONTACTOS").style.display = "none";
          }else{
-             alert("noooo");
+              document.getElementById("perfil").style.color = "brown"
+              document.getElementById("chat").style.color = "gray";
+              document.getElementById("conver").style.color = "gray";
+
+              document.getElementById("PERFIL").style.display = "block";
+              document.getElementById("CHATS").style.display = "none";
+              document.getElementById("CONTACTOS").style.display = "none";
+             
          }
     }
         

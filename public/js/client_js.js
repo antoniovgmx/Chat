@@ -9,11 +9,16 @@
                 var divMsg = document.createElement("div");
                 divMsg.classList.add("mensaje");
 
+
+
+                var pMensaje = document.createElement("P");
+
                 // enviado.setAttribute("id", "");
                 enviado.appendChild(divMsg);
                 var textnode = document.createTextNode(mensaje);
-                divMsg.appendChild(textnode);
+                pMensaje.appendChild(textnode);
                 
+                divMsg.appendChild(pMensaje);
 
                  var divEliminar = document.createElement("div");
                  divEliminar.classList.add("eliminar");
