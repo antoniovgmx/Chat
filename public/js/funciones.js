@@ -33,7 +33,14 @@ function contac(){
         document.getElementById("CHATS").style.display = "none";
         document.getElementById("PERFIL").style.display = "none";
     }else{
-        alert("nooo");
+        // alert("nooo");
+         document.getElementById("conver").style.color = "brown"
+         document.getElementById("perfil").style.color = "gray";
+         document.getElementById("chat").style.color = "gray";
+
+         document.getElementById("CONTACTOS").style.display = "block";
+         document.getElementById("CHATS").style.display = "none"
+         document.getElementById("PERFIL").style.display = "none";
     }
      
 }
