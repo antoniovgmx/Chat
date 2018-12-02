@@ -21,6 +21,13 @@ body {
     /* background: black; */
 
 }
+h2{
+    text-align: center;
+    font-family: 'Montserrat';
+    font-size: 35px;
+    font-weight: bold;
+    color: #4B4949;
+}
 
 .img {
     background: url(../img/junglaM.png);
@@ -41,14 +48,17 @@ body {
 }
 
 .logo{
+    margin-left: 20%;
+    width: 100%;
+    height: 100px;
+    top: 5%;
     position: absolute;
     background: url(../img/logochat2.png);
     background-repeat: no-repeat;
-    background-size: cover;
-    size: 100%;
-    width: 50%;
-    height: 80px;
-    top: 5%;
+    background-size: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .formulario{
     position: absolute;
@@ -60,10 +70,16 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+p{
+    text-align: center;
+}
 .form{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    width: 500px;
+    margin-top: -50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #registro{
     display: flex;
@@ -159,6 +175,7 @@ body {
         justify-content: center;
     }
     h2{
+        text-align: center;
         font-family: 'Montserrat';
         font-size: 35px;
         font-weight: bold;

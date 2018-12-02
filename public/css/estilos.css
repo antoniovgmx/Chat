@@ -41,7 +41,7 @@ body{
     padding-left: 8%;
     box-sizing: border-box;
 }
-.titulo h1{
+.titulo h1{ 
     color: white;
     font-size: 2rem;
 }
@@ -390,7 +390,7 @@ footer{
     float: left;
     /* background:fuchsia; */
     text-align: center;
-    padding: 2%;
+    padding: 1.55%;
     color: lightseagreen;
     box-sizing: border-box;
 }
@@ -409,7 +409,7 @@ footer{
      position: relative;
      float: right;
      text-align: center;
-     padding: 2%;
+     padding: 1.55%;
      color: lightseagreen;
      box-sizing: border-box;
 }
@@ -559,7 +559,7 @@ footer{
     }
      footer{
          position: relative;
-         width: 3%;
+         width: 4%;
          height: 100vh;
          float: left;
          background: url(../img/junglaM.png);
@@ -572,6 +572,69 @@ footer{
          justify-content: center;
          align-items: center;
      }
+
+     #chat:hover{
+         color: white;
+     }
+     #conver:hover{
+        color: white;
+    }
+    #perfil:hover{
+        color: white;
+    }
+     #iconChat{
+        margin-left: 0%;
+        background-color: #E36363;
+        opacity: 0.4;
+        width: 100%;
+        height: 150px;
+    }
+    #iconContactos{
+        margin-left: 0%;
+        background-color: #30A191;
+        opacity: 0.4;
+        width: 100%;
+        height: 150px;
+    } 
+    #iconPerfil{
+        margin-left: 0%;
+        background-color: #8A3463;
+        opacity: 0.4;
+        width: 100%;
+        height: 150px;
+    }
+
+    #iconChat:hover{
+        background-color: #E36363;
+        opacity: 0.7;
+
+    }
+    #iconContactos:hover{
+        background-color: #30A191;
+        opacity: 0.7;
+
+    }
+    #iconPerfil:hover{
+        background-color: #8A3463;
+        opacity: 0.7;
+
+    }
+     .Icon{
+        position: relative;
+        float: left;
+        width: calc(100%/6);
+        margin-left: 11%;
+        height: 100%;
+        font-size: 3ex;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        }
+
+       
+
      .abajoM{
          padding: 10px;
          width: 60%;
@@ -588,7 +651,7 @@ footer{
         outline: none;
      }
      .cabecera{
-         background: none;
+        background: none;
         border-top: 0ch;
         border-left: 0ch;
         border-right: 0ch;
