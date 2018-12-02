@@ -68,8 +68,7 @@ function per(){
 
               document.getElementById("PERFIL").style.display = "block";
               document.getElementById("CHATS").style.display = "none";
-              document.getElementById("CONTACTOS").style.display = "none";
-             
+              document.getElementById("CONTACTOS").style.display = "none";  
          }
     }
         
