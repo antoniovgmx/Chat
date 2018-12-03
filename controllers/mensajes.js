@@ -3,6 +3,22 @@
 
 //Retorna todos los mensajes de las conversaciones del usuario
 
+/* 
+SELECT cn.contNombre, m.idMensaje, m.msgTexto, m.msgMultimedia, m.msgFecha as fecha, m.msgEstado
+FROM contacto cn, conversacion cv, mensaje  m
+WHERE cn.idUsuario = cv.idUsuario AND cn.idContacto = (ID DEL CONTACTO)
+AND cn.idUsuario = (ID DEL USUARIO) AND m.idUsuario = cv.idUsuario
+AND cn.idContacto = m.idContacto AND m.idContacto = cv.idContacto
+AND m.msgEstado = 1 OR m.msgEstado = 2 AND cv.convEstado = 1
+UNION
+SELECT cn.contNombre, m.idMensaje, m.msgTexto, m.msgMultimedia, m.msgFecha, m.msgEstado
+FROM contacto cn, conversacion cv, mensaje  m
+WHERE cn.idUsuario = cv.idUsuario AND cn.idContacto = (ID DEL USUARIO)
+AND cn.idUsuario = (ID DEL CONTACTO) AND m.idUsuario = cv.idUsuario
+AND cn.idContacto = m.idContacto AND m.idContacto = cv.idContacto
+AND m.msgEstado = 1 OR m.msgEstado = 2 AND cv.convEstado = 1 ORDER BY fecha;
+*/ 
+
 exports.getMensajes = (req, res)=>{
     if(!req.body.idUsuario || !req.body.idDestinatario){
         res.json({
