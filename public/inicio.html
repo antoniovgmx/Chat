@@ -45,13 +45,18 @@
         <div class="contenedores">
             <div class="contenedor" id="cont">
                 <div class="imgUsuario"></div>
-                <div class="texto">
+                <div class="texto" id="texto">
                     <h3>Nombre</h3>
                     <p>conversacion</p>
                 </div>
                 <div class="lado">
-                    <div class="mas">
+                    <div class="mas" id="mas">
                         <i class="fas fa-ellipsis-v"></i>
+                        <div class="cuadrito cuadroChats" id="cuadroChats">
+                            <p class="eliminarChat">Eliminar</p>
+                            <p class="archivarChat">Archivar</p>
+                            <p class="favoritoChat">Favorito</p>
+                        </div>
                         <!-- <img src="img/puntos.svg" alt=""> -->
                     </div>
                     <p>12:30</p>
@@ -69,17 +74,26 @@
             <input type="text" class="buscar">
         </nav>
             <div class="contenedores">
-                <button class="agregar">
+                <button class="agregar" id="agregarCon">
                     <i class="fas fa-plus"></i>
                     <p>Agregar</p>
                 </button>
+                <div class="nuevoCon" id="nuevoCon">
+                    <i class="fas fa-times" id="cerrar"></i>
+                    <h3>Nuevo Contacto</h3>
+                    <h4 class="mail">Correo</h4>
+                    <input type="email" name="correo" id="correoCon">
+                    <h4>Nombre del contacto</h4>
+                    <input type="text" name="nombreCon" id="nombreCon">
+                    <button class="agregarCon" id="agregarCon">Agregar</button>
+                </div>
                 <div class="contenedor" id="cont">
                     <div class="imgUsuario"></div>
-                    <div class="texto">
+                    <div class="texto textCon">
                         <h3>Nombre</h3>
                     </div>
                     <div class="lado">
-                        <div class="mas">
+                        <div class="mas masCon" >
                             <i class="fas fa-ellipsis-v"></i>
                             <!-- <img src="img/puntos.svg" alt=""> -->
                         </div>
@@ -120,7 +134,7 @@
             <div class="archivos">
                 <i class="fas fa-paperclip"></i>
             </div>
-            <textarea type="text" class="mensajeT" id="mensajeT" placeholder="Escribe un mensaje...">
+<textarea placeholder="Escribe un mensaje..." class="mensajeT" id="mensajeT"> Escribe un mensaje...
             </textarea>
                 <div class="enviar" id="enviar">
                 <i class="fas fa-location-arrow"></i>
@@ -135,7 +149,7 @@
             <div class="mensajeR">
                 <p>Holaaaa!</p>
             </div>
-            <div class="eliminarR">
+            <div class="basura">
                 <i class="far fa-trash-alt basuraR"></i>
             </div>
             <div class="horaR">

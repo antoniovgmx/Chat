@@ -72,9 +72,13 @@ body{
 }
 textarea{
     resize: none;
+    font-size: 1rem;
+    letter-spacing: 1px;
 }
+
 .op{
     width: 6rem;
+    cursor: pointer;
     position: relative;
     float: left;
     height: 1.5rem;
@@ -85,6 +89,10 @@ textarea{
     box-sizing: border-box;
     color: grey;
     border-radius: 12px;
+}
+.op:hover{
+    background: rgba(64, 33, 74, 0.95);
+    color:white;
 }
 .op1{
     background:rgba(64, 33,74,.95);
@@ -108,11 +116,13 @@ textarea{
 .contenedor{
     width: 100%;
     height: 4rem;
+    cursor: pointer;
     background: white;
     padding: 10px;
     box-sizing: border-box;
     border-radius: 10px;
-     box-shadow: 5px 10px 10px -10px rgba(0, 0, 0, 0.72);
+    box-shadow: 10px 10px 10px -10px rgba(0, 0, 0, 0.602);
+     /* box-shadow: 5px 10px 10px -10px rgba(0, 0, 0, 0.72); */
 }
 .lado{
     width:20%;
@@ -134,6 +144,7 @@ text-align: center;
 .mas{
     width: 15%;
     height: 100%;
+    cursor: pointer;
     /* background: url(../img/puntos.svg); */
     /* background-size: contain; */
     /* background: lightblue; */
@@ -196,7 +207,7 @@ footer{
     float: left;
     width: calc(100%/6);
     /* margin-left: calc(100%/6); */
-    margin-left: 11%;
+    margin-left: 10%;
     height: 100%;
     /* border: 1px white; */
     /* text-align: center; */
@@ -236,6 +247,7 @@ footer{
 .atras{
     position: relative;
     width: 10%;
+    cursor: pointer;
     /* height: 100%; */
     text-align: center;
     font-size: 2rem;
@@ -269,6 +281,7 @@ footer{
     position: relative;
     width: 10%;
     height: 100%;
+    cursor: pointer;
     text-align: center;
     color: white;
     padding-top: 2.6%;
@@ -334,6 +347,7 @@ footer{
 .basura{
     margin-left: 20px;
     margin-top: 3%;
+    cursor: pointer;
     font-size: 1rem;
     color: rgba(128, 128, 128, 0.568);
 }
@@ -370,6 +384,9 @@ footer{
     /* position: relative; */
     margin-top: 45px;
     margin-left: 92%;
+}
+.texto{
+    width: 90%;
 }
 .abajoM{
     width: 100%;
@@ -419,6 +436,12 @@ footer{
      color: lightseagreen;
      box-sizing: border-box;
 }
+.textCon{
+    margin-top: 2.5%;
+}
+.masCon{
+    margin-top: .5rem;
+}
 
 .agregar{
     width: 100%;
@@ -428,14 +451,86 @@ footer{
    padding: 10px;
    box-sizing: border-box;
    border-style: none;
+   cursor: pointer;
    display: flex;
    flex-direction: row;
    margin-bottom: 1rem;
    border-radius: 15px;
 }
+.agregar:hover{
+    background:rgba(64, 33, 74, 0.801);
+}
 .agregar i{
     margin-left: 10px;
     margin-right: 10px;
+}
+.nuevoCon{
+    
+    position:absolute;
+    width: 70%;
+    height: 19rem;
+    z-index: 999999;
+    left: 15%;
+    background: white;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex ;
+    display: none ;
+    flex-direction: column;
+    border-radius: 10px;
+    color: rgba(51, 50, 50, 0.794);
+    box-shadow: 3px 10px 30px 8px rgba(179, 179, 179, 0.66);
+}
+.nuevoCon i{
+    position: absolute;
+    right: 20px;
+    font-size: 1.2rem;
+    color: darkgrey;
+    cursor: pointer;
+}
+.nuevoCon h4, .nuevoCon h3{
+    margin-top: 1rem;
+    margin-left: 25%;
+    margin-bottom: .5rem;
+}
+.mail{
+    margin-left: 38% !important;
+}
+.cuadrito{
+    display:none;
+    width: 4rem;
+    position: absolute;
+    float: left;
+    left: -3rem;
+    top: 2.5rem;
+    z-index: 999999;
+    height: 4rem;
+    background: white;
+    box-shadow: 3px 8px 40px -2px rgba(179, 179, 179, 0.66);
+}
+.nuevoCon input{
+   border-radius: 10px;
+   color: #57595a;
+   width: 10rem;
+   height: 3rem;
+   padding: 0 16px;
+   border: none;
+   margin-left: 15%;
+   background: #d1cece;
+   border-bottom: 2px solid #EEEEEE;
+   border-right: 2px solid #EEEEEE;
+   outline: none;
+}
+.nuevoCon button{
+    width: 30%;
+    height: 2rem;
+    border-radius: 10px;
+    outline: none;
+    border-style: none;
+    margin-left: 34%;
+    margin-top: 1rem;
+   background-color: rgb(1, 82, 97);
+   color: white;
 }
 .form{
     display: flex;
@@ -518,6 +613,9 @@ footer{
         color: darkgrey;
     }
 
+    .abajo{
+        display: block;
+    }
     .Per {
         color: rgb(26, 25, 25);
         font-size: 1rem;
@@ -600,7 +698,7 @@ footer{
         margin-left: 0%;
         /* background-color: #E36363; */
         opacity: 0.7;
-        color: white;
+        color: gainsboro;
         width: 100%;
         height: 150px;
     }
@@ -608,13 +706,13 @@ footer{
         margin-left: 0%;
         /* background-color: #30A191; */
         opacity: 0.7;
-        color: white;
+        color: gainsboro;
         width: 100%;
         height: 150px;
     } 
     #iconPerfil{
         margin-left: 0%;
-        color: white;
+        color: gainsboro;
         /* background-color: #8A3463; */
         opacity: 0.7;
         width: 100%;
@@ -672,6 +770,7 @@ footer{
         border-color: gray;
         outline: none;
         width: 90%;
+        color: gray;
         margin-top: 1.5rem;
         font-size: 1rem;
         padding: 5px;
