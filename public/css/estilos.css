@@ -287,7 +287,9 @@ footer{
      width: 10px;
      /* display: none; */
  }
-
+ textarea::-webkit-scrollbar-track{
+     background: #d1cece;
+ }
  ::-webkit-scrollbar-track {
      background: white;
      /* background: transparent; */
@@ -555,11 +557,19 @@ footer{
     }
 
     .CONVER {
-        display: block;
-        background: white;
-         position: relative;
-         float: right;
-         width: 62%;
+               display: block;
+               background: white;
+               position: relative;
+               border-style: solid;
+               float: right;
+               width: 61.4%;
+               /* border: 1px; */
+               border-left-width: 1px;
+               border-color: gainsboro;
+               border-bottom: 0;
+               height: 100vh;
+               border-top: 0;
+               border-right: 0;
     }
      footer{
          position: relative;
@@ -670,16 +680,38 @@ footer{
         background: none;
         border-top: 0ch;
         border-left: 0ch;
-        border-right: 0ch;
+        border-right: 0ch !important;
+        border-bottom: 1px;
+        border-style: solid;
         width: 100%;
         padding: 2px;
         box-sizing: border-box;
         background: none;
-        border-color: rgba(211, 211, 211, 0.294);
-         /* border: 1px rgba(211, 211, 211, 0.294); */
+        /* border-color: rgba(211, 211, 211, 0.294); */
+        border-color: gainsboro;
+    
+     }
+     .derecha{
+             float: right;
+             width: 10%;
+             height: 100%;
+             text-align: center;
+             color: white;
+             padding-top: 1.3%;
+             box-sizing: border-box;
+             font-size: 1.2rem;
+     }
+     .nombreP{
+         padding-top: 1.3%;
+     }
+     .Coon{
+         margin-top: .8%;
      }
      .atras, .nombreP, .derecha{
          color: gray;
+     }
+     .archivos, .enviar{
+         padding: 1%;
      }
 
      .agregar{
