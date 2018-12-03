@@ -6,7 +6,7 @@ var mysql = require('mysql');
     //a través del nombre de la variable 
     //de abajo nos referiremos a la base de datos.
 
-var db_setup  = mysql.createConnection({
+var db  = mysql.createConnection({
     connectionLimit : 10,
     host            : '198.71.225.60',
     user            : 'tony',

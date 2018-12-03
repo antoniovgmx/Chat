@@ -1,25 +1,32 @@
-// //Controlador de contactos
-// //aquí necesitaré utilizar https://www.npmjs.com/package/mysql
+//Controlador de contactos
+//aquí necesitaré utilizar https://www.npmjs.com/package/mysql
 
-// var mysql = require('mysql');
+    //Retorna todos los contactos del usuario
 
-// //Creamos la conexión a la base de datos, 
-//     //a través del nombre de la variable 
-//     //de abajo nos referiremos a la base de datos.
+exports.getContactos = (req, res)=>{
+    if(!req.params.idUsuario){
+        res.json({
+            status : 0,
+            msg : 'El campo de idUsuario es necesario',
+            data : []
+        });
+        return;
+    }
 
-// var connection = mysql.createConnection({
-//     //Aquí van los datos de la bd que utilizaremos
-//     host : '',
-//     user : '',
-//     password : '',
-//     database : ''
-// });
-
-// //Nos conectamos a la base de datos capturando un posible error
-// connection.connect((err)=>{
-//     if(err){
-//         console.log(console.error('error connecting: ' + err.stack));
-//         return;
-//     }
-//     console.log('connected as id: ' + connection.threadId);
-// });
+    db.query(`QUERYTEXT`, (error, results, fields)=>{
+        if(error){
+            res.json({
+                status : 0,
+                msg : 'Ocurrió un error al realizar la consulta',
+                data : []
+            });
+            return;
+        }
+        res.json({
+            status : 1,
+            msg : 'Consulta exitosa',
+            data : results
+        });
+        db.end();
+    });
+}
