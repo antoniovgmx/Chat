@@ -5,6 +5,11 @@
  window.addEventListener("resize",function () {
     wid = document.body.clientWidth;
       console.log(wid);
+
+      var co = document.getElementById("CONVER")
+      if (co.style.display = "block" && wid < 768) {
+          document.getElementById('abajo').style.display = "none";
+      }
  });
 
 function chats(){
@@ -22,7 +27,7 @@ function chats(){
        document.getElementById("perfil").style.color = "gray";
        document.getElementById("conver").style.color = "gray";
 
-
+       document.getElementById("CONVER").style.display="block"
        document.getElementById("CHATS").style.display = "block";
        document.getElementById("CONTACTOS").style.display = "none";
        document.getElementById("PERFIL").style.display = "none";
@@ -45,6 +50,7 @@ function contac(){
          document.getElementById("perfil").style.color = "gray";
          document.getElementById("chat").style.color = "gray";
 
+         document.getElementById("CONVER").style.display = "block"
          document.getElementById("CONTACTOS").style.display = "block";
          document.getElementById("CHATS").style.display = "none"
          document.getElementById("PERFIL").style.display = "none";
@@ -66,9 +72,11 @@ function per(){
               document.getElementById("chat").style.color = "gray";
               document.getElementById("conver").style.color = "gray";
 
+              document.getElementById("CONVER").style.display = "block"
               document.getElementById("PERFIL").style.display = "block";
               document.getElementById("CHATS").style.display = "none";
-              document.getElementById("CONTACTOS").style.display = "none";  
+              document.getElementById("CONTACTOS").style.display = "none";
+  
          }
     }
         
@@ -77,10 +85,11 @@ function contenedor(){
             document.getElementById('CONVER').style.display = "block";
             document.getElementById('abajo').style.display = "none";
         }else{
-
+            document.getElementById("CONVER").style.display = "block"
         }
        
 }
+
 function back(){
     if (wid < 768) {
         document.getElementById('abajo').style.display = "block";
@@ -128,6 +137,8 @@ function back(){
 
             ///////////////////////MENSAJES///////////////////////////
 
+window.addEventListener("resize", function(){
 
+})
           
 
