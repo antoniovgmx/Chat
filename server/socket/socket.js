@@ -13,13 +13,24 @@ io.on('connection', (client)=>{
     });
 
     client.on('enviarMensaje', ( data )=>{
+
+        //DEBO LLAMAR A MI API USANDO AXIOS PARA GUARDAR EL MENSAJE
+
         client.broadcast.to(data.sala).emit('mensajeNuevo', {
             usuario : data.usuario,
             mensaje : data.mensaje
         });
-
         
     });
+
+    client.on('eliminarMensaje', ( data )=>{
+        client.broadcast.to(data.sala).emit('mensajeEliminado', {
+            idMensaje : data.idMensaje,
+            
+        });
+    });
+
+
 
     
 

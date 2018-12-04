@@ -6,8 +6,6 @@ const http = require('http');
 const port = process.env.PORT || 3000;
 const publicPath = path.resolve(__dirname + "/public");
 const server = http.createServer(app);
-require('./controllers/db_connection');
-
 
 var router = express.Router();
 
@@ -16,6 +14,12 @@ var ctrlContactos = require('./controllers/contactos');
 
 router.route( '/inicio/contactos/todos/:idUsuario' )
     .get(ctrlContactos.getContactos);
+
+router.route( '/inicio/contactos/agregar' )
+    .post(ctrlContactos.addContacto);
+
+router.route( '/test' )
+    .get( ctrlContactos.test );
 
 //RUTAS DEL CONTROLADOR DE CONVERSACIONES
 var ctrlConversaciones = require('./controllers/conversacion');
