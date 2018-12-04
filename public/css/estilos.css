@@ -573,6 +573,21 @@ footer{
     margin-top: 1rem;
     background: none;
 }
+.salir{
+    border-style: none;
+    background: #d3d3d3ce;
+    width: 8rem;
+    height: 2.5rem;
+    outline: none;
+    font-size: 1rem;
+    border-radius: 15px;
+    color: #57595a;
+    margin-left: -14rem;
+    margin-top: 4rem;
+}
+.salir:hover{
+    background: rgba(85, 145, 155, 0.883);
+}
 
 
 @media (min-width:320px) and (max-width:767px) {

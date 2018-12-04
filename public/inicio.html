@@ -71,7 +71,7 @@
         <nav class="titulo">
             <h1>Contactos</h1>
             <div class="buscarimg"></div>
-            <input type="text" class="buscar">
+            <input type="text" class="buscar" placeholder="Buscar...">
         </nav>
             <div class="contenedores">
                 <button class="agregar" id="agregarCon">
@@ -93,8 +93,13 @@
                         <h3>Nombre</h3>
                     </div>
                     <div class="lado">
-                        <div class="mas masCon" >
-                            <i class="fas fa-ellipsis-v"></i>
+                        <div class="mas masCon" id="mas2" >
+                            <i class="fas fa-ellipsis-v" ></i>
+                                <div class="cuadrito cuadroChats" id="cuadroConta">
+                                    <p class="eliminarChat">Eliminar</p>
+                                    <p class="archivarChat">Archivar</p>
+                                    <p class="favoritoChat">Favorito</p>
+                                </div>
                             <!-- <img src="img/puntos.svg" alt=""> -->
                         </div>
                     </div>
@@ -110,7 +115,7 @@
             <p class="correo">correo@mail.com</p>
             <p class="titulo Per">Contraseña</p>
             <input type="password" name="contra" id="contra" class="contra" placeholder="......">
-            <button class="salir">salir</button>
+            <button class="salir" id="salir">Cerrar Sesión</button>
         </div>
     </div>
 

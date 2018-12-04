@@ -117,9 +117,20 @@ function nuevo(){
 }
 function more(){
     document.getElementById("cuadroChats").style.display="block";
+    document.getElementById("cuadroConta").style.display="block";
 }
 function more2(){
     document.getElementById("cuadroChats").style.display = "none";
+    document.getElementById("cuadroConta").style.display = "none";
+}
+function more3() {
+    
+    document.getElementById("cuadroConta").style.display = "block";
+}
+
+function more4() {
+   
+    document.getElementById("cuadroConta").style.display = "none";
 }
 
             var tex = document.getElementById("texto");
@@ -130,6 +141,7 @@ function more2(){
             var cerrar = document.getElementById("cerrar");
             var agregar = document.getElementById("agregarCon");
             var mas = document.getElementById("mas")
+            var mas2 = document.getElementById("mas2")
 
             tex.addEventListener("click", function () {
                contenedor();
@@ -161,6 +173,12 @@ function more2(){
             })
             mas.addEventListener("dblclick",function(){
                 more2();
+            })
+            mas2.addEventListener("click", function () {
+                more3();
+            })
+            mas2.addEventListener("dblclick", function () {
+                more4();
             })
 
             ///////////////////////MENSAJES///////////////////////////
