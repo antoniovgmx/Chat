@@ -2,14 +2,19 @@
 
 var mysql = require('mysql');
 
-//Creamos la conexión a la base de datos, 
-    //a través del nombre de la variable 
-    //de abajo nos referiremos a la base de datos.
+// var db  = mysql.createConnection({
+//     connectionLimit : 10,
+//     host            : '198.71.225.60',
+//     user            : 'tony',
+//     password        : 'tony159',
+//     database        : 'chatbetas'
+// });
 
-var db  = mysql.createConnection({
+
+exports.db = mysql.createConnection({
     connectionLimit : 10,
-    host            : '198.71.225.60',
-    user            : 'tony',
-    password        : 'tony159',
-    database        : 'chatbetas'
+        host            : '198.71.225.60',
+        user            : 'tony',
+        password        : 'tony159',
+        database        : 'chatbetas'
 });

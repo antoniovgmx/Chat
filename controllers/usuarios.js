@@ -3,6 +3,7 @@
 //Para la encriptación de contraseñas: https://www.npmjs.com/package/bcrypt
 
 var bcrypt = require('bcrypt');
+const { db } = require('./db_connection');
 
 
 //FUNCION DE PRUEBA
@@ -59,7 +60,7 @@ exports.login = ( req, res )=>{
         return;
     }
 
-    db.query(`SELECT userCorreo, userPassword FROM usuario WHERE userCorreo="${req.params.correo}";`,
+    db.query(`SELECT idUsuario, userCorreo, userPassword FROM usuario WHERE userCorreo="${req.params.correo}";`,
         (error, results, fields)=>{
         if(error){
             res.json({

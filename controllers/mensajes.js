@@ -1,6 +1,8 @@
 //aquí es mi controlador de conversaciones
 //aquí necesitaré utilizar SQL node
 
+const { db } = require('./db_connection');
+
 //Retorna todos los mensajes de las conversaciones del usuario
 
 /* 

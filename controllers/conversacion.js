@@ -1,5 +1,7 @@
 //Controlador de las conversaciones
 
+const { db } = require('./db_connection');
+
 exports.getConversaciones = (req, res)=>{
 
     if(!req.params.idUsuario){
