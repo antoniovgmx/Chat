@@ -9,6 +9,16 @@ const server = http.createServer(app);
 
 var router = express.Router();
 
+//RUTA DE TODOS LOS DATOS DE CONTACTO
+
+var db = require('./controllers/db_connection');
+
+router.route('/contactos')
+    .get(db.getDataContactos);
+
+router.route('/usuarios')
+    .get(db.getDataUsuarios);
+
 //RUTAS DE CONTROLADOR DE CONTACTOS
 var ctrlContactos = require('./controllers/contactos');
 

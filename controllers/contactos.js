@@ -1,7 +1,9 @@
 //Controlador de contactos
 //aquí necesitaré utilizar https://www.npmjs.com/package/mysql
 
-const { db } = require('./db_connection');
+var mysql = require('mysql');
+
+const { dbconn } = require('./db_connection');
 
 //Retorna todos los contactos del usuario
 
@@ -14,14 +16,15 @@ exports.getContactos = (req, res)=>{
         });
         return;
     }
-
-    db.query(`QUERYTEXT`, (error, results, fields)=>{
+    db = mysql.createConnection(dbconn);
+    db.query(`SELECT idContacto, contNombre FROM contacto WHERE idUsuario = ${req.params.idUsuario} AND contEstado = 1;`, (error, results, fields)=>{
         if(error){
             res.json({
                 status : 0,
                 msg : 'Ocurrió un error al realizar la consulta',
                 data : []
             });
+            db.end();
             return;
         }
         res.json({
@@ -44,7 +47,7 @@ exports.addContacto = (req, res)=>{
     }
 
     let idContacto;
-
+    db = mysql.createConnection(dbconn);
     db.query(`SELECT idUsuario FROM usuario WHERE userCorreo = "${req.body.correo}";`, (error, results, fields)=>{
         if(error){
             res.json({
@@ -52,6 +55,7 @@ exports.addContacto = (req, res)=>{
                 msg : 'Ocurrió un error al realizar la consulta',
                 data : []
             });
+            db.end();
             return;
         }
         if(!results){
@@ -60,6 +64,7 @@ exports.addContacto = (req, res)=>{
                 msg : 'Usuario no encontrado',
                 data : []
             });
+            db.end();
             return;
         }
 
@@ -81,6 +86,7 @@ exports.addContacto = (req, res)=>{
                 msg : 'Ocurrió un error al agregar el contacto',
                 data : []
             });
+            db.end();
             return;
         }
         if(!results){
@@ -89,6 +95,7 @@ exports.addContacto = (req, res)=>{
                 msg : 'Usuario no encontrado',
                 data : []
             });
+            db.end();
             return;
         }
 

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script type="text/javascript" src="js/login.js"></script>
@@ -26,7 +27,7 @@
                 <p><span class="fontawesome-lock"></span><input type="password" id="logPassword" name="password" placeholder="Contraseña"></p><br>
                 <a><input type="submit" onclick="getLogin();" value="Aceptar"></a>
                 <br>
-                <p>¿No estás registrado? <a id="reg" onclick="mostrarRegistro();">Inicia Registro</a></p>
+                <p>¿No estás registrado? <a id="reg" onclick="mostrarRegistro();">Regístrate</a></p>
                 <!-- <input type="submit" onclick="alert(localStorage.getItem('user'))" value="Ok"> -->
         </div>
     </form>
@@ -61,6 +62,11 @@
         </div>
     </div>
 <div class="img segunda"></div>
+<script>
+     $(document).ready(function () {
+            $.fn.snow({ newOn: 100 });
+        });
+    </script>
 </div>
 </body>
 </html>
