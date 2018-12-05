@@ -1,7 +1,9 @@
 //aquí es mi controlador de conversaciones
 //aquí necesitaré utilizar SQL node
 
-const { db } = require('./db_connection');
+const { dbconn } = require('./db_connection');
+
+var mysql = require('mysql');
 
 //Retorna todos los mensajes de las conversaciones del usuario
 
@@ -30,6 +32,8 @@ exports.getMensajes = (req, res)=>{
         });
         return;
     }
+
+    db = mysql.createConnection(dbconn);
 
     db.query(`QUERYTEXT`, (error, results, fields)=>{
         if(error){

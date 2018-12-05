@@ -3,7 +3,8 @@
 //Para la encriptación de contraseñas: https://www.npmjs.com/package/bcrypt
 
 var bcrypt = require('bcrypt');
-const { db } = require('./db_connection');
+var mysql = require('mysql');
+const { dbconn } = require('./db_connection');
 
 
 //FUNCION DE PRUEBA
@@ -27,7 +28,7 @@ exports.registro = ( req, res )=>{
 
     var hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
-    db.query(`INSERT INTO usuario (userCorreo, userPassword) VALUES ('${req.body.correo}', '${hashedPassword}');`,
+    dbconn.query(`INSERT INTO usuario (userCorreo, userPassword) VALUES ('${req.body.correo}', '${hashedPassword}');`,
     (error, results, fields)=>{
         if(error){
             res.json({
@@ -42,7 +43,7 @@ exports.registro = ( req, res )=>{
             msg : 'Usuario creado con éxito',
             data : results
         });
-        db.end((error)=>{
+        dbconn.end((error)=>{
             console.log('Conexion cerrada.');
         });
     });
@@ -60,7 +61,7 @@ exports.login = ( req, res )=>{
         return;
     }
 
-    db.query(`SELECT idUsuario, userCorreo, userPassword FROM usuario WHERE userCorreo="${req.params.correo}";`,
+    dbconn.query(`SELECT idUsuario, userCorreo, userPassword FROM usuario WHERE userCorreo="${req.params.correo}";`,
         (error, results, fields)=>{
         if(error){
             res.json({
@@ -89,7 +90,7 @@ exports.login = ( req, res )=>{
     });
 }
 
-// db.query(`SELECT * FROM usuario`,
+// dbconn.query(`SELECT * FROM usuario`,
 // (error, results, fields)=>{
 //    if(error) throw error;
 //    console.log(results);
@@ -105,6 +106,8 @@ exports.getDatos = (req, res)=>{
         });
         return;
     }
+
+    db = mysql.createConnection(dbconn);
 
     db.query(`SELECT * FROM usuario WHERE userCorreo="${req.params.correo}";`,
         (error, results, fields)=>{

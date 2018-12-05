@@ -1,6 +1,7 @@
 //Controlador de las conversaciones
+var mysql = require('mysql');
 
-const { db } = require('./db_connection');
+const { dbconn } = require('./db_connection');
 
 exports.getConversaciones = (req, res)=>{
 
@@ -12,6 +13,8 @@ exports.getConversaciones = (req, res)=>{
         });
         return;
     }
+
+    db = mysql.createConnection(dbconn);
 
     db.query(`SELECT idContacto, contNombre FROM contacto WHERE idUsuario = ${req.params.idUsuario} AND contEstado = 1;`, (error, results, fields)=>{
         if(error){
