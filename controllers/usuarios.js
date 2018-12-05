@@ -16,11 +16,11 @@ exports.test = ()=>{
 
 //REGISTRO QUE YA FUNCIONA
 exports.registro = ( req, res )=>{
-
-    if(!req.body.correo || !req.body.pass){
+    
+    if(!req.body.nombre || !req.body.correo || !req.body.pass){
         res.json({
             status : 0,
-            msg : 'El campo de correo y contraseña son obligatorios',
+            msg : 'Estos campos son obligatorios',
             data : []
         });
         return;
@@ -28,7 +28,7 @@ exports.registro = ( req, res )=>{
 
     var hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
-    dbconn.query(`INSERT INTO usuario (userCorreo, userPassword) VALUES ('${req.body.correo}', '${hashedPassword}');`,
+    dbconn.query(`INSERT INTO usuario (userCorreo, userPassword, userNombre) VALUES ('${req.body.correo}', '${hashedPassword}','${req.body.nombre}');`,
     (error, results, fields)=>{
         if(error){
             res.json({

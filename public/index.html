@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -23,7 +23,7 @@
             <form method="POST">
         <h2>Iniciar Sesión</h2>
                 <br><br>
-                <p><span class="fontawesome-user"></span><input type="text" id="logUser" name="user" placeholder="Correo"></p><br>
+                <p><span class="fontawesome-envelope-alt"></span><input type="text" id="logUser" name="user" placeholder="Correo"></p><br>
                 <p><span class="fontawesome-lock"></span><input type="password" id="logPassword" name="password" placeholder="Contraseña"></p><br>
                 <a><input type="submit" onclick="getLogin();" value="Aceptar"></a>
                 <br>
@@ -34,7 +34,9 @@
         <div id="registro" style="display: none;">
             <form method="POST">
         <p><h2>Registro</h2></p>
-                <br><br><p><span class="fontawesome-user"></span><input type="email" required id="nCorreo" name="user" placeholder="Correo"></p><br>
+                <br><br>
+                <p><span class="fontawesome-user"></span><input type="text" required id="nNombre" name="name" placeholder="Nombre"></p><br>
+                <p><span class="fontawesome-envelope-alt"></span><input type="email" required id="nCorreo" name="user" placeholder="Correo"></p><br>
                 <p><span class="fontawesome-lock"></span><input type="password" required id="nPassword1" name="password" placeholder="Contraseña" ></p><br>
                 <p><span class="fontawesome-lock"></span><input type="password" required id="nPassword2" name="password" placeholder="Confirmar Contraseña" ></p><br>
                 <a><input type="submit" onclick="validarRegistro();" value="Aceptar"></a>
