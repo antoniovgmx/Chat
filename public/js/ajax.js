@@ -1,6 +1,6 @@
 
 
-
+//////////////CONTACTOS/////////////////////////////////////////////////
 var correo ="aixa@gmail.com";
 var idUs = 2
 $.ajax({
@@ -8,14 +8,13 @@ $.ajax({
     url: "http://localhost:3000/inicio/chat/conversaciones/" + idUs
 }).done(function(res){
     var datos= res.data;
-
     datos.map(item => {
         console.log(item);
+        //////////////////////CREACION DE ELEMENTOS///////////////////////////////////////////////
          var contenedores = document.getElementById("contenedoresCon");
          var contenedor = document.createElement("DIV");
          contenedor.classList.add("contenedor");
          contenedor.setAttribute("id", "cont" + item.idContacto + "");
-         contenedor.setAttribute("onclick", "conversacionNueva(" + item.idContacto + ")");
          var imgCon = document.createElement("DIV")
          imgCon.classList.add("imgUsuario");
          var lado = document.createElement("DIV");
@@ -24,6 +23,7 @@ $.ajax({
                 puntitos.classList.add("mas")
                 puntitos.classList.add("masCon");
                 puntitos.setAttribute("id","mas2");
+                puntitos.setAttribute('data-menu','menuConv');
                     var iconPun = document.createElement("I");
                     iconPun.classList.add("fas")
                     iconPun.classList.add("fa-ellipsis-v");
@@ -56,6 +56,7 @@ $.ajax({
          var divtText = document.createElement("DIV");
          divtText.classList.add("texto")
          divtText.classList.add("textCon")
+          divtText.setAttribute("onclick", "conversacionNueva(" + item.idContacto + ")");
         var nombreCon = document.createElement("H3");
         var nombre= document.createTextNode(item.contNombre);
         nombreCon.appendChild(nombre);
@@ -67,13 +68,57 @@ $.ajax({
         contenedores.appendChild(contenedor);
         
     });
+});
 
-    // for (let d = 0; d < datos.length; d++) {
-    // //    console.log(datos[0]);
-    //     var datos2 = datos[0];
-    //    console.log(datos2.idUsuario, datos2.userCorreo);
+$.ajax({
+    method: "GET",
+    url: "http://loclhost:3000/inicio/chat/conversaciones/"+idUs
+}).done(function(res){
+    var datos = res.data;
+    datos.map(item => {
+        console.log(item);
 
-       
+    });
+});
 
-    // }
+/////////// CREACION DE CUADORS DE EMENSAJES ////////////////////////
+var time = "12:30";
+var buttonEnviar = document.getElementById('enviar');
+buttonEnviar.addEventListener("click", function () {
+    var mensaje = document.getElementById("mensajeT").value
+    var enviado = document.createElement("DIV");
+    enviado.classList.add("enviado");
+    var divMsg = document.createElement("div");
+    divMsg.classList.add("mensaje");
+    var pMensaje = document.createElement("P");
+    enviado.appendChild(divMsg);
+    var textnode = document.createTextNode(mensaje);
+    pMensaje.appendChild(textnode);
+
+    divMsg.appendChild(pMensaje);
+
+    var divEliminar = document.createElement("div");
+    divEliminar.classList.add("eliminar");
+    var icon = document.createElement("i");
+    icon.classList.add("far");
+    icon.classList.add("fa-trash-alt");
+    icon.classList.add("basura");
+    divEliminar.appendChild(icon);
+    enviado.appendChild(divEliminar);
+
+    var divHora = document.createElement("div");
+    divEliminar.classList.add("hora");
+    var hora = document.createElement("p");
+    var text = document.createTextNode(time)
+    hora.appendChild(text);
+    divHora.appendChild(hora);
+    enviado.appendChild(divHora);
+    document.getElementById("mensajes").appendChild(enviado);
+    ///////////////////////////////scroll hasta abajo//////////////////////////////////////////////////
+    var divH = document.getElementById("mensajes").scrollHeight;
+    document.getElementById("mensajes").scrollTop = divH;
+
+
+    // console.log("scroll"+divH);
+
 });

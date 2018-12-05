@@ -109,29 +109,7 @@ function back(){
         alert("nooo");
     }
 }
-function close(){
-    document.getElementById("nuevoCon").style.display="none";
-}
-function nuevo(){
-    document.getElementById("nuevoCon").style.display = "block";
-}
-function more(){
-    document.getElementById("cuadroChats").style.display="block";
-    document.getElementById("cuadroConta").style.display="block";
-}
-function more2(){
-    document.getElementById("cuadroChats").style.display = "none";
-    document.getElementById("cuadroConta").style.display = "none";
-}
-function more3() {
-    
-    document.getElementById("cuadroConta").style.display = "block";
-}
 
-function more4() {
-   
-    document.getElementById("cuadroConta").style.display = "none";
-}
 
             var tex = document.getElementById("texto");
             var chat = document.getElementById('iconChat');
@@ -141,7 +119,6 @@ function more4() {
             var cerrar = document.getElementById("cerrar");
             var agregar = document.getElementById("agregarCon");
             var mas = document.getElementById("mas")
-            var mas2 = document.getElementById("mas2")
 
             tex.addEventListener("click", function () {
                contenedor();
@@ -162,29 +139,30 @@ function more4() {
             atras.addEventListener("click",function(){
                 back();
             })
-            cerrar.addEventListener("click",function(){
-                close();
+            cerrar.addEventListener("click",function(){;
+                   document.getElementById("nuevoCon").style.display = "none";
             })
             agregar.addEventListener("click",function(){
-                nuevo();
+                document.getElementById("nuevoCon").style.display = "block";
             })
-            mas.addEventListener("click",function(){
-                more();
+            mas.addEventListener("click",function(){;
+                document.getElementById("cuadroChats").style.display = "block";
+                document.getElementById("cuadroConta").style.display = "block";
             })
             mas.addEventListener("dblclick",function(){
-                more2();
+                document.getElementById("cuadroChats").style.display = "none";
+                document.getElementById("cuadroConta").style.display = "none";
             })
-            mas2.addEventListener("click", function () {
-                more3();
-            })
-            mas2.addEventListener("dblclick", function () {
-                more4();
-            })
-
+            // mas2.addEventListener("click", function () {
+            //     document.getElementById("cuadroConta").style.display = "block";
+            // })
+            // mas2.addEventListener("dblclick", function () {
+            //     document.getElementById("cuadroConta").style.display = "none";
+            // })
             ///////////////////////MENSAJES///////////////////////////
-
-window.addEventListener("resize", function(){
-
-})
-          
+           $(document).on("click", "div.lado", function(){
+                console.log(this);
+               var cuadrito = $(this).find(".cuadrito.cuadritoChats").get(0);
+               cuadrito.style.display="block";
+           });
 
