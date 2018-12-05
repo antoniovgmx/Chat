@@ -27,7 +27,10 @@ exports.getConversaciones = (req, res)=>{
 			AND msgEstado = 1 OR msgEstado = 2 ORDER BY msgFecha DESC LIMIT 1;
 
 		*/
-    db.query(`SELECT idContacto, contNombre FROM contacto WHERE idUsuario = ${req.params.idUsuario} AND contEstado = 1;`, (error, results, fields)=>{
+        
+    db.query(`SELECT idUsuario, userNombre FROM usuario WHERE idUsuario
+            IN (SELECT idUsuario FROM conversacion WHERE idContacto = '${req.params.idUsuario}' OR idUsuario
+                IN (SELECT idUsuario FROM mensaje WHERE idContacto = '${req.params.idUsuario}' )AND convEstado = 1)`, (error, results, fields)=>{
         if(error){
             res.json({
                 status : 0,
@@ -48,12 +51,12 @@ exports.getConversaciones = (req, res)=>{
 
 exports.archivar = ()=>{
     db = mysql.createConnection(dbconn);
-    db.query(`QUERYTEXT`, (error, results, fields)=>{
+    db.query(`UPDATE conversacion SET convEstado = 2 WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}';`, (error, results, fields)=>{
         if(error){
             db.end();
             return res.json({
                 status : 0,
-                msg : 'Ocurrió un error al agregar el contacto',
+                msg : 'Ocurrió un error al archivar la conversacion',
                 data : []
             });
         }
@@ -76,12 +79,12 @@ exports.archivar = ()=>{
 
 exports.eliminar = ()=>{
     db = mysql.createConnection(dbconn);
-    db.query(`QUERYTEXT`, (error, results, fields)=>{
+    db.query(`UPDATE conversacion SET convEstado = 0 WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}';`, (error, results, fields)=>{
         if(error){
             db.end();
             return res.json({
                 status : 0,
-                msg : 'Ocurrió un error al agregar el contacto',
+                msg : 'Ocurrió un error al eliminar la conversacion',
                 data : []
             });
         }

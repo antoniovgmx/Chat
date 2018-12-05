@@ -115,7 +115,7 @@ exports.eliminarContacto = (req, res)=>{
     }
 
     db = mysql.createConnection(dbconn);
-    db.query(`QUERYTEXT`, (error, results, fields)=>{
+    db.query(`UPDATE contacto SET contEstado = 0 WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}';`, (error, results, fields)=>{
         if(error){
             db.end();
             return res.json({
@@ -145,7 +145,7 @@ exports.eliminarContacto = (req, res)=>{
 
 exports.bloquearContacto = ()=>{
     db = mysql.createConnection(dbconn);
-    db.query(`QUERYTEXT`, (error, results, fields)=>{
+    db.query(`UPDATE contacto SET contEstado = 2 WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}';`, (error, results, fields)=>{
         if(error){
             db.end();
             return res.json({

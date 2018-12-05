@@ -31,7 +31,7 @@ AND m.msgEstado = 1 OR m.msgEstado = 2 AND cv.convEstado = 1 ORDER BY fecha;
 */ 
 
 exports.getMensajes = (req, res)=>{
-    if(!req.body.idUsuario || !req.body.idDestinatario){
+    if(!req.body.idUsuario || !req.body.idContacto){
         return res.json({
             status : 0,
             msg : 'El campo de idUsuario es necesario',
@@ -41,7 +41,19 @@ exports.getMensajes = (req, res)=>{
 
     db = mysql.createConnection(dbconn);
 
-    db.query(`QUERYTEXT`, (error, results, fields)=>{
+    db.query(`SELECT cn.contNombre, m.idMensaje, m.msgTexto, m.msgMultimedia, m.msgFecha as fecha, m.msgEstado
+                FROM contacto cn, conversacion cv, mensaje  m
+                WHERE cn.idUsuario = cv.idUsuario AND cn.idContacto = '${req.params.idContacto}'
+                AND cn.idUsuario = '${req.params.idUsuario}' AND m.idUsuario = cv.idUsuario
+                AND cn.idContacto = m.idContacto AND m.idContacto = cv.idContacto
+                AND m.msgEstado = 1 OR m.msgEstado = 2 AND cv.convEstado = 1
+                UNION
+                SELECT cn.contNombre, m.idMensaje, m.msgTexto, m.msgMultimedia, m.msgFecha, m.msgEstado
+                FROM contacto cn, conversacion cv, mensaje  m
+                WHERE cn.idUsuario = cv.idUsuario AND cn.idContacto = '${req.params.idUsuario}'
+                AND cn.idUsuario = '${req.params.idContacto}' AND m.idUsuario = cv.idUsuario
+                AND cn.idContacto = m.idContacto AND m.idContacto = cv.idContacto
+                AND m.msgEstado = 1 OR m.msgEstado = 2 AND cv.convEstado = 1 ORDER BY fecha;`, (error, results, fields)=>{
         if(error){
             return res.json({
                 status : 0,
@@ -69,7 +81,7 @@ exports.newMensaje = (req, res)=>{
     }
 
     db = mysql.createConnection(dbconn);
-    db.query(`QUERYTEXT`, (error, results, fields)=>{
+    db.query(`INSERT INTO mensaje (idUsuario, idContacto, msgTexto, msgMultimedia) VALUES ('${req.params.idUsuario}','${req.params.idContacto}',"${req.body.mensaje}","FOTO");`, (error, results, fields)=>{
         db.end();
         if(error){
             return res.json({
@@ -92,7 +104,7 @@ exports.eliminarMensaje = ()=>{
     
 
     db = mysql.createConnection(dbconn);
-    db.query(`QUERYTEXT`, (error, results, fields)=>{
+    db.query(`UPDATE mensaje SET msgEstado = 0 WHERE idMensaje = '${req.params.idMensaje}';`, (error, results, fields)=>{
         if(error){
             db.end();
             return res.json({
