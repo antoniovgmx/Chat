@@ -39,12 +39,13 @@
 
 
                 document.getElementById("mensajes").appendChild(enviado);
-
+///////////////////////////////scroll hasta abajo//////////////////////////////////////////////////
                 var divH = document.getElementById("mensajes").scrollHeight
-                 document.getElementById("mensajes").scrollTop = divH;
+                document.getElementById("mensajes").scrollTop = divH;
             
 
-                console.log("scroll"+divH);
+                // console.log("scroll"+divH);
 
              });
-            
+             
+
