@@ -121,7 +121,7 @@ textarea{
     padding: 10px;
     box-sizing: border-box;
     border-radius: 10px;
-    box-shadow: 10px 10px 10px -10px rgba(0, 0, 0, 0.602);
+        box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.17);
      /* box-shadow: 5px 10px 10px -10px rgba(0, 0, 0, 0.72); */
 }
 .lado{
@@ -479,7 +479,8 @@ footer{
     flex-direction: column;
     border-radius: 10px;
     color: rgba(51, 50, 50, 0.794);
-    box-shadow: 3px 10px 30px 8px rgba(179, 179, 179, 0.66);
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.17);
+    /* box-shadow: 3px 10px 30px 8px rgba(179, 179, 179, 0.66); */
 }
 .nuevoCon i{
     position: absolute;
