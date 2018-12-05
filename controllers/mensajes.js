@@ -5,9 +5,16 @@ const { dbconn } = require('./db_connection');
 
 var mysql = require('mysql');
 
-//Retorna todos los mensajes de las conversaciones del usuario
+/* 
+    ACTUALIZA LOS MENSAJES 
+    UPDATE mensaje SET msgEstado = 0 WHERE idMensaje = (ID DEL MENSAJE);
+
+    */
+
 
 /* 
+    REGRESA TODOS LOS MENSAJES DE LA CONVERSACION DE LOS USUARIOS
+
 SELECT cn.contNombre, m.idMensaje, m.msgTexto, m.msgMultimedia, m.msgFecha as fecha, m.msgEstado
 FROM contacto cn, conversacion cv, mensaje  m
 WHERE cn.idUsuario = cv.idUsuario AND cn.idContacto = (ID DEL CONTACTO)

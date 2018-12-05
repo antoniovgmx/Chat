@@ -16,6 +16,17 @@ exports.getConversaciones = (req, res)=>{
 
     db = mysql.createConnection(dbconn);
 
+		/* 
+		VER NOMBRE DE USUARIO
+		SELECT idUsuario, userNombre FROM usuario WHERE idUsuario
+			IN (SELECT idUsuario FROM conversacion WHERE idContacto = (ID USUARIO) OR idUsuario
+			    IN (SELECT idUsuario FROM mensaje WHERE idContacto = (ID USUARIO) )AND convEstado = 1)
+		
+		VER ÚLTIMO MENSAJE 
+		SELECT * FROM mensaje WHERE idContacto = (ID USUARIO) AND idUsuario = (ID CONTACTO [el de arriba])
+			AND msgEstado = 1 OR msgEstado = 2 ORDER BY msgFecha DESC LIMIT 1;
+
+		*/
     db.query(`SELECT idContacto, contNombre FROM contacto WHERE idUsuario = ${req.params.idUsuario} AND contEstado = 1;`, (error, results, fields)=>{
         if(error){
             res.json({
