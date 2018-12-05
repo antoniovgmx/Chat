@@ -1,11 +1,21 @@
 const express = require('express');
 const app = express();
+
+const bodyParser = require('body-parser')
+
 const socketIO = require('socket.io');
 const path = require('path');
 const http = require('http');
 const port = process.env.PORT || 3000;
 const publicPath = path.resolve(__dirname + "/public");
 const server = http.createServer(app);
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
 
 var router = express.Router();
 
@@ -42,6 +52,9 @@ var ctrlMensajes = require('./controllers/mensajes');
 
 router.route( '/inicio/chat/mensajes/todos/:idUsuario/:idDestinatario' )
     .get(ctrlMensajes.getMensajes);
+
+router.route( '/api/mensajes/nuevoMensaje' )
+    .post(ctrlMensajes.newMensaje);
 
 //RUTAS DEL CONTROLADOR DE USUARIOS
 var ctrlUsuarios = require( './controllers/usuarios' );

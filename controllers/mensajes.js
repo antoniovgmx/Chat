@@ -32,24 +32,23 @@ AND m.msgEstado = 1 OR m.msgEstado = 2 AND cv.convEstado = 1 ORDER BY fecha;
 
 exports.getMensajes = (req, res)=>{
     if(!req.body.idUsuario || !req.body.idDestinatario){
-        res.json({
+        return res.json({
             status : 0,
             msg : 'El campo de idUsuario es necesario',
             data : []
-        });
-        return;
+        }); 
     }
 
     db = mysql.createConnection(dbconn);
 
     db.query(`QUERYTEXT`, (error, results, fields)=>{
         if(error){
-            res.json({
+            return res.json({
                 status : 0,
                 msg : 'Ocurrió un error al realizar la consulta',
                 data : []
             });
-            return;
+            
         }
         res.json({
             status : 1,
@@ -57,5 +56,66 @@ exports.getMensajes = (req, res)=>{
             data : results
         });
         db.end();
+    });
+};
+
+exports.newMensaje = (req, res)=>{
+    if(!req.body.idUsuario || !req.body.mensaje){
+        return res.json({
+            status : 0,
+            msg : 'El campo de idUsuario o el mensaje es nulo',
+            data : []
+        });
+    }
+
+    db = mysql.createConnection(dbconn);
+    db.query(`QUERYTEXT`, (error, results, fields)=>{
+        db.end();
+        if(error){
+            return res.json({
+                status : 0,
+                msg : 'Ocurrió un error en la consulta',
+                data : []
+            });
+        } else {
+            return res.json({
+                status : 1,
+                msg : 'Mensaje enviado con éxito',
+                data : results
+            });
+        }
+    });
+};
+
+exports.eliminarMensaje = ()=>{
+
+    
+
+    db = mysql.createConnection(dbconn);
+    db.query(`QUERYTEXT`, (error, results, fields)=>{
+        if(error){
+            db.end();
+            return res.json({
+                status : 0,
+                msg : 'Ocurrió un error al eliminar el mensaje',
+                data : []
+            });
+        }
+        db.end();
+        if(!results){
+            return res.json({
+                status : 0,
+                msg : 'Mensaje no encontrado',
+                data : []
+            });
+        } else {
+            return res.json({
+                status : 1,
+                msg : 'Mensaje eliminado',
+                data : {
+                    contacto : req.body.nombre
+                }
+            });
+        }
     });
 };

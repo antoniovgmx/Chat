@@ -28,6 +28,7 @@ exports.registro = ( req, res )=>{
 
     var hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
+    db = mysql.createConnection(dbconn);
     dbconn.query(`INSERT INTO usuario (userCorreo, userPassword, userNombre) VALUES ('${req.body.correo}', '${hashedPassword}','${req.body.nombre}');`,
     (error, results, fields)=>{
         if(error){
@@ -43,7 +44,7 @@ exports.registro = ( req, res )=>{
             msg : 'Usuario creado con éxito',
             data : results
         });
-        dbconn.end((error)=>{
+        db.end((error)=>{
             console.log('Conexion cerrada.');
         });
     });

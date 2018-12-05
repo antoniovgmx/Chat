@@ -45,3 +45,61 @@ exports.getConversaciones = (req, res)=>{
     });
 
 };
+
+exports.archivar = ()=>{
+    db = mysql.createConnection(dbconn);
+    db.query(`QUERYTEXT`, (error, results, fields)=>{
+        if(error){
+            db.end();
+            return res.json({
+                status : 0,
+                msg : 'Ocurrió un error al agregar el contacto',
+                data : []
+            });
+        }
+        db.end();
+        if(!results){
+            return res.json({
+                status : 0,
+                msg : 'Usuario no encontrado',
+                data : []
+            });
+        } else {
+            return res.json({
+                status : 1,
+                msg : 'Conversación archivada',
+                data : results
+            });
+        }
+    });
+};
+
+exports.eliminar = ()=>{
+    db = mysql.createConnection(dbconn);
+    db.query(`QUERYTEXT`, (error, results, fields)=>{
+        if(error){
+            db.end();
+            return res.json({
+                status : 0,
+                msg : 'Ocurrió un error al agregar el contacto',
+                data : []
+            });
+        }
+        db.end();
+        if(!results){
+            return res.json({
+                status : 0,
+                msg : 'Usuario no encontrado',
+                data : []
+            });
+        } else {
+            return res.json({
+                status : 1,
+                msg : 'Usuario eliminado',
+                data : {
+                    contacto : req.body.nombre
+                }
+            });
+        }
+    });
+}

@@ -36,7 +36,10 @@ exports.getContactos = (req, res)=>{
     });
 }
 
+//NECESITAS CORREO Y EL NOMBRE CON EL QUE LO VAS A GUARDAR
+
 exports.addContacto = (req, res)=>{
+
     if(!req.body.correo){
         res.json({
             status : 0,
@@ -50,63 +53,123 @@ exports.addContacto = (req, res)=>{
     db = mysql.createConnection(dbconn);
     db.query(`SELECT idUsuario FROM usuario WHERE userCorreo = "${req.body.correo}";`, (error, results, fields)=>{
         if(error){
-            res.json({
+            db.end();
+            return res.json({
                 status : 0,
                 msg : 'Ocurrió un error al realizar la consulta',
                 data : []
             });
-            db.end();
-            return;
         }
         if(!results){
-            res.json({
+            db.end();
+            return res.json({
                 status : 0,
                 msg : 'Usuario no encontrado',
                 data : []
             });
-            db.end();
-            return;
         }
+        console.log(results);
+        idContacto = results[0].idUsuario;
 
-        // res.json({
-        //     status : 1,
-        //     msg : 'Consulta exitosa',
-        //     data : results
-        // });
-
-        idContacto = results.idUsuario;
-
-        db.end();
+        db.query(`INSERT INTO contacto (idUsuario, idContacto, contNombre) VALUES ('${req.body.idUsuario}', '${idContacto}', '${req.body.nombre}');`, (error, results, fields)=>{
+            if(error){
+                console.log(error);
+                res.json({
+                    status : 0,
+                    msg : 'Ocurrió un error al agregar el contacto',
+                    data : []
+                });
+                db.end();
+                return;
+            }
+            if(!results){
+                res.json({
+                    status : 0,
+                    msg : 'Usuario no encontrado',
+                    data : []
+                });
+            } else {
+                res.json({
+                    status : 1,
+                    msg : 'Usuario agregado',
+                    data : {
+                        contacto : req.body.nombre
+                    }
+                });
+            }
+            db.end();
+        });
     });
 
-    db.query(`INSERT INTO contacto (idUsuario, idContacto, contNombre) VALUES ('${idUsuairo}', '${idContacto}', “${req.body.nombre}”);`, (error, results, fields)=>{
+    
+}
+
+exports.eliminarContacto = (req, res)=>{
+    if(!req.body.idUsuario || !req.body.idContacto){
+        res.json({
+            status : 0,
+            msg : 'El campo de idUsuario o idContacto está vacío',
+            data : []
+        });
+        return;
+    }
+
+    db = mysql.createConnection(dbconn);
+    db.query(`QUERYTEXT`, (error, results, fields)=>{
         if(error){
-            res.json({
+            db.end();
+            return res.json({
                 status : 0,
                 msg : 'Ocurrió un error al agregar el contacto',
                 data : []
             });
-            db.end();
-            return;
         }
+        db.end();
         if(!results){
-            res.json({
+            return res.json({
                 status : 0,
                 msg : 'Usuario no encontrado',
                 data : []
             });
-            db.end();
-            return;
+        } else {
+            return res.json({
+                status : 1,
+                msg : 'Usuario eliminado',
+                data : {
+                    contacto : req.body.nombre
+                }
+            });
         }
+    });
+}
 
-        res.json({
-            status : 1,
-            msg : 'Usuario agregado',
-            data : {
-                contacto : req.body.nombre
-            }
-        });
+exports.bloquearContacto = ()=>{
+    db = mysql.createConnection(dbconn);
+    db.query(`QUERYTEXT`, (error, results, fields)=>{
+        if(error){
+            db.end();
+            return res.json({
+                status : 0,
+                msg : 'Ocurrió un error al agregar el contacto',
+                data : []
+            });
+        }
         db.end();
+        if(!results){
+            return res.json({
+                status : 0,
+                msg : 'Usuario no encontrado',
+                data : []
+            });
+        } else {
+            return res.json({
+                status : 1,
+                msg : 'Usuario bloqueado',
+                data : {
+                    contacto : req.body.nombre
+                }
+            });
+        }
     });
 }
 
