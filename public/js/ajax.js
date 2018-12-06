@@ -87,9 +87,9 @@ var buttonEnviar = document.getElementById('enviar');
 buttonEnviar.addEventListener("click", function () {
     var mensaje = document.getElementById("mensajeT").value
     var enviado = document.createElement("DIV");
-    enviado.classList.add("enviado");
+    enviado.classList.add("recibido");
     var divMsg = document.createElement("div");
-    divMsg.classList.add("mensaje");
+    divMsg.classList.add("mensajeR");
     var pMensaje = document.createElement("P");
     enviado.appendChild(divMsg);
     var textnode = document.createTextNode(mensaje);
