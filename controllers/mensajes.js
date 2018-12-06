@@ -40,20 +40,14 @@ exports.getMensajes = (req, res)=>{
     }
 
     db = mysql.createConnection(dbconn);
+    SELECT * FROM mensaje WHERE idUsuario = 1 AND idContacto = 2
+UNION 
+SELECT * FROM mensaje WHERE idUsuario = 2 AND idContacto = 1 
+AND msgEstado = 1 OR msgEstado = 2 ORDER BY msgFecha ASC;
 
-    db.query(`SELECT cn.contNombre, m.idMensaje, m.msgTexto, m.msgMultimedia, m.msgFecha as fecha, m.msgEstado
-                FROM contacto cn, conversacion cv, mensaje  m
-                WHERE cn.idUsuario = cv.idUsuario AND cn.idContacto = '${req.params.idContacto}'
-                AND cn.idUsuario = '${req.params.idUsuario}' AND m.idUsuario = cv.idUsuario
-                AND cn.idContacto = m.idContacto AND m.idContacto = cv.idContacto
-                AND m.msgEstado = 1 OR m.msgEstado = 2 AND cv.convEstado = 1
-                UNION
-                SELECT cn.contNombre, m.idMensaje, m.msgTexto, m.msgMultimedia, m.msgFecha, m.msgEstado
-                FROM contacto cn, conversacion cv, mensaje  m
-                WHERE cn.idUsuario = cv.idUsuario AND cn.idContacto = '${req.params.idUsuario}'
-                AND cn.idUsuario = '${req.params.idContacto}' AND m.idUsuario = cv.idUsuario
-                AND cn.idContacto = m.idContacto AND m.idContacto = cv.idContacto
-                AND m.msgEstado = 1 OR m.msgEstado = 2 AND cv.convEstado = 1 ORDER BY fecha;`, (error, results, fields)=>{
+    db.query(`SELECT * FROM mensaje WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}'
+                UNION SELECT * FROM mensaje WHERE idUsuario = '${req.params.idContacto}' AND idContacto = '${req.params.idUsuario}' 
+                AND msgEstado = 1 OR msgEstado = 2 ORDER BY msgFecha ASC;`, (error, results, fields)=>{
         if(error){
             return res.json({
                 status : 0,
