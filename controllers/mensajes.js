@@ -24,7 +24,6 @@ exports.getMensajes = (req, res)=>{
     db.query(`SELECT * FROM mensaje WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}'
                 UNION SELECT * FROM mensaje WHERE idUsuario = '${req.params.idContacto}' AND idContacto = '${req.params.idUsuario}' 
                 AND (msgEstado = 1 OR msgEstado = 2) ORDER BY msgFecha ASC;`, (error, results, fields)=>{
->>>>>>> Stashed changes
         if(error){
             console.log(error);
             return res.json({
