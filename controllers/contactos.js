@@ -52,6 +52,8 @@ exports.addContacto = (req, res)=>{
     let idContacto;
     db = mysql.createConnection(dbconn);
     db.query(`SELECT idUsuario FROM usuario WHERE userCorreo = "${req.body.correo}";`, (error, results, fields)=>{
+        console.log(`SELECT idUsuario FROM usuario WHERE userCorreo = "${req.body.correo}"`);
+        console.log(error);
         if(error){
             db.end();
             return res.json({

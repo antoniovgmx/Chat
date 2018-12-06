@@ -2,6 +2,7 @@
 var correo = "aixa@gmail.com";
 var idUs = 2
 
+obtenerContactos();
 
 function crearElementosContactos(idCon, nomCon) {
     var contenedores = document.getElementById("contenedoresCon");
@@ -62,22 +63,26 @@ function crearElementosContactos(idCon, nomCon) {
 }
 
 //////////////////////////AJAX OBTENER CONTACTOS////////////////////////////////
-$.ajax({
-    method: "GET",
-    url: "http://localhost:3000/inicio/chat/conversaciones/" + idUs
-}).done(function (res) {
-    var datos = res.data;
-    datos.map(item => {
-        console.log(item);
+function obtenerContactos(){
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:3000/inicio/contactos/todos/" + idUs
+    }).done(function (res) {
+        var datos = res.data;
+        datos.map(item => {
+            console.log(item);
 
-        var itemNombre = item.contNombre
-        var itemId = item.idContacto
+            var itemNombre = item.contNombre
+            var itemId = item.idContacto
 
-        crearElementosContactos(itemId, itemNombre);
+            crearElementosContactos(itemId, itemNombre);
+        });
     });
-});
+}
+
 
 function crearElementosChats(idUsua, nombreUsua) {
+var ultimoMensaje="Holaaa";
     var contenedores = document.getElementById("contenedores");
     var contenedor = document.createElement("DIV");
     contenedor.classList.add("contenedor");
@@ -145,7 +150,7 @@ $.ajax({
     var datos = res.data;
     var ultimoMensaje = "holaaa";
     datos.map(item => {
-        console.log(item);
+        // console.log(item);
         var itemIdU = item.idUsuario
         var itemNomU = item.userNombre
         crearElementosChats(itemIdU, itemNomU);
@@ -203,3 +208,37 @@ function chat(idDestino) {
         });
     });
 }
+var botnAgregar = document.getElementById("agregarContacto");
+botnAgregar.addEventListener("click", function(){
+   var correoCon = document.getElementById("correoCon").value
+   var nombreCon = document.getElementById("nombreCon").value
+    console.log(idUs);
+   console.log(correoCon);
+   console.log(nombreCon);
+
+    ajax(nombreCon,correoCon)
+})
+
+function ajax(nombreCon,correoCon){
+        $.ajax({
+            method: "POST",
+            url: "/inicio/contactos/agregar",
+            data: {
+                "nombre": "" + nombreCon + "",
+                "correo": "" + correoCon + "",
+                "idUsuario": "" + idUs + ""
+            }
+        }).done(function (res) {
+            /////////////////////////CREAR HIJO////////////////////////
+                var data = res.data;
+                console.log(res.data);
+                var divCon = document.getElementById("contenedoresCon");
+               var numDivs= divCon.childElementCount;
+                console.log(numDivs);
+                    for(var x=1;x<numDivs;x++){
+                        divCon.removeChild(divCon.lastChild);
+                    }
+                     obtenerContactos();
+        })
+}
+
