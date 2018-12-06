@@ -101,7 +101,7 @@ textarea{
 }
 .contenedores{
     width: 100%;
-    height: calc(100vh - 11rem);
+    height: calc(100vh - 11.9rem);
     overflow-y: scroll;
     /* background: lawngreen; */
     /* top: -120vh; */
@@ -116,9 +116,9 @@ textarea{
 .contenedor{
     width: 95%;
     height: 4rem;
-    margin-top: 1rem;
+    margin-top: .5rem;
     cursor: pointer;
-    background: white;
+    background: rgb(248, 202, 202);
     padding: 10px;
     box-sizing: border-box;
     margin-left: 1rem;

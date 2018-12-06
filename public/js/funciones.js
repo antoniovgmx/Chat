@@ -164,8 +164,6 @@ function back(){
                 console.log(this);
                var cuadrito = $(this).find(".cuadrito.cuadritoChats").get(0);
                cuadrito.style.display="block";
-               cuadrito.addEventListener("dblclick",function(){
-                   cuadrito.display="none";
-               })
            });
+           $(document).on("click")
 
