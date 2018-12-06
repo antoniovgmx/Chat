@@ -23,6 +23,9 @@ router.route('/contactos')
 router.route('/usuarios')
     .get(db.getDataUsuarios);
 
+router.route('/mensajes')
+    .get(db.getDataMensajes);
+
 //RUTAS DE CONTROLADOR DE CONTACTOS
 var ctrlContactos = require('./controllers/contactos');
 
@@ -56,7 +59,7 @@ router.route( '/inicio/chat/conversaciones/eliminar' )
 //RUTAS DEL CONTROLADOR DE MENSAJES
 var ctrlMensajes = require('./controllers/mensajes');
 
-router.route( '/inicio/chat/mensajes/todos/:idUsuario/:idDestinatario' )
+router.route( '/inicio/chat/mensajes/todos/:idUsuario/:idContacto' )
     .get(ctrlMensajes.getMensajes);
 
 router.route( '/api/mensajes/nuevo' )

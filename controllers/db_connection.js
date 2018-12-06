@@ -57,3 +57,28 @@ exports.getDataUsuarios = (req, res)=>{
 
     });
 }
+
+exports.getDataMensajes = (req, res)=>{
+    db = mysql.createConnection(dbconn);
+    db.query(`SELECT * FROM mensaje;`, (error, results, fields)=>{
+        if(error){
+            console.log(error);
+            
+            res.json({
+                status : 0,
+                msg : 'Ocurrió un error al realizar la consulta',
+                data : []
+            });
+            db.end();
+            return;
+        }
+
+        res.json({
+            status : 1,
+            msg : 'Consulta exitosa',
+            data : results
+        });
+        db.end();
+
+    });
+}
