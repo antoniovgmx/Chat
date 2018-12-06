@@ -82,7 +82,19 @@ exports.getConversaciones = (req, res)=>{
 
 };
 
-exports.archivar = ()=>{
+exports.getSalas = (req, res)=>{
+
+    if(!req.idUsuario){
+        
+    }
+
+    db = mysql.createConnection(dbconn);
+    db.query(`SELECT convNombre FROM conversacion WHERE (idUsuario = ${req.params.idUsuario} OR idContacto = ${req.params.idUsuario});`, (error, results, fields)=>{
+
+    });
+};
+
+exports.archivar = (req, res)=>{
     db = mysql.createConnection(dbconn);
     db.query(`UPDATE conversacion SET convEstado = 2 WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}';`, (error, results, fields)=>{
         if(error){

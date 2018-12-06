@@ -7,9 +7,9 @@ io.on('connection', (client)=>{
     //suscribir al cliente a los sockets de sus chats
     client.on('suscribirse', ( salas , callback )=>{
 
-        salas.forEach(sala => {
+        for(var sala in salas) {
             client.join(sala);
-        });
+        }
 
         callback({ msg : 'Conectado exitosamente' });
 
