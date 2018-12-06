@@ -5,11 +5,13 @@ io.on('connection', (client)=>{
 
     //una vez conectado a la página y cargadas sus conversaciones
     //suscribir al cliente a los sockets de sus chats
-    client.on('suscribirse', (salas)=>{
+    client.on('suscribirse', ( salas , callback )=>{
 
         salas.forEach(sala => {
             client.join(sala);
         });
+
+        callback({ msg : 'Conectado exitosamente' });
 
     });
 
@@ -31,7 +33,10 @@ io.on('connection', (client)=>{
                     usuario : data.usuario,
                     mensaje : data.mensaje
                 });
-                callback({ status : 1 });
+                callback({
+                    status : 1,
+                    
+                });
             } else {
                 callback({
                     status : 0,
