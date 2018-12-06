@@ -22,7 +22,7 @@ function validarRegistro(){
 			'',
 			'error'
 		)
-	}
+	}return;
 
 	if(password !== confirPassword){
 		Swal(
@@ -30,7 +30,7 @@ function validarRegistro(){
 			'Intentelo nuevamente',
 			'error'
 		)
-	}
+	}return;
 
 	if(password.length <=8){
 		Swal(
@@ -39,5 +39,44 @@ function validarRegistro(){
 			'error'
 		)	
 		
+	}return;
+
+	var bcrypt = require('bcrypt');
+	var mysql = require('mysql');
+	const { dbconn } = require('./db_connection');
+
+	exports.registro = ( req, res )=>{
+    
+		if(!req.body.nombre || !req.body.correo || !req.body.pass){
+			res.json({
+				status : 0,
+				msg : 'Estos campos son obligatorios',
+				data : []
+			});
+			return;
+		}
+	
+		var hashedPassword = bcrypt.hashSync(req.body.password, 10);
+	
+		db = mysql.createConnection(dbconn);
+		dbconn.query(`INSERT INTO usuario (userCorreo, userPassword, userNombre) VALUES ('${req.body.correo}', '${hashedPassword}','${req.body.nombre}');`,
+		(error, results, fields)=>{
+			if(error){
+				res.json({
+					status : 0,
+					msg : 'Ocurrió un error al realizar el registro',
+					data : []
+				});
+				return;
+			}
+			res.json({
+				status : 1,
+				msg : 'Usuario creado con éxito',
+				data : results
+			});
+			db.end((error)=>{
+				console.log('Conexion cerrada.');
+			});
+		});
 	}
 }
