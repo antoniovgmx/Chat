@@ -29,6 +29,9 @@ router.route('/mensajes')
 //RUTAS DE CONTROLADOR DE CONTACTOS
 var ctrlContactos = require('./controllers/contactos');
 
+router.route('/contactos/test')
+    .get(ctrlContactos.test);;
+
 router.route( '/inicio/contactos/todos/:idUsuario' )
     .get(ctrlContactos.getContactos);
 
