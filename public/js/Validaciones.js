@@ -1,12 +1,20 @@
 function iniciarSesion(){
-	var user = document.getElementById('user').value;
-	var password = document.getElementById('pass').value;
+	var user = document.getElementById('nCorreo').value;
+	var password = document.getElementById('nPassword1').value;
 	if(user != '' && password != '' && password.length >= 5){
-		document.getElementById('btnEnviar').style.display = 'inline';
+		document.getElementById('Aceptar').style.display = 'inline';
 	}
 	else{
-		document.getElementById('btnEnviar').style.display = 'none';
+		document.getElementById('Aceptar').style.display = 'none';
 	}
+
+	if(password != '' || nombre != ''){
+		Swal(
+			'Llene todos los campos',
+			'',
+			'error'
+		)
+	}return;
 }
 
 function validarRegistro(){
@@ -46,15 +54,6 @@ function validarRegistro(){
 	const { dbconn } = require('./db_connection');
 
 	exports.registro = ( req, res )=>{
-    
-		if(!req.body.nombre || !req.body.correo || !req.body.pass){
-			res.json({
-				status : 0,
-				msg : 'Estos campos son obligatorios',
-				data : []
-			});
-			return;
-		}
 	
 		var hashedPassword = bcrypt.hashSync(req.body.password, 10);
 	
@@ -74,6 +73,12 @@ function validarRegistro(){
 				msg : 'Usuario creado con éxito',
 				data : results
 			});
+
+			Swal(
+			'La contraseña es demasiado corta',
+			'Intentelo nuevamente',
+			'error'
+		)
 			db.end((error)=>{
 				console.log('Conexion cerrada.');
 			});
