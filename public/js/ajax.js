@@ -72,12 +72,71 @@ $.ajax({
 
 $.ajax({
     method: "GET",
-    url: "http://loclhost:3000/inicio/chat/conversaciones/"+idUs
+    url: "http://localhost:3000/inicio/chat/conversaciones/"+idUs
 }).done(function(res){
     var datos = res.data;
+    var ultimoMensaje="holaaa";
     datos.map(item => {
         console.log(item);
+         var contenedores = document.getElementById("contenedores");
+         var contenedor = document.createElement("DIV");
+         contenedor.classList.add("contenedor");
+         contenedor.setAttribute("id","cont");
+         contenedor.setAttribute("onclick","chat("+item.idUsuario+")");
+                var divImgUs = document.createElement("DIV");
+                divImgUs.classList.add("imgUsuario");
+                var divTexto = document.createElement("DIV");
+                divTexto.classList.add("texto");
+                divTexto.setAttribute("div","texto");
+                    var nombreChat = document.createElement("H3");
+                    var nombre2 = document.createTextNode(item.userNombre);
+                    nombreChat.appendChild(nombre2);
+                    var conversacion = document.createElement("P");
+                    var textoConve = document.createTextNode(ultimoMensaje);
+                    conversacion.appendChild(textoConve);
 
+                    divTexto.appendChild(nombreChat);
+                    divTexto.appendChild(conversacion);
+        contenedor.appendChild(divImgUs);
+        contenedor.appendChild(divTexto);
+
+        var divLado = document.createElement("DIV");
+        divLado.classList.add("lado");
+        var divMas = document.createElement("DIV");
+        divMas.classList.add("mas");
+        divMas.setAttribute("div","mas");
+            var iconMas = document.createElement("I")
+            iconMas.classList.add("fas")
+            iconMas.classList.add("fa-ellipsis-v")
+            var divCuadrito = document.createElement("DIV");
+            divCuadrito.classList.add("cuadrito")
+            divCuadrito.classList.add("cuadroChat")
+            divCuadrito.setAttribute("id","cuadroChats");
+                     var pEliminar = document.createElement("P")
+                     pEliminar.classList.add("eliminarChat");
+                     pEliminar.setAttribute("id", "eliminarChat");
+                     var textEli = document.createTextNode("Eliminar")
+                     pEliminar.appendChild(textEli);
+                     var pArchivar = document.createElement("P")
+                     pArchivar.classList.add("archivarChat");
+                     pArchivar.setAttribute("id", "archivarChat");
+                     var textArc = document.createTextNode("Archivar")
+                     pArchivar.appendChild(textArc);
+                     var pFavorito = document.createElement("P")
+                     pFavorito.classList.add("favoritoChat");
+                     pFavorito.setAttribute("id", "favoritoChat");
+                     var textFav = document.createTextNode("Favorito")
+                     pFavorito.appendChild(textFav);
+                divCuadrito.appendChild(pEliminar);
+                divCuadrito.appendChild(pArchivar);
+                divCuadrito.appendChild(pFavorito);
+                divMas.appendChild(iconMas);
+                divMas.appendChild(divCuadrito);
+        divLado.appendChild(divMas);
+        contenedor.appendChild(divLado);
+
+        contenedores.appendChild(contenedor);
+        
     });
 });
 
