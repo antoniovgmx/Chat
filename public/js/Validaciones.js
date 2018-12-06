@@ -10,23 +10,34 @@ function iniciarSesion(){
 }
 
 function validarRegistro(){
+	var usuario = document.getElementById('nNombre').value;
 	var nombre = document.getElementById('nCorreo').value;
 	var password = document.getElementById('nPassword1').value;
 	var confirPassword = document.getElementById('nPassword2').value;
 
-	if (password !== confirPassword){
-		alert('Las contraseñas no coinciden')
+
+	if(usuario != '' || password != '' || nombre != '' || confirPassword != ''){
+		Swal(
+			'Llene todos los campos',
+			'',
+			'error'
+		)
 	}
-	
+
+	if(password !== confirPassword){
+		Swal(
+			'Las contraseñas no coinciden',
+			'Intentelo nuevamente',
+			'error'
+		)
+	}
+
+	if(password.length <=8){
+		Swal(
+			'La contraseña es demasiado corta',
+			'Intentelo nuevamente',
+			'error'
+		)	
 		
-	if(password != '' && nombre != '' && confirPassword != ''){
-		if(password.length >= 5 && confirPassword.length >= 5){
-			document.getElementById('Aceptar').style.display = 'inline';
-		}else{
-			alert('Contraseña muy corta');
-			
-		}
 	}
 }
-
-
