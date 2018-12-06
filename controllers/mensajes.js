@@ -31,7 +31,7 @@ AND m.msgEstado = 1 OR m.msgEstado = 2 AND cv.convEstado = 1 ORDER BY fecha;
 */ 
 
 exports.getMensajes = (req, res)=>{
-    if(!req.body.idUsuario || !req.body.idContacto){
+    if(!req.params.idUsuario || !req.params.idContacto){
         return res.json({
             status : 0,
             msg : 'El campo de idUsuario es necesario',

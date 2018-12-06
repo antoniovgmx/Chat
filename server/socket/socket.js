@@ -13,26 +13,59 @@ io.on('connection', (client)=>{
 
     });
 
-    client.on('enviarMensaje', ( data )=>{
+    client.on('enviarMensaje', ( data, callback )=>{
 
         //DEBO LLAMAR A MI API USANDO AXIOS PARA GUARDAR EL MENSAJE
 
-        axios.post('/api/mensajes/nuevo', );
+        axios({
+            method: 'post',
+            url: '/api/mensajes/nuevo',
+            data: {
+              idUsuario : data.idUsuario,
+              idContacto : data.idContacto,
+              mensaje : data.mensaje
+            }
+          }).then((response)=>{
+            if( response.status == 1 ){
+                client.broadcast.to(data.sala).emit('mensajeNuevo', {
+                    usuario : data.usuario,
+                    mensaje : data.mensaje
+                });
+                callback({ status : 1 });
+            } else {
+                callback({
+                    status : 0,
+                    msg : 'Ocurrió un error al enviar el mensaje'
+                });
+            }
+          });
 
-        client.broadcast.to(data.sala).emit('mensajeNuevo', {
-            usuario : data.usuario,
-            mensaje : data.mensaje
-        });
+       
         
     });
 
     client.on('eliminarMensaje', ( data )=>{
 
-        // axios.post('/');
-        client.broadcast.to(data.sala).emit('mensajeEliminado', {
-            idMensaje : data.idMensaje,
-            
-        });
+        axios({
+            method: 'post',
+            url: '/api/mensajes/eliminar',
+            data: {
+              idMensaje : data.idMensaje
+            }
+          }).then((response)=>{
+            if( response.status == 1 ){
+                client.broadcast.to(data.sala).emit('mensajeEliminado', {
+                    idMensaje : data.idMensaje
+                });
+                callback({ status : 1 });
+            } else {
+                callback({
+                    status : 0,
+                    msg : 'Ocurrió un error al enviar el mensaje'
+                });
+            }
+          });
+
     });
 
 
