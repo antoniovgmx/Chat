@@ -4,7 +4,6 @@ var mysql = require('mysql');
 const { dbconn } = require('./db_connection');
 
 exports.getConversaciones = (req, res)=>{
-
     if(!req.params.idUsuario){
         res.json({
             status : 0,
@@ -13,39 +12,73 @@ exports.getConversaciones = (req, res)=>{
         });
         return;
     }
-
     db = mysql.createConnection(dbconn);
+    let nombreContacto;
 
-		/* 
-		VER NOMBRE DE USUARIO
-		SELECT idUsuario, userNombre FROM usuario WHERE idUsuario
-			IN (SELECT idUsuario FROM conversacion WHERE idContacto = (ID USUARIO) OR idUsuario
-			    IN (SELECT idUsuario FROM mensaje WHERE idContacto = (ID USUARIO) )AND convEstado = 1)
-		
-		VER ÚLTIMO MENSAJE 
-		SELECT * FROM mensaje WHERE idContacto = (ID USUARIO) AND idUsuario = (ID CONTACTO [el de arriba])
-			AND msgEstado = 1 OR msgEstado = 2 ORDER BY msgFecha DESC LIMIT 1;
-
-		*/
-        
-    db.query(`SELECT idUsuario, userNombre FROM usuario WHERE idUsuario
-            IN (SELECT idUsuario FROM conversacion WHERE idContacto = '${req.params.idUsuario}' OR idUsuario
-                IN (SELECT idUsuario FROM mensaje WHERE idContacto = '${req.params.idUsuario}' )AND convEstado = 1)`, (error, results, fields)=>{
+    //CHECAR SI LO TENEMOS AGREGADO
+    db.query(`QUERYTEXT`, (error, results, fields)=>{
         if(error){
-            res.json({
+            db.end();
+            return res.json({
                 status : 0,
-                msg : 'Ocurrió un error al realizar la consulta',
-                data : []
+                msg : 'Ocurrió un error en la consulta 1',
             });
-            return;
         }
-        res.json({
-            status : 1,
-            msg : 'Consulta exitosa',
-            data : results
+        //CONSULTAR SU CORREO SI NO LO TENEMOS AGREGADO
+        if(!results.nombre){
+            db.query(`QUERYTEXT`, (error, results, fields)=>{
+                if(error){
+                    db.end();
+                    return res.json({
+                        status : 0,
+                        msg : 'Ocurrió un error en la consulta 2',
+                    });
+                }
+                nombreContacto = results.correo;
+            });
+        }else nombreContacto = results.nombre;
+        //TRAEMOS AHORA SÍ LOS MENSAJES
+        db.query(`QUERYTEXT`, (error, results, fields)=>{
+            if(error){
+                db.end();
+                return res.json({
+                    status : 0,
+                    msg : 'Ocurrió un error en la consulta 3',
+                });
+            }
+            if(!results){
+                db.end();
+                return res.json({
+                    status : 1,
+                    msg : 'No hay mensajes en esta conversación'
+                });
+            }
+            return res.json({
+                status : 1,
+                msg : 'Mensajes encontrados',
+                data : results
+            });
         });
-        db.end();
     });
+        
+    // db.query(`SELECT idUsuario, userNombre FROM usuario WHERE idUsuario
+    //         IN (SELECT idUsuario FROM conversacion WHERE idContacto = '${req.params.idUsuario}' OR idUsuario
+    //             IN (SELECT idUsuario FROM mensaje WHERE idContacto = '${req.params.idUsuario}' )AND convEstado = 1)`, (error, results, fields)=>{
+    //     if(error){
+    //         res.json({
+    //             status : 0,
+    //             msg : 'Ocurrió un error al realizar la consulta',
+    //             data : []
+    //         });
+    //         return;
+    //     }
+    //     res.json({
+    //         status : 1,
+    //         msg : 'Consulta exitosa',
+    //         data : results
+    //     });
+    //     db.end();
+    // });
 
 };
 
