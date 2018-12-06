@@ -17,7 +17,7 @@ io.on('connection', (client)=>{
 
         //DEBO LLAMAR A MI API USANDO AXIOS PARA GUARDAR EL MENSAJE
 
-        // axios.post('/');
+        axios.post('/api/mensajes/nuevo', );
 
         client.broadcast.to(data.sala).emit('mensajeNuevo', {
             usuario : data.usuario,

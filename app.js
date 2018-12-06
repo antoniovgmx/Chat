@@ -1,22 +1,16 @@
 const express = require('express');
 const app = express();
-
 const bodyParser = require('body-parser')
-
 const socketIO = require('socket.io');
 const path = require('path');
 const http = require('http');
 const port = process.env.PORT || 3000;
 const publicPath = path.resolve(__dirname + "/public");
 const server = http.createServer(app);
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
-
 var router = express.Router();
 
 //RUTA DE TODOS LOS DATOS DE CONTACTO
@@ -38,6 +32,12 @@ router.route( '/inicio/contactos/todos/:idUsuario' )
 router.route( '/inicio/contactos/agregar' )
     .post(ctrlContactos.addContacto);
 
+router.route( '/inicio/contactos/eliminar' )
+    .delete(ctrlContactos.eliminarContacto);
+
+// router.route( '/inicio/contactos/bloquear' )
+//     .update(ctrlContactos.bloquearContacto);
+
 router.route( '/test' )
     .get( ctrlContactos.test );
 
@@ -47,14 +47,23 @@ var ctrlConversaciones = require('./controllers/conversacion');
 router.route( '/inicio/chat/conversaciones/:idUsuario' )
     .get(ctrlConversaciones.getConversaciones);
 
+// router.route( '/inicio/chat/conversaciones/archivar' )
+//     .update(ctrlConversaciones.archivar);
+
+router.route( '/inicio/chat/conversaciones/eliminar' )
+    .delete(ctrlConversaciones.eliminar);
+
 //RUTAS DEL CONTROLADOR DE MENSAJES
 var ctrlMensajes = require('./controllers/mensajes');
 
 router.route( '/inicio/chat/mensajes/todos/:idUsuario/:idDestinatario' )
     .get(ctrlMensajes.getMensajes);
 
-router.route( '/api/mensajes/nuevoMensaje' )
+router.route( '/api/mensajes/nuevo' )
     .post(ctrlMensajes.newMensaje);
+
+router.route( '/api/mensajes/eliminar' )
+    .delete(ctrlMensajes.eliminarMensaje);
 
 //RUTAS DEL CONTROLADOR DE USUARIOS
 var ctrlUsuarios = require( './controllers/usuarios' );
