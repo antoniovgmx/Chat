@@ -16,7 +16,7 @@ exports.getConversaciones = (req, res)=>{
     let nombreContacto;
 
     //CHECAR SI LO TENEMOS AGREGADO
-    db.query(`QUERYTEXT`, (error, results, fields)=>{
+    db.query(`SELECT contNombre FROM contacto WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idUsuario2}';`, (error, results, fields)=>{
         if(error){
             db.end();
             return res.json({
@@ -26,7 +26,7 @@ exports.getConversaciones = (req, res)=>{
         }
         //CONSULTAR SU CORREO SI NO LO TENEMOS AGREGADO
         if(!results.nombre){
-            db.query(`QUERYTEXT`, (error, results, fields)=>{
+            db.query(`SELECT userCorreo FROM usuario WHERE idUsuario = '${req.params.idUsuario2}';`, (error, results, fields)=>{
                 if(error){
                     db.end();
                     return res.json({
