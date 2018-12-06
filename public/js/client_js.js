@@ -1,7 +1,5 @@
 var socket = io();
 
-
-
 socket.on('connect', ()=>{
     console.log('Conectado al servidor');
 
@@ -23,10 +21,15 @@ socket.emit('enviarMensaje', {
     usuario : 'NOMBRE DEL USUARIO',
     mensaje : 'VARIABLE QUE CONTIENE EL MENSAJE ESCRITO'
 }, (resp)=>{
-    //AGREGAR MENSAJE
-    console.log('Respuesta : ', resp);
+
+    if(resp.status == 0){
+        console.log('Ocurrió un error');
+    } else {
+        console.log('Tú:', resp.mensaje);
+    }
 });
 
-socket.on('enviarMensaje', (mensaje)=>{
-    console.log('Servidor: ', mensaje);
+socket.on('mensajeNuevo', (data)=>{
+    //LOGICA PARA DESPLEGAR EL MENSAJE
+    console.log(`${data.usuario} : ${data.mensaje}`);
 });

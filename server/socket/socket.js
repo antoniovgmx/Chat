@@ -35,7 +35,7 @@ io.on('connection', (client)=>{
                 });
                 callback({
                     status : 1,
-                    
+                    mensaje : data.mensaje
                 });
             } else {
                 callback({
