@@ -3,6 +3,14 @@ var socket = io();
 socket.on('connect', ()=>{
     console.log('Conectado al servidor');
 
+        $.ajax({
+            method: "GET",
+            url: "inicio/" + idUs 
+        }).done(function(res){
+            console.log(res);
+        })
+
+
     //CONSULTA PARA CONSEGUIR LAS SALAS  |
     //                                   V
     socket.emit('suscribirse', 'DATOS DE LAS SALAS', (res)=>{
