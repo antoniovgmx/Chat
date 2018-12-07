@@ -17,7 +17,7 @@ exports.test = ()=>{
 //REGISTRO QUE YA FUNCIONA
 exports.registro = ( req, res )=>{
     
-    if(!req.body.nombre || !req.body.correo || !req.body.pass){
+    if(!req.body.nombre || !req.body.correo || !req.body.password){
         res.json({
             status : 0,
             msg : 'Estos campos son obligatorios',
@@ -54,33 +54,33 @@ exports.registro = ( req, res )=>{
 
 exports.login = ( req, res )=>{
     if(!req.body.correo || !req.body.password){
-        res.json({
+        return res.json({
             status : 0,
             msg : 'Los campos de correo y contraseña son necesarios',
             data : []
         });
     }
     db = mysql.createConnection(dbconn);
-    db.query(`SELECT idUsuario, userCorreo, userPassword FROM usuario WHERE userCorreo="${req.params.correo}";`,
+    db.query(`SELECT idUsuario, userCorreo, userPassword FROM usuario WHERE userCorreo="${req.body.correo}";`,
         (error, results, fields)=>{
         if(error){
-            res.json({
+            db.end();
+            return res.json({
                 status : 0,
                 msg : 'Ocurrió un error',
                 data : []
             });
-            return;
         }
-        var hashedInputPassword = bcrypt.hashSync(req.params.password, 10);
-        if(results.userPassword != hashedInputPassword){
-            res.json({
+        // var hashedInputPassword = bcrypt.hashSync(req.body.password, 10);
+        if(results.userPassword != req.body.password){
+            db.end();
+            return res.json({
                 status : 0,
                 msg : 'El usuario o la contraseña son incorrectas',
                 data : []
             });
-            return;
         }
-
+        db.end();
         res.json({
             status : 1,
             msg : 'Usuario autenticado de forma correcta',
