@@ -215,7 +215,7 @@ p{
 
     background: url("../img/ipad-bg.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 120%;
     background-position: center;
 }
 .container-iphone{
