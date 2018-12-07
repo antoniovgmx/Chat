@@ -53,6 +53,9 @@ var ctrlConversaciones = require('./controllers/conversacion');
 router.route( '/inicio/chat/conversaciones/:idUsuario' )
     .get(ctrlConversaciones.getConversaciones);
 
+router.route( '/inicio/chats/salas/:idUsuario' )
+    .get(ctrlConversaciones.getSalas);
+
 // router.route( '/inicio/chat/conversaciones/archivar' )
 //     .update(ctrlConversaciones.archivar);
 

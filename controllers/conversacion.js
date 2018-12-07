@@ -84,13 +84,26 @@ exports.getConversaciones = (req, res)=>{
 
 exports.getSalas = (req, res)=>{
 
-    if(!req.idUsuario){
-        
+    if(!req.params.idUsuario){
+       return res.json({
+           status : 0,
+           msg : 'El campo de idUsuario es necesario'
+       }); 
     }
 
     db = mysql.createConnection(dbconn);
     db.query(`SELECT convNombre FROM conversacion WHERE (idUsuario = ${req.params.idUsuario} OR idContacto = ${req.params.idUsuario});`, (error, results, fields)=>{
-
+        if(error){
+            return res.json({
+                status : 0,
+                msg : 'Ocurrió un error en la consulta'
+            });
+        }
+        return res.json({
+            status : 1,
+            msg  : 'Consulta realizada con exito',
+            data : results
+        });
     });
 };
 
