@@ -199,8 +199,8 @@ footer{
     height: 3rem;
     position: fixed;
     bottom: 0;
-    padding-right: 3%;
-    padding-left: 3%;
+    /*padding-right: 3%;*/
+    padding-left: 11%;
     box-sizing: border-box;
     z-index: 999999;
 }
@@ -545,7 +545,37 @@ footer{
     align-items: center;
     justify-content: center;
     text-align: center;
+    align-content: center;
+    padding-left: 35px;
 }
+.form input {
+    height: 40px;
+    border-radius: 11px 11px 11px 11px;
+    width: 180px;
+    font-family: 'Montserrat';
+    padding: 0 16px;
+    border: none;
+    border-bottom: 2px solid #EEEEEE;
+    border-right: 2px solid #EEEEEE;
+    border-left: 2px solid #EEEEEE;
+    outline: none; 
+    margin-left: 10px;
+    padding-left: 10px;
+}
+/*.form input {
+    width: 180px;
+    border-radius: 15px;
+    background-color: white;
+    
+    color: black;
+    font-weight: bold;
+    font-family: 'Montserrat';
+    outline: none;
+    cursor: pointer;
+    color: white;
+}
+*/
+
 #PERFIL{
      align-content: center;
      box-sizing: border-box;
@@ -560,6 +590,8 @@ footer{
     border-radius: 50%;
     background: wheat;
     margin-bottom: 1.5rem;
+    background: url("../img/usuario.svg");
+
 }
 .nombreUsuario, .contra{
     border-style: none;
@@ -612,6 +644,11 @@ footer{
     }
     .form{
         text-align: center;
+        margin-top: -50px;
+        margin-left: -20px;
+    }
+    .form input{
+        width: 210px;
     }
 
     .nombreUsuario,
