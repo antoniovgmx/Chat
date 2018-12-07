@@ -53,7 +53,7 @@ exports.registro = ( req, res )=>{
 //LOGIN
 
 exports.login = ( req, res )=>{
-    if(!req.body.correo || req.body.password){
+    if(!req.body.correo || !req.body.password){
         res.json({
             status : 0,
             msg : 'Los campos de correo y contraseña son necesarios',
@@ -61,8 +61,8 @@ exports.login = ( req, res )=>{
         });
         return;
     }
-
-    dbconn.query(`SELECT idUsuario, userCorreo, userPassword FROM usuario WHERE userCorreo="${req.params.correo}";`,
+    db = mysql.createConnection(dbconn);
+    db.query(`SELECT idUsuario, userCorreo, userPassword FROM usuario WHERE userCorreo="${req.params.correo}";`,
         (error, results, fields)=>{
         if(error){
             res.json({

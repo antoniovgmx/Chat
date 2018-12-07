@@ -19,3 +19,82 @@ function mostrarInicio() {
 		endPositionLeft=startPositionLeft-100+Math.random()*200,durationFall=documentHeight*10+Math.random()*5000;$flake.clone().appendTo('body')
 	.css({left:startPositionLeft,opacity:startOpacity,'font-size':sizeFlake,color:options.flakeColor})
 	.animate({top:endPositionTop,left:endPositionLeft,opacity:0.2},durationFall,'linear',function(){$(this).remove()});},options.newOn);};})(jQuery);
+
+
+	//  var pass = document.getElementById("logPassword").value;
+	//  var usua = document.getElementById("logUser").value;
+
+	function login() {
+		alert("hhhhh")
+		
+		var pass = document.getElementById("logPassword").value;
+		var usua = document.getElementById("logUser").value;
+			console.log(usua);
+			console.log(pass);
+		if (usua != '' && pass != '') {
+			$.ajax({
+				method: "POST",
+				url: "/api/usuarios/login",
+				data: {
+					"correo": ""+usua+"",
+					"password": ""+pass+""
+				}
+			}).done(function (res) {
+				console.log(res);
+			})
+			
+		} else {
+			if (pass != '' || usua != '') {
+
+				Swal({
+					position: 'center',
+					type: 'error',
+					title: 'Llena todos los campos',
+					heightAuto: false,
+					width: '20%',
+					showConfirmButton: false,
+					timer: 1500
+				})
+			}
+		}
+		
+	}
+
+	function Registro(){
+		// var pass2 = document.getElementById("nPassword2").value;
+		// var pass1 = document.getElementById("nPassword1").value;
+		// var correoR = document.getElementById("nCorreo").value;
+		// var usua = document.getElementById("logUser").value;
+
+			var usuario = document.getElementById('nNombre').value;
+			var nombre = document.getElementById('nCorreo').value;
+			var password = document.getElementById('nPassword1').value;
+			var confirPassword = document.getElementById('nPassword2').value;
+
+
+			if (usuario != '' || password != '' || nombre != '' || confirPassword != '') {
+				Swal(
+					'Llene todos los campos',
+					'',
+					'error'
+				)
+			}
+
+			if (password !== confirPassword) {
+				Swal(
+					'Las contraseñas no coinciden',
+					'Intentelo nuevamente',
+					'error'
+				)
+			}
+
+			if (password.length <= 8) {
+				Swal(
+					'La contraseña es demasiado corta',
+					'Intentelo nuevamente',
+					'error'
+				)
+
+			}
+
+	}

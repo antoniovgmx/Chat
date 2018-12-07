@@ -3,6 +3,7 @@ function iniciarSesion(){
 	var password = document.getElementById('nPassword1').value;
 	if(user != '' && password != '' && password.length >= 5){
 		document.getElementById('Aceptar').style.display = 'inline';
+		alert("kncle")
 	}
 	else{
 		document.getElementById('Aceptar').style.display = 'none';
@@ -85,3 +86,4 @@ function validarRegistro(){
 		});
 	}
 }
+	

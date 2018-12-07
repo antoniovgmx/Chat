@@ -5,7 +5,7 @@ socket.on('connect', ()=>{
 
         $.ajax({
             method: "GET",
-            url: "inicio/" + idUs 
+            url: "/inicio/chats/salas/" + idUs
         }).done(function(res){
             console.log(res);
         })

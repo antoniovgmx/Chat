@@ -195,19 +195,19 @@ buttonEnviar.addEventListener("click", function () {
     document.getElementById("mensajes").scrollTop = divH;
 });
 
-function chat(idDestino) {
-    $.ajax({
-        method: "GET",
-        url: "/inicio/chat/mensajes/todos/" + idUs + "/" + idDestino
-    }).done(function (res) {
-        var datos = res.data;
-        var ultimoMensaje = "holaaa";
-        datos.map(item => {
-            console.log(item);
+// function chat(idDestino) {
+//     $.ajax({
+//         method: "GET",
+//         url: "/inicio/chat/mensajes/todos/" + idUs + "/" + idDestino
+//     }).done(function (res) {
+//         var datos = res.data;
+//         var ultimoMensaje = "holaaa";
+//         datos.map(item => {
+//             console.log(item);
 
-        });
-    });
-}
+//         });
+//     });
+// }
 var botnAgregar = document.getElementById("agregarContacto");
 botnAgregar.addEventListener("click", function(){
    var correoCon = document.getElementById("correoCon").value
