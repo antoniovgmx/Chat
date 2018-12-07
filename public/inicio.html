@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,15 +109,17 @@
             </div>
     </div>
     <div class="todo PERFIL" id="PERFIL">
+        <div id="container-all">
         <div class="form">
             <div class="imgPerfil"></div>
             <p class="titulo Per">Nombre de Usuario</p>
-            <input type="text" placeholder="nombre" class="nombreUsuario">
+            <input type="text" placeholder="Nombre" class="nombreUsuario">
             <p class="titulo Per">Correo</p>
-            <p class="correo">correo@mail.com</p>
+            <input type="text" class="correo" readonly="readonly" value="correo@mail.com">
             <p class="titulo Per">Contraseña</p>
             <input type="password" name="contra" id="contra" class="contra" placeholder="......">
             <button class="salir" id="salir">Cerrar Sesión</button>
+        </div>
         </div>
     </div>
 
@@ -141,8 +143,7 @@
             <div class="archivos">
                 <i class="fas fa-paperclip"></i>
             </div>
-<textarea placeholder="Escribe un mensaje..." class="mensajeT" id="mensajeT">
-            </textarea>
+<textarea placeholder="Escribe un mensaje..." class="mensajeT" id="mensajeT"></textarea>
                 <div class="enviar" id="enviar">
                 <i class="fas fa-location-arrow"></i>
             </div>
