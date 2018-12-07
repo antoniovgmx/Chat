@@ -66,7 +66,7 @@ function per(){
          document.getElementById("chat").style.color = "white";
          document.getElementById("conver").style.color = "white";
 
-         document.getElementById("PERFIL").style.display = "block";
+         document.getElementById("PERFIL").style.display = "flex";
          document.getElementById("CHATS").style.display = "none";
          document.getElementById("CONTACTOS").style.display = "none";
          }else{
@@ -75,7 +75,7 @@ function per(){
               document.getElementById("conver").style.color = "white";
 
               document.getElementById("CONVER").style.display = "block"
-              document.getElementById("PERFIL").style.display = "block";
+              document.getElementById("PERFIL").style.display = "flex";
               document.getElementById("CHATS").style.display = "none";
               document.getElementById("CONTACTOS").style.display = "none";
   

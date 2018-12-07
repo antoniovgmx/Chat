@@ -9,7 +9,6 @@ body{
     padding: 0px;
     margin: 0px;
      font-family: var(--letra1);
-     /* background: black; */
      
 }
 .img{
@@ -536,13 +535,18 @@ footer{
    background-color: rgb(1, 82, 97);
    color: white;
 }
+.salir{
+    border-left: 100px;
+    background-color: pink;
+}
 .form{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
-.PERFIL{
+#PERFIL{
      align-content: center;
      box-sizing: border-box;
      display: flex;
@@ -559,13 +563,11 @@ footer{
 }
 .nombreUsuario, .contra{
     border-style: none;
-    margin-right: 35%;
     font-size: .95rem;
     color: lightgray !important;
 }
 .correo{
     border-style: none;
-    margin-right: 50%;
     font-size: .95rem;
     color: darkgrey;
 }
@@ -586,7 +588,6 @@ footer{
     font-size: 1rem;
     border-radius: 15px;
     color: #57595a;
-    margin-left: -14rem;
     margin-top: 4rem;
 }
 .salir:hover{
