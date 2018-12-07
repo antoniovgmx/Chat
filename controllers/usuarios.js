@@ -59,7 +59,6 @@ exports.login = ( req, res )=>{
             msg : 'Los campos de correo y contraseña son necesarios',
             data : []
         });
-        return;
     }
     db = mysql.createConnection(dbconn);
     db.query(`SELECT idUsuario, userCorreo, userPassword FROM usuario WHERE userCorreo="${req.params.correo}";`,

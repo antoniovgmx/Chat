@@ -20,6 +20,7 @@ exports.getMensajes = (req, res)=>{
                 AND (msgEstado = 1 OR msgEstado = 2) ORDER BY msgFecha ASC;`, (error, results, fields)=>{
         if(error){
             console.log(error);
+            db.end();
             return res.json({
                 status : 0,
                 msg : 'Ocurrió un error al realizar la consulta',
@@ -27,6 +28,7 @@ exports.getMensajes = (req, res)=>{
             });
             
         }
+        db.end();
         return res.json({
             status : 1,
             msg : 'Consulta exitosa',
