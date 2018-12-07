@@ -17,8 +17,8 @@
 function chats(){
     if(wid<768){
         document.getElementById("chat").style.color = "coral"
-        document.getElementById("perfil").style.color = "white";
-        document.getElementById("conver").style.color = "white";
+        document.getElementById("perfil").style.color = "gray";
+        document.getElementById("conver").style.color = "gray";
 
 
         document.getElementById("CHATS").style.display = "block";
@@ -40,8 +40,8 @@ function chats(){
 function contac(){
     if(wid<768){
         document.getElementById("conver").style.color = "coral"
-        document.getElementById("perfil").style.color = "white";
-        document.getElementById("chat").style.color = "white";
+        document.getElementById("perfil").style.color = "gray";
+        document.getElementById("chat").style.color = "gray";
 
         document.getElementById("CONTACTOS").style.display = "block";
         document.getElementById("CHATS").style.display = "none";
@@ -63,16 +63,16 @@ function contac(){
 function per(){
     if(wid<768){        
          document.getElementById("perfil").style.color = "coral"
-         document.getElementById("chat").style.color = "white";
-         document.getElementById("conver").style.color = "white";
+         document.getElementById("chat").style.color = "gray";
+         document.getElementById("conver").style.color = "gray";
 
          document.getElementById("PERFIL").style.display = "block";
          document.getElementById("CHATS").style.display = "none";
          document.getElementById("CONTACTOS").style.display = "none";
          }else{
               document.getElementById("perfil").style.color = "coral"
-              document.getElementById("chat").style.color = "white";
-              document.getElementById("conver").style.color = "white";
+              document.getElementById("chat").style.color = "gainsboro";
+              document.getElementById("conver").style.color = "gainsboro";
 
               document.getElementById("CONVER").style.display = "block"
               document.getElementById("PERFIL").style.display = "block";
@@ -97,8 +97,8 @@ function back(){
         document.getElementById('abajo').style.display = "block";
 
         document.getElementById("chat").style.color = "coral"
-        document.getElementById("perfil").style.color = "white";
-        document.getElementById("conver").style.color = "white";
+        document.getElementById("perfil").style.color = "gray";
+        document.getElementById("conver").style.color = "gray";
 
 
         document.getElementById("CHATS").style.display = "block";

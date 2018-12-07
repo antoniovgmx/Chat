@@ -174,16 +174,16 @@ buttonEnviar.addEventListener("click", function () {
     divMsg.appendChild(pMensaje);
 
     var divEliminar = document.createElement("div");
-    divEliminar.classList.add("eliminar");
+    divEliminar.classList.add("basura");
     var icon = document.createElement("i");
     icon.classList.add("far");
     icon.classList.add("fa-trash-alt");
-    icon.classList.add("basura");
+    icon.classList.add("basuraR");
     divEliminar.appendChild(icon);
     enviado.appendChild(divEliminar);
 
     var divHora = document.createElement("div");
-    divEliminar.classList.add("hora");
+    divHora.classList.add("horaR");
     var hora = document.createElement("p");
     var text = document.createTextNode(time)
     hora.appendChild(text);

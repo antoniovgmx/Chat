@@ -133,7 +133,7 @@ textarea{
     position: relative;
     float: right;
     margin-top: -40px;
-    /* background: saddlebrown; */
+    /* background: saddlecoral; */
     font-family: var(--letra1);
 }
 .lado p{
@@ -199,6 +199,7 @@ footer{
     width: 100%;
     height: 3rem;
     position: fixed;
+    background: white;
     bottom: 0;
     padding-right: 3%;
     padding-left: 3%;
@@ -225,16 +226,16 @@ footer{
     border-top-color: #007E94;
 }
 .chats:hover{
-    color: brown;
-    /* border-top: 1px brown; */
+    color: coral;
+    /* border-top: 1px coral; */
 }
 .Icon:hover{
-    border-top: 1px brown;
+    border-top: 1px coral;
     border-left: 0;
     border-right: 0;
     border-bottom: 0;
     border-style: solid;
-    color: brown;
+    color: coral;
 }
 
 
@@ -645,7 +646,9 @@ footer{
         padding-left: 0;
         padding: 0;
     }
-
+        .buscar{
+            color: white;
+        }
 }
 
 
@@ -741,19 +744,19 @@ footer{
 
     #iconChat:hover{
         background-color: #30A191;
-        color: brown;
+        color: coral;
         /* background-color: #E36363; */
         /* opacity: 0.7; */
 
     }
     #iconContactos:hover{
-        color: brown;
+        color: coral;
         background-color: #30A191;
         /* opacity: 0.7; */
 
     }
     #iconPerfil:hover{
-        color: brown;
+        color: coral;
         background-color: #30A191;
         /* background-color: #8A3463; */
         /* opacity: 0.7; */
@@ -840,6 +843,6 @@ footer{
          outline: none;
      }
      .contenedores{
-         height: calc(100% - 8rem);
+         height: calc(100% - 11rem);
      }
 }

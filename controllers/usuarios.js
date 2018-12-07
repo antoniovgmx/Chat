@@ -26,10 +26,10 @@ exports.registro = ( req, res )=>{
         return;
     }
 
-    var hashedPassword = bcrypt.hashSync(req.body.password, 10);
+    var hashedPassword = bcrypt.hashSync(req.body.pass, 10);
 
     db = mysql.createConnection(dbconn);
-    dbconn.query(`INSERT INTO usuario (userCorreo, userPassword, userNombre) VALUES ('${req.body.correo}', '${hashedPassword}','${req.body.nombre}');`,
+    db.query(`INSERT INTO usuario (userCorreo, userPassword, userNombre) VALUES ('${req.body.correo}', '${hashedPassword}','${req.body.nombre}');`,
     (error, results, fields)=>{
         if(error){
             res.json({

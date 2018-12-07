@@ -66,35 +66,68 @@ function mostrarInicio() {
 		// var correoR = document.getElementById("nCorreo").value;
 		// var usua = document.getElementById("logUser").value;
 
-			var usuario = document.getElementById('nNombre').value;
-			var nombre = document.getElementById('nCorreo').value;
+			var nombre = document.getElementById('nNombre').value;
+			var correo = document.getElementById('nCorreo').value;
 			var password = document.getElementById('nPassword1').value;
 			var confirPassword = document.getElementById('nPassword2').value;
 
 
-			if (usuario != '' || password != '' || nombre != '' || confirPassword != '') {
+			if (correo == '' || password == '' || nombre == '' || confirPassword == '') {
 				Swal(
 					'Llene todos los campos',
 					'',
 					'error'
 				)
+			}else{
+					if (password.length <= 8) {
+						Swal(
+							'La contraseña es demasiado corta',
+							'Intentelo nuevamente',
+							'error'
+						)
+
+					}else{
+							if (password !== confirPassword) {
+								Swal(
+									'Las contraseñas no coinciden',
+									'Intentelo nuevamente',
+									'error'
+								)
+							}else{
+									$.ajax({
+										method: "POST",
+										url: "/api/usuarios/registro",
+										data: {
+											"nombre":""+nombre+"",
+											"correo": "" + correo + "",
+											"pass": "" + password + ""
+										}
+									}).done(function (res) {
+										console.log(res);
+										if(res.status == 1){
+											Swal({
+												position: 'center',
+												type: 'success',
+												title: 'Usuario creado correctamente',
+												showConfirmButton: false,
+												timer: 1500
+											})
+										}
+										var datos = res.data;
+										console.log(datos);
+										 datos.map(item => {
+											var idUs = item.insertId;
+											localStorage.setItem("idUs", idUs);
+										 })
+										 redireccionar();
+									})
+							}}
+						}
+					
 			}
 
-			if (password !== confirPassword) {
-				Swal(
-					'Las contraseñas no coinciden',
-					'Intentelo nuevamente',
-					'error'
-				)
+			function redireccionar() {
+				window.locationf = "http://localhost:3000/inicio.html";
 			}
 
-			if (password.length <= 8) {
-				Swal(
-					'La contraseña es demasiado corta',
-					'Intentelo nuevamente',
-					'error'
-				)
-
-			}
-
-	}
+		
