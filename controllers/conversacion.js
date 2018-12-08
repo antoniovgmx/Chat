@@ -10,71 +10,72 @@ exports.getConversaciones = (req, res)=>{
     if(!req.params.idUsuario){
         return res.json({
             status : 0,
-            msg : 'El campo de idUsuario es necesario',
-            data : []
+            msg : 'El campo de idUsuario es necesario'
         });
     }
-    db = mysql.createConnection(dbconn);
-    let nombreContacto;
 
-    // CHECAR SI LO TENEMOS AGREGADO
+   var db = mysql.createConnection(dbconn);
+    
 
-    db.query(`SELECT contNombre FROM contacto WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idUsuario2}';`, (error, results, fields)=>{
+    db.query(`SELECT contNombre FROM contacto WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idUsuario2}';`, (error, results)=>{
         if(error){
+            db.end();
             return res.json({
                 status : 0,
-                msg : error
+                msg : 'Ocurrió un error en la consulta 1',
+                data : []
             });
-        } 
-        return res.json({status : 1});
-
-    }).end(()=>{console.log('Conn closed')});
-
-    // db.query(`SELECT contNombre FROM contacto WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idUsuario2}';`, (error, results, fields)=>{
-    //     if(error){
-    //         db.end();
-    //         return res.json({
-    //             status : 0,
-    //             msg : 'Ocurrió un error en la consulta 1',
-    //         });
-    //     }
-    //     //CONSULTAR SU CORREO SI NO LO TENEMOS AGREGADO
-    //     if(!results.nombre){
-            // db.query(`SELECT userCorreo FROM usuario WHERE idUsuario = '${req.params.idUsuario2}';`, (error, results, fields)=>{
-            //     if(error){
-            //         db.end();
-            //         return res.json({
-            //             status : 0,
-            //             msg : 'Ocurrió un error en la consulta 2',
-            //         });
-            //     }
-            //     nombreContacto = results.correo;
-            // });
-    //     }else nombreContacto = results.nombre;
-    //     //TRAEMOS AHORA SÍ LOS MENSAJES
-    //     db.query(`QUERYTEXT`, (error, results, fields)=>{
-    //         if(error){
-    //             db.end();
-    //             return res.json({
-    //                 status : 0,
-    //                 msg : 'Ocurrió un error en la consulta 3',
-    //             });
-    //         }
-    //         if(!results){
-    //             db.end();
-    //             return res.json({
-    //                 status : 1,
-    //                 msg : 'No hay mensajes en esta conversación'
-    //             });
-    //         }
-    //         db.end();
-    //         return res.json({
-    //             status : 1,
-    //             msg : 'Mensajes encontrados',
-    //             data : results
-    //         });
-    //     });
-    // });
+        } else {
+            if(!results.nombre){
+                db.query(`SELECT userCorreo FROM usuario WHERE idUsuario = '${req.params.idUsuario2}';`,(error, results)=>{
+                    if(error){
+                        db.end();
+                        return res.json({
+                            status : 0,
+                            msg : 'Ocurrió un error en la consulta 2',
+                            data : []
+                        });
+                    } else {
+                        db.query(`QUERYTEXT`, (error, results)=>{
+                            if(error){
+                                db.end();
+                                return res.json({
+                                    status : 0,
+                                    msg : 'Ocurrió un error en la consulta 3',
+                                    data : []
+                                });
+                            } else {
+                                db.end();
+                                return res.json({
+                                    status : 1,
+                                    msg : 'Mensajes encontrados',
+                                    data : results
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                db.query(`QUERYTEXT`, (error, results)=>{
+                    if(error){
+                        db.end();
+                        return res.json({
+                            status : 0,
+                            msg : 'Ocurrió un error en la consulta 3',
+                            data : []
+                        });
+                    } else {
+                        db.end();
+                        return res.json({
+                            status : 1,
+                            msg : 'Mensajes encontrados',
+                            data : results
+                        });
+                    }
+                });
+            }
+        }
+    });
 
 };
 
@@ -87,16 +88,19 @@ exports.getSalas = (req, res)=>{
        }); 
     }
 
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`SELECT convNombre FROM conversacion WHERE (idUsuario = ${req.params.idUsuario} OR idContacto = ${req.params.idUsuario});`, (error, results, fields)=>{
+
         if(error){
             db.end();
+            console.log("error consulta")
             return res.json({
                 status : 0,
                 msg : 'Ocurrió un error en la consulta'
             });
         }
         db.end();
+        console.log("conexion cerrada")
         return res.json({
             status : 1,
             msg  : 'Consulta realizada con exito',
@@ -106,7 +110,7 @@ exports.getSalas = (req, res)=>{
 };
 
 exports.archivar = (req, res)=>{
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`UPDATE conversacion SET convEstado = 2 WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}';`, (error, results, fields)=>{
         if(error){
             db.end();
@@ -134,7 +138,7 @@ exports.archivar = (req, res)=>{
 };
 
 exports.eliminar = ()=>{
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`UPDATE conversacion SET convEstado = 0 WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}';`, (error, results, fields)=>{
         if(error){
             db.end();

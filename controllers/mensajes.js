@@ -14,7 +14,7 @@ exports.getMensajes = (req, res)=>{
         }); 
     }
 
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`SELECT * FROM mensaje WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}'
                 UNION SELECT * FROM mensaje WHERE idUsuario = '${req.params.idContacto}' AND idContacto = '${req.params.idUsuario}' 
                 AND (msgEstado = 1 OR msgEstado = 2) ORDER BY msgFecha ASC;`, (error, results, fields)=>{
@@ -46,7 +46,7 @@ exports.newMensaje = (req, res)=>{
         });
     }
 
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`INSERT INTO mensaje (idUsuario, idContacto, msgTexto, msgMultimedia) VALUES ('${req.params.idUsuario}','${req.params.idContacto}',"${req.body.mensaje}","FOTO");`, (error, results, fields)=>{
         db.end();
         if(error){
@@ -69,7 +69,7 @@ exports.eliminarMensaje = ()=>{
 
     
 
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`UPDATE mensaje SET msgEstado = 0 WHERE idMensaje = '${req.params.idMensaje}';`, (error, results, fields)=>{
         if(error){
             db.end();

@@ -28,7 +28,7 @@ exports.registro = ( req, res )=>{
 
     var hashedPassword = bcrypt.hashSync(req.body.pass, 10);
 
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`INSERT INTO usuario (userCorreo, userPassword, userNombre) VALUES ('${req.body.correo}', '${hashedPassword}','${req.body.nombre}');`,
     (error, results, fields)=>{
         if(error){
@@ -60,7 +60,7 @@ exports.login = ( req, res )=>{
             data : []
         });
     }
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`SELECT idUsuario, userCorreo, userPassword FROM usuario WHERE userCorreo="${req.body.correo}";`,
         (error, results, fields)=>{
         if(error){
@@ -107,7 +107,7 @@ exports.getDatos = (req, res)=>{
         return;
     }
 
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
 
     db.query(`SELECT * FROM usuario WHERE userCorreo="${req.params.correo}";`,
         (error, results, fields)=>{

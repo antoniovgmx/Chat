@@ -8,6 +8,9 @@ const { dbconn } = require('./db_connection');
 //Retorna todos los contactos del usuario
 
 exports.getContactos = (req, res)=>{
+
+    console.log("obteniendo contactos")
+
     if(!req.params.idUsuario){
         return res.json({
             status : 0,
@@ -15,17 +18,19 @@ exports.getContactos = (req, res)=>{
             data : []
         });
     }
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`SELECT idContacto, contNombre FROM contacto WHERE idUsuario = ${req.params.idUsuario} AND contEstado = 1;`, (error, results, fields)=>{
+       
+       db.end();
         if(error){
-            db.end();
+            //db.end();
             return res.json({
                 status : 0,
                 msg : 'Ocurrió un error al realizar la consulta',
                 data : []
             });
         }
-        db.end();
+        //db.end();
         return res.json({
             status : 1,
             msg : 'Consulta exitosa',
@@ -48,7 +53,7 @@ exports.addContacto = (req, res)=>{
     }
 
     let idContacto;
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`SELECT idUsuario FROM usuario WHERE userCorreo = "${req.body.correo}";`, (error, results, fields)=>{
         console.log(`SELECT idUsuario FROM usuario WHERE userCorreo = "${req.body.correo}"`);
         console.log(error);
@@ -114,7 +119,7 @@ exports.eliminarContacto = (req, res)=>{
         return;
     }
 
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`UPDATE contacto SET contEstado = 0 WHERE idUsuario = '${req.body.idUsuario}' AND idContacto = '${req.body.idContacto}';`, (error, results, fields)=>{
         if(error){
             db.end();
@@ -144,7 +149,7 @@ exports.eliminarContacto = (req, res)=>{
 }
 
 exports.bloquearContacto = ()=>{
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`UPDATE contacto SET contEstado = 2 WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}';`, (error, results, fields)=>{
         if(error){
             db.end();

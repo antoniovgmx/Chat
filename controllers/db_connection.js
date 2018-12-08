@@ -14,7 +14,7 @@ exports.dbconn = dbconn;
 
 
 exports.getDataContactos = (req, res)=>{
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`SELECT * FROM contacto;`, (error, results, fields)=>{
         if(error){
             res.json({
@@ -34,7 +34,7 @@ exports.getDataContactos = (req, res)=>{
 }
 
 exports.getDataUsuarios = (req, res)=>{
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`SELECT * FROM usuario;`, (error, results, fields)=>{
         if(error){
             console.log(error);
@@ -59,7 +59,7 @@ exports.getDataUsuarios = (req, res)=>{
 }
 
 exports.getDataMensajes = (req, res)=>{
-    db = mysql.createConnection(dbconn);
+    var db = mysql.createConnection(dbconn);
     db.query(`SELECT * FROM mensaje;`, (error, results, fields)=>{
         if(error){
             console.log(error);
