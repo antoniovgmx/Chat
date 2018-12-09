@@ -15,13 +15,31 @@ exports.getConversaciones = (req, res)=>{
     }
 
    var db = mysql.createConnection(dbconn);
-    
 
+   //CONVERSACION (ARCHIVADA)
+   /* 
+   SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
+              ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+              AND c.idUsuario = cv.idUsuario AND cv.convEstado = 2 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+              JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
+              ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 2;   */
+
+    //CONVERSACION (FAVORITA)
+    /*
+    SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
+              ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+              AND c.idUsuario = cv.idUsuario AND cv.convEstado = 3 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+              JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
+              ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 3;
+
+              */      
+    
+    //CONVERSACION (NORMAL)
     db.query(`SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
               ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
-              AND c.idUsuario = cv.idUsuario UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+              AND c.idUsuario = cv.idUsuario AND cv.convEstado = 1 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
               JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
-              ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto;`, (error, results)=>{
+              ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 1;`, (error, results)=>{
         if(error){
             db.end();
             return res.json({
