@@ -17,7 +17,11 @@ exports.getConversaciones = (req, res)=>{
    var db = mysql.createConnection(dbconn);
     
 
-    db.query(`SELECT contNombre FROM contacto WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idUsuario2}';`, (error, results)=>{
+    db.query(`SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
+              ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+              AND c.idUsuario = cv.idUsuario UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+              JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
+              ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto;`, (error, results)=>{
         if(error){
             db.end();
             return res.json({
