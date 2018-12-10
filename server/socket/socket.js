@@ -1,4 +1,4 @@
-const axios = require('axios');
+const { axiosConfig } = require('../../config/axios');
 const { io } = require('../../app.js');
 
 io.on('connection', (client)=>{
@@ -16,12 +16,16 @@ io.on('connection', (client)=>{
     });
 
     client.on('enviarMensaje', ( data, callback )=>{
-        axios.post('/api/mensajes/nuevo', {
+
+        console.log('mensaje enviado');
+
+        axiosConfig.post('/api/mensajes/nuevo', {
             idUsuario : data.idUsuario,
             idContacto : data.idContacto,
             mensaje : data.mensaje
           })
           .then(function (response) {
+            console.log("aqui esta el then ==============================");
             client.broadcast.to(data.sala).emit('mensajeNuevo', {
                 usuario : data.usuario,
                 mensaje : data.mensaje
@@ -29,13 +33,14 @@ io.on('connection', (client)=>{
             callback({ status : 1, mensaje : data.mensaje });
           })
           .catch(function (error) {
+            // console.log(error);
             callback({ status : 0, mensaje : 'Ocurrió un error al enviar el mensaje', error });
           });
     });
 
     client.on('eliminarMensaje', ( data )=>{
 
-        axios.post('/api/mensajes/eliminar', {
+        axiosConfig.post('/api/mensajes/eliminar', {
             idMensaje : data.idMensaje
           })
           .then(function (response) {
