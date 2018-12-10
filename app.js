@@ -50,8 +50,14 @@ router.route( '/test' )
 //RUTAS DEL CONTROLADOR DE CONVERSACIONES
 var ctrlConversaciones = require('./controllers/conversacion');
 
-router.route( '/inicio/chat/conversaciones/:idUsuario' )
-    .get(ctrlConversaciones.getConversaciones);
+router.route( '/inicio/chat/conversaciones/normales/:idUsuario' )
+    .get(ctrlConversaciones.getConversacionesNormales);
+
+router.route( '/inicio/chat/conversaciones/archivadas/:idUsuario' )
+    .get(ctrlConversaciones.getConversacionesFavoritas);
+
+router.route( '/inicio/chat/conversaciones/favoritas/:idUsuario' )
+    .get(ctrlConversaciones.getConversacionesFavoritas);
 
 router.route( '/inicio/chats/salas/:idUsuario' )
     .get(ctrlConversaciones.getSalas);

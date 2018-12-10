@@ -15,78 +15,39 @@ io.on('connection', (client)=>{
 
     });
 
-    // client.on('enviarMensaje', ( data, callback )=>{
-    //     axios.post('/api/mensajes/nuevo', {
-            
-    //       })
-    //       .then(function (response) {
-    //         console.log(response);
-    //       })
-    //       .catch(function (error) {
-    //         console.log(error);
-    //       });
-    // });
+    client.on('enviarMensaje', ( data, callback )=>{
+        axios.post('/api/mensajes/nuevo', {
+            idUsuario : data.idUsuario,
+            idContacto : data.idContacto,
+            mensaje : data.mensaje
+          })
+          .then(function (response) {
+            client.broadcast.to(data.sala).emit('mensajeNuevo', {
+                usuario : data.usuario,
+                mensaje : data.mensaje
+            });
+            callback({ status : 1, mensaje : data.mensaje });
+          })
+          .catch(function (error) {
+            callback({ status : 0, mensaje : 'Ocurrió un error al enviar el mensaje', error });
+          });
+    });
 
-    // client.on('enviarMensaje', ( data, callback )=>{
+    client.on('eliminarMensaje', ( data )=>{
 
-    //     //DEBO LLAMAR A MI API USANDO AXIOS PARA GUARDAR EL MENSAJE
+        axios.post('/api/mensajes/eliminar', {
+            idMensaje : data.idMensaje
+          })
+          .then(function (response) {
+            client.broadcast.to(data.sala).emit('mensajeEliminado', {
+                idMensaje : data.idMensaje
+            });
+            callback({ status : 1, idMensaje : data.idMensaje });
+          })
+          .catch(function (error) {
+            callback({ status : 0, mensaje : 'Ocurrió un error al eliminar el mensaje', error });
+          });
 
-    //     axios({
-    //         method: 'post',
-    //         url: '/api/mensajes/nuevo',
-    //         data: {
-    //           idUsuario : data.idUsuario,
-    //           idContacto : data.idContacto,
-    //           mensaje : data.mensaje
-    //         }
-    //       }).then((response)=>{
-    //         if( response.status == 1 ){
-    //             client.broadcast.to(data.sala).emit('mensajeNuevo', {
-    //                 usuario : data.usuario,
-    //                 mensaje : data.mensaje
-    //             });
-    //             callback({
-    //                 status : 1,
-    //                 mensaje : data.mensaje
-    //             });
-    //         } else {
-    //             callback({
-    //                 status : 0,
-    //                 msg : 'Ocurrió un error al enviar el mensaje'
-    //             });
-    //         }
-    //       });
-
-       
-        
-    // });
-
-    // client.on('eliminarMensaje', ( data )=>{
-
-    //     axios({
-    //         method: 'post',
-    //         url: '/api/mensajes/eliminar',
-    //         data: {
-    //           idMensaje : data.idMensaje
-    //         }
-    //       }).then((response)=>{
-    //         if( response.status == 1 ){
-    //             client.broadcast.to(data.sala).emit('mensajeEliminado', {
-    //                 idMensaje : data.idMensaje
-    //             });
-    //             callback({ status : 1 });
-    //         } else {
-    //             callback({
-    //                 status : 0,
-    //                 msg : 'Ocurrió un error al enviar el mensaje'
-    //             });
-    //         }
-    //       });
-
-    // });
-
-
-
-    
+    });
 
 });

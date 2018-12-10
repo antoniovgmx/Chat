@@ -38,10 +38,10 @@ exports.getMensajes = (req, res)=>{
 };
 
 exports.newMensaje = (req, res)=>{
-    if(!req.body.idUsuario || !req.body.mensaje){
+    if(!req.body.idUsuario || !req.body.mensaje || !req.body.idContacto){
         return res.json({
             status : 0,
-            msg : 'El campo de idUsuario o el mensaje es nulo',
+            msg : 'Algunos campos necesarios no fueron enviados.',
             data : []
         });
     }
@@ -67,7 +67,13 @@ exports.newMensaje = (req, res)=>{
 
 exports.eliminarMensaje = ()=>{
 
-    
+    if(!req.body.idMensaje){
+        return res.json({
+            status : 0,
+            msg : 'El campo de idMensaje es necesario.',
+            data : []
+        });
+    }
 
     var db = mysql.createConnection(dbconn);
     db.query(`UPDATE mensaje SET msgEstado = 0 WHERE idMensaje = '${req.params.idMensaje}';`, (error, results, fields)=>{

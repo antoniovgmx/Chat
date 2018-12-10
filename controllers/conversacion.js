@@ -101,7 +101,7 @@ const { dbconn } = require('./db_connection');
 
 // };
 
-exports.getConversaciones = (req, res)=>{
+exports.getConversacionesNormales = (req, res)=>{
 
     if(!req.params.idUsuario){
         return res.json({
@@ -131,7 +131,85 @@ exports.getConversaciones = (req, res)=>{
         db.end();
         return res.json({
             status : 1,
-            msg : 'Consulta exitosa',
+            msg : 'Conversaciones normales',
+            data : results
+        });
+    }
+
+   });
+
+}
+
+exports.getConversacionesArchivadas = (req, res)=>{
+
+    if(!req.params.idUsuario){
+        return res.json({
+            status : 0,
+            msg : 'El campo de idUsuario es necesario'
+        });
+    }
+
+   var db = mysql.createConnection(dbconn);
+
+   var query = `SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
+                 ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+                 AND c.idUsuario = cv.idUsuario AND cv.convEstado = 2 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+                 JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
+                 ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 2;`;
+
+   db.query(query, (error, results)=>{
+
+    if(error){
+        db.end();
+        return res.json({
+            status : 0,
+            msg : 'Ocurrió un error en la consulta',
+            data : []
+        });
+    } else {
+        db.end();
+        return res.json({
+            status : 1,
+            msg : 'Conversaciones archivadas',
+            data : results
+        });
+    }
+
+   });
+
+}
+
+exports.getConversacionesFavoritas = (req, res)=>{
+
+    if(!req.params.idUsuario){
+        return res.json({
+            status : 0,
+            msg : 'El campo de idUsuario es necesario'
+        });
+    }
+
+   var db = mysql.createConnection(dbconn);
+
+   var query = `SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
+                 ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+                 AND c.idUsuario = cv.idUsuario AND cv.convEstado = 3 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+                 JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
+                 ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 3;`;
+
+   db.query(query, (error, results)=>{
+
+    if(error){
+        db.end();
+        return res.json({
+            status : 0,
+            msg : 'Ocurrió un error en la consulta',
+            data : []
+        });
+    } else {
+        db.end();
+        return res.json({
+            status : 1,
+            msg : 'Conversaciones favoritas',
             data : results
         });
     }
