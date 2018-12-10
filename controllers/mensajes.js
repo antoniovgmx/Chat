@@ -76,7 +76,7 @@ exports.eliminarMensaje = ()=>{
     }
 
     var db = mysql.createConnection(dbconn);
-    db.query(`UPDATE mensaje SET msgEstado = 0 WHERE idMensaje = '${req.params.idMensaje}';`, (error, results, fields)=>{
+    db.query(`UPDATE mensaje SET msgEstado = 0 WHERE idMensaje = '${req.body.idMensaje}';`, (error, results, fields)=>{
         if(error){
             db.end();
             return res.json({

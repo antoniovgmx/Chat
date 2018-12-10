@@ -250,7 +250,7 @@ exports.getSalas = (req, res)=>{
 
 exports.archivar = (req, res)=>{
     var db = mysql.createConnection(dbconn);
-    db.query(`UPDATE conversacion SET convEstado = 2 WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}';`, (error, results, fields)=>{
+    db.query(`UPDATE conversacion SET convEstado = 2 WHERE idUsuario = '${req.body.idUsuario}' AND idContacto = '${req.body.idContacto}';`, (error, results, fields)=>{
         if(error){
             db.end();
             return res.json({
