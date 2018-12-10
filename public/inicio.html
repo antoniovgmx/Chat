@@ -8,7 +8,7 @@
     <title>Document</title>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="js/funciones.js" defer></script>
-<script type="text/javascript" src="js/client_js.js" defer></script>
+<!-- <script type="text/javascript" src="js/client_js.js" defer></script> -->
 <script type="text/javascript" src="js/ajax.js" defer></script>
 <script type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
 <link rel="stylesheet" href="css/estilos.css">
@@ -36,18 +36,18 @@
             <input type="text" class="buscar" placeholder="Buscar...">
         </nav>
         <div class="opciones">
-            <div class="op op1">
+            <div class="op op1" id="todos">
                 <p>Todos</p>
             </div>
-            <div class="op op2">
+            <div class="op op2" id="favoritos">
                 <p>Favoritos</p>
             </div>
-            <div class="op op3">
+            <div class="op op3" id="archivados">
                 <p>Archivados</p>
             </div>
         </div>
         <div class="contenedores" id="contenedores">
-            <div class="contenedor" id="cont">
+            <!-- <div class="contenedor" id="cont">
                 <div class="imgUsuario"></div>
                 <div class="texto" id="texto">
                     <h3>Nombre</h3>
@@ -61,14 +61,13 @@
                             <p class="archivarChat">Archivar</p>
                             <p class="favoritoChat">Favorito</p>
                         </div>
-                        <!-- <img src="img/puntos.svg" alt=""> -->
                     </div>
                     <p>12:30</p>
                     <div class="numM">
                         <p>2</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="todo CONTACTOS" id="CONTACTOS">

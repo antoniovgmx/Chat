@@ -3,19 +3,19 @@ var socket = io();
 socket.on('connect', ()=>{
     console.log('Conectado al servidor');
 
-        $.ajax({
-            method: "GET",
-            url: "/inicio/chats/salas/" + idUs
-        }).done(function(res){
-            console.log(res);
-        })
+    //     $.ajax({
+    //         method: "GET",
+    //         url: "/inicio/chats/salas/" + idUs
+    //     }).done(function(res){
+    //         console.log(res);
+    //     })
 
 
-    //CONSULTA PARA CONSEGUIR LAS SALAS  |
-    //                                   V
-    socket.emit('suscribirse', 'DATOS DE LAS SALAS', (res)=>{
-        console.log(res.msg);
-    });
+    // //CONSULTA PARA CONSEGUIR LAS SALAS  |
+    // //                                   V
+    // socket.emit('suscribirse', 'DATOS DE LAS SALAS', (res)=>{
+    //     console.log(res.msg);
+    // });
 });
 
 socket.on('disconnect', ()=>{

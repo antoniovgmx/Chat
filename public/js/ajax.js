@@ -145,7 +145,7 @@ var ultimoMensaje="Holaaa";
 ///////////////////AJAX OBTENER CONVERSACIONES CHATS////////////////
 $.ajax({
     method: "GET",
-    url: "http://localhost:3000/inicio/chat/conversaciones/" + idUs
+    url: "http://localhost:3000/inicio/chat/conversaciones/normales/" + idUs
 }).done(function (res) {
     console.log(res);
     var datos = res.data;
@@ -198,19 +198,19 @@ buttonEnviar.addEventListener("click", function () {
     document.getElementById("mensajes").scrollTop = divH;
 });
 
-// function chat(idDestino) {
-//     $.ajax({
-//         method: "GET",
-//         url: "/inicio/chat/mensajes/todos/" + idUs + "/" + idDestino
-//     }).done(function (res) {
-//         var datos = res.data;
-//         var ultimoMensaje = "holaaa";
-//         datos.map(item => {
-//             console.log(item);
+function chat(idDestino) {
+    $.ajax({
+        method: "GET",
+        url: "/inicio/chat/mensajes/todos/" + idUs + "/" + idDestino
+    }).done(function (res) {
+        var datos = res.data;
+        var ultimoMensaje = "holaaa";
+        datos.map(item => {
+            console.log(item);
 
-//         });
-//     });
-// }
+        });
+    });
+}
 
 //////////////////////CUADRO AGREGAR////////////////////////////
 var botnAgregar = document.getElementById("agregarContacto");
@@ -276,7 +276,7 @@ function eliminarChat(idChat){
                 Swal({
                     position: 'center',
                     type: 'success',
-                    title: 'Usuario eliminado',
+                    title: 'Chat eliminado',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -284,3 +284,93 @@ function eliminarChat(idChat){
 
         })
 }
+
+var fav = document.getElementById("favoritos")
+fav.addEventListener("click",function(){
+    fav.style.background = "rgba(64, 33,74,.95)";
+    fav.style.color = "white";
+    todos.style.background = "none";
+    todos.style.color="grey"
+    archi.style.background = "none";
+    archi.style.color = "grey"
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:3000/inicio/chat/conversaciones/favoritas/"+ idUs
+    }).done(function(res){
+        console.log(res)
+        var divCon = document.getElementById("contenedores");
+        var numDivs = divCon.childElementCount;
+        for (var x = 0; x < numDivs; x++) {
+            divCon.removeChild(divCon.lastChild);
+        }
+        var datos = res.data;
+        var ultimoMensaje = "holaaa";
+        datos.map(item => {
+            // console.log(item);
+            var itemIdU = item.idUsuario
+            var itemNomU = item.contNombre
+            crearElementosChats(itemIdU, itemNomU);
+        });
+    })
+    
+})
+
+var todos = document.getElementById("todos")
+todos.addEventListener("click", function () {
+    todos.style.background = "rgba(64, 33,74,.95)";
+    todos.style.color = "white";
+    fav.style.background="none";
+    fav.style.color = "grey"
+    archi.style.background = "none";
+    archi.style.color = "grey"
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:3000/inicio/chat/conversaciones/normales/" + idUs
+    }).done(function (res) {
+        console.log(res)
+        var divCon = document.getElementById("contenedores");
+        var numDivs = divCon.childElementCount;
+        for (var x = 0; x < numDivs; x++) {
+            divCon.removeChild(divCon.lastChild);
+        }
+        var datos = res.data;
+        var ultimoMensaje = "holaaa";
+        datos.map(item => {
+            // console.log(item);
+            var itemIdU = item.idUsuario
+            var itemNomU = item.contNombre
+            crearElementosChats(itemIdU, itemNomU);
+        });
+    })
+
+})
+
+var archi = document.getElementById("archivados")
+archi.addEventListener("click", function () {
+    archi.style.background = "rgba(64, 33,74,.95)";
+    archi.style.color = "white";
+    fav.style.background = "none";
+    fav.style.color = "grey"
+    todos.style.background = "none";
+    todos.style.color = "grey"
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:3000/inicio/chat/conversaciones/archivadas/" + idUs
+    }).done(function (res) {
+        console.log(res)
+        var divCon = document.getElementById("contenedores");
+        var numDivs = divCon.childElementCount;
+        for (var x = 0; x < numDivs; x++) {
+            divCon.removeChild(divCon.lastChild);
+        }
+        var datos = res.data;
+        var ultimoMensaje = "holaaa";
+        datos.map(item => {
+            // console.log(item);
+            var itemIdU = item.idUsuario
+            var itemNomU = item.contNombre
+            crearElementosChats(itemIdU, itemNomU);
+        });
+    })
+
+})

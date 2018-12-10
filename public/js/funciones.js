@@ -120,9 +120,9 @@ function back(){
             var agregar = document.getElementById("agregarCon");
             var mas = document.getElementById("mas")
 
-            tex.addEventListener("click", function () {
-               contenedor();
-            });
+            // tex.addEventListener("click", function () {
+            //    contenedor();
+            // });
 
             chat.addEventListener("click", function () {
                 chats();
@@ -145,20 +145,6 @@ function back(){
             agregar.addEventListener("click",function(){
                 document.getElementById("nuevoCon").style.display = "block";
             })
-            mas.addEventListener("click",function(){;
-                document.getElementById("cuadroChats").style.display = "block";
-                document.getElementById("cuadroConta").style.display = "block";
-            })
-            mas.addEventListener("dblclick",function(){
-                document.getElementById("cuadroChats").style.display = "none";
-                document.getElementById("cuadroConta").style.display = "none";
-            })
-            // mas2.addEventListener("click", function () {
-            //     document.getElementById("cuadroConta").style.display = "block";
-            // })
-            // mas2.addEventListener("dblclick", function () {
-            //     document.getElementById("cuadroConta").style.display = "none";
-            // })
             ///////////////////////MENSAJES///////////////////////////
            $(document).on("click", "div.lado", function(){
                 console.log(this);
