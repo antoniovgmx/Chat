@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const socketIO = require('socket.io');
 const path = require('path');
 const http = require('http');
@@ -41,8 +41,8 @@ router.route( '/inicio/contactos/agregar' )
 router.route( '/inicio/contactos/eliminar' )
     .delete(ctrlContactos.eliminarContacto);
 
-// router.route( '/inicio/contactos/bloquear' )
-//     .update(ctrlContactos.bloquearContacto);
+router.route( '/inicio/contactos/bloquear' )
+    .put(ctrlContactos.bloquearContacto);
 
 router.route( '/test' )
     .get( ctrlContactos.test );
@@ -56,8 +56,8 @@ router.route( '/inicio/chat/conversaciones/:idUsuario' )
 router.route( '/inicio/chats/salas/:idUsuario' )
     .get(ctrlConversaciones.getSalas);
 
-// router.route( '/inicio/chat/conversaciones/archivar' )
-//     .update(ctrlConversaciones.archivar);
+router.route( '/inicio/chat/conversaciones/archivar' )
+    .put(ctrlConversaciones.archivar);
 
 router.route( '/inicio/chat/conversaciones/eliminar' )
     .delete(ctrlConversaciones.eliminar);

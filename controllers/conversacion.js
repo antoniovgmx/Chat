@@ -3,9 +3,105 @@ var mysql = require('mysql');
 
 const { dbconn } = require('./db_connection');
 
-exports.getConversaciones = (req, res)=>{
+// exports.getConversaciones = (req, res)=>{
 
-    // return res.json({ status : 1 });
+//     // return res.json({ status : 1 });
+
+//     if(!req.params.idUsuario){
+//         return res.json({
+//             status : 0,
+//             msg : 'El campo de idUsuario es necesario'
+//         });
+//     }
+
+//    var db = mysql.createConnection(dbconn);
+
+//    //CONVERSACION (ARCHIVADA)
+//    /* 
+//    SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
+//               ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+//               AND c.idUsuario = cv.idUsuario AND cv.convEstado = 2 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+//               JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
+//               ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 2;   */
+
+//     //CONVERSACION (FAVORITA)
+//     /*
+//     SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
+//               ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+//               AND c.idUsuario = cv.idUsuario AND cv.convEstado = 3 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+//               JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
+//               ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 3;
+
+//               */      
+    
+//     //CONVERSACION (NORMAL)
+//     db.query(`SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
+//               ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+//               AND c.idUsuario = cv.idUsuario AND cv.convEstado = 1 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+//               JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
+//               ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 1;`, (error, results)=>{
+//         if(error){
+//             db.end();
+//             return res.json({
+//                 status : 0,
+//                 msg : 'Ocurrió un error en la consulta 1',
+//                 data : []
+//             });
+//         } else {
+//             if(!results.nombre){
+//                 db.query(`SELECT userCorreo FROM usuario WHERE idUsuario = '${req.params.idUsuario2}';`,(error, results)=>{
+//                     if(error){
+//                         db.end();
+//                         return res.json({
+//                             status : 0,
+//                             msg : 'Ocurrió un error en la consulta 2',
+//                             data : []
+//                         });
+//                     } else {
+//                         db.query(`QUERYTEXT`, (error, results)=>{
+//                             if(error){
+//                                 db.end();
+//                                 return res.json({
+//                                     status : 0,
+//                                     msg : 'Ocurrió un error en la consulta 3',
+//                                     data : []
+//                                 });
+//                             } else {
+//                                 db.end();
+//                                 return res.json({
+//                                     status : 1,
+//                                     msg : 'Mensajes encontrados',
+//                                     data : results
+//                                 });
+//                             }
+//                         });
+//                     }
+//                 });
+//             } else {
+//                 db.query(`QUERYTEXT`, (error, results)=>{
+//                     if(error){
+//                         db.end();
+//                         return res.json({
+//                             status : 0,
+//                             msg : 'Ocurrió un error en la consulta 3',
+//                             data : []
+//                         });
+//                     } else {
+//                         db.end();
+//                         return res.json({
+//                             status : 1,
+//                             msg : 'Mensajes encontrados',
+//                             data : results
+//                         });
+//                     }
+//                 });
+//             }
+//         }
+//     });
+
+// };
+
+exports.getConversaciones = (req, res)=>{
 
     if(!req.params.idUsuario){
         return res.json({
@@ -16,90 +112,33 @@ exports.getConversaciones = (req, res)=>{
 
    var db = mysql.createConnection(dbconn);
 
-   //CONVERSACION (ARCHIVADA)
-   /* 
-   SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
-              ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
-              AND c.idUsuario = cv.idUsuario AND cv.convEstado = 2 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
-              JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
-              ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 2;   */
+   var query = `SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
+   ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+   AND c.idUsuario = cv.idUsuario AND cv.convEstado = 1 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+   JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
+   ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 1;`
 
-    //CONVERSACION (FAVORITA)
-    /*
-    SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
-              ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
-              AND c.idUsuario = cv.idUsuario AND cv.convEstado = 3 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
-              JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
-              ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 3;
+   db.query(query, (error, results)=>{
 
-              */      
-    
-    //CONVERSACION (NORMAL)
-    db.query(`SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
-              ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
-              AND c.idUsuario = cv.idUsuario AND cv.convEstado = 1 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
-              JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
-              ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 1;`, (error, results)=>{
-        if(error){
-            db.end();
-            return res.json({
-                status : 0,
-                msg : 'Ocurrió un error en la consulta 1',
-                data : []
-            });
-        } else {
-            if(!results.nombre){
-                db.query(`SELECT userCorreo FROM usuario WHERE idUsuario = '${req.params.idUsuario2}';`,(error, results)=>{
-                    if(error){
-                        db.end();
-                        return res.json({
-                            status : 0,
-                            msg : 'Ocurrió un error en la consulta 2',
-                            data : []
-                        });
-                    } else {
-                        db.query(`QUERYTEXT`, (error, results)=>{
-                            if(error){
-                                db.end();
-                                return res.json({
-                                    status : 0,
-                                    msg : 'Ocurrió un error en la consulta 3',
-                                    data : []
-                                });
-                            } else {
-                                db.end();
-                                return res.json({
-                                    status : 1,
-                                    msg : 'Mensajes encontrados',
-                                    data : results
-                                });
-                            }
-                        });
-                    }
-                });
-            } else {
-                db.query(`QUERYTEXT`, (error, results)=>{
-                    if(error){
-                        db.end();
-                        return res.json({
-                            status : 0,
-                            msg : 'Ocurrió un error en la consulta 3',
-                            data : []
-                        });
-                    } else {
-                        db.end();
-                        return res.json({
-                            status : 1,
-                            msg : 'Mensajes encontrados',
-                            data : results
-                        });
-                    }
-                });
-            }
-        }
-    });
+    if(error){
+        db.end();
+        return res.json({
+            status : 0,
+            msg : 'Ocurrió un error en la consulta',
+            data : []
+        });
+    } else {
+        db.end();
+        return res.json({
+            status : 1,
+            msg : 'Consulta exitosa',
+            data : results
+        });
+    }
 
-};
+   });
+
+}
 
 exports.getSalas = (req, res)=>{
 

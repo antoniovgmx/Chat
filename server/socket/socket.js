@@ -16,6 +16,18 @@ io.on('connection', (client)=>{
     });
 
     // client.on('enviarMensaje', ( data, callback )=>{
+    //     axios.post('/api/mensajes/nuevo', {
+            
+    //       })
+    //       .then(function (response) {
+    //         console.log(response);
+    //       })
+    //       .catch(function (error) {
+    //         console.log(error);
+    //       });
+    // });
+
+    // client.on('enviarMensaje', ( data, callback )=>{
 
     //     //DEBO LLAMAR A MI API USANDO AXIOS PARA GUARDAR EL MENSAJE
 
