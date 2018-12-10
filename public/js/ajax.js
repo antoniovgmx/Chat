@@ -265,8 +265,8 @@ function eliminarChat(idChat){
             method: "DELETE",
             url: "http://localhost:3000/inicio/chat/conversaciones/eliminar",
             data:{
-                "idUsuario": ""+idUs+"",
-                "idContacto": ""+idChat+""
+                idUsuario: idUs,
+                idContacto: idChat
             }
         }).done(function(res){
             console.log(res)
@@ -374,3 +374,28 @@ archi.addEventListener("click", function () {
     })
 
 })
+
+function ArchivarChat(idChat) {
+    $.ajax({
+        method: "DELETE",
+        url: "http://localhost:3000/inicio/chat/conversaciones/archivar",
+        data: {
+            idUsuario: idUs,
+            idContacto: idChat
+        }
+    }).done(function (res) {
+        console.log(res)
+        var status = res.status;
+
+        if (status == 1) {
+            Swal({
+                position: 'center',
+                type: 'success',
+                title: 'Chat archivado',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+
+    })
+}
