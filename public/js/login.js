@@ -100,7 +100,7 @@ function mostrarInicio() {
 										data: {
 											"nombre":""+nombre+"",
 											"correo": "" + correo + "",
-											"pass": "" + password + ""
+											"password": "" + password + ""
 										}
 									}).done(function (res) {
 										console.log(res);
@@ -115,7 +115,8 @@ function mostrarInicio() {
 										}
 										var datos = res.data;
 										console.log(datos);
-										 datos.map(item => {
+										var dara = Array.from(datos)
+										 data.map(item => {
 											var idUs = item.insertId;
 											localStorage.setItem("idUs", idUs);
 										 })

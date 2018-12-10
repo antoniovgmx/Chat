@@ -147,6 +147,7 @@ $.ajax({
     method: "GET",
     url: "http://localhost:3000/inicio/chat/conversaciones/" + idUs
 }).done(function (res) {
+    console.log(res);
     var datos = res.data;
     var ultimoMensaje = "holaaa";
     datos.map(item => {
@@ -242,3 +243,13 @@ function ajax(nombreCon,correoCon){
         })
 }
 
+
+$.ajax({
+    method: "GET",
+    url: "http://localhost:3000/inicio/chats/salas/" + idUs
+}).done(function (res) {
+    console.log(res);
+    var datos = res.data;
+    datos.map(item => {
+    });
+});
