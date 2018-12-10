@@ -276,7 +276,7 @@ exports.archivar = (req, res)=>{
     });
 };
 
-exports.eliminar = ()=>{
+exports.eliminar = (req,res)=>{
     var db = mysql.createConnection(dbconn);
     db.query(`UPDATE conversacion SET convEstado = 0 WHERE idUsuario = '${req.params.idUsuario}' AND idContacto = '${req.params.idContacto}';`, (error, results, fields)=>{
         if(error){
@@ -299,7 +299,7 @@ exports.eliminar = ()=>{
                 status : 1,
                 msg : 'Usuario eliminado',
                 data : {
-                    contacto : req.body.nombre
+                    // contacto : req.body.nombre
                 }
             });
         }

@@ -162,8 +162,13 @@ function back(){
             ///////////////////////MENSAJES///////////////////////////
            $(document).on("click", "div.lado", function(){
                 console.log(this);
-               var cuadrito = $(this).find(".cuadrito.cuadritoChats").get(0);
+               var cuadrito = $(this).find(".cuadrito.cuadroChats").get(0);
                cuadrito.style.display="block";
            });
-           $(document).on("click")
+            $(document).on("dblclick", "div.lado", function () {
+                console.log(this);
+                var cuadrito = $(this).find(".cuadrito.cuadroChats").get(0);
+                cuadrito.style.display = "none";
+            });
+       
 

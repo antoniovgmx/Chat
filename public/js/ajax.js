@@ -23,26 +23,21 @@ function crearElementosContactos(idCon, nomCon) {
     iconPun.classList.add("fa-ellipsis-v");
     var cuadrito = document.createElement("DIV")
     cuadrito.classList.add("cuadrito")
-    cuadrito.classList.add("cuadritoChats")
+    cuadrito.classList.add("cuadroChats")
     var pEliminar = document.createElement("P")
-    pEliminar.classList.add("eliminarChat");
-    pEliminar.setAttribute("id", "eliminarChat");
-    var textEli = document.createTextNode("Eliminar")
-    pEliminar.appendChild(textEli);
-    var pArchivar = document.createElement("P")
-    pArchivar.classList.add("archivarChat");
-    pArchivar.setAttribute("id", "archivarChat");
-    var textArc = document.createTextNode("Archivar")
-    pArchivar.appendChild(textArc);
-    var pFavorito = document.createElement("P")
-    pFavorito.classList.add("favoritoChat");
-    pFavorito.setAttribute("id", "favoritoChat");
-    var textFav = document.createTextNode("Favorito")
-    pFavorito.appendChild(textFav);
-
+            pEliminar.classList.add("bloquearCon");
+            pEliminar.setAttribute("id", "eliminarCon");
+            pEliminar.setAttribute("onclick","eliminarCon("+idCon+")")
+            var textEli = document.createTextNode("Eliminar")
+        pEliminar.appendChild(textEli);
+    var pBloquear = document.createElement("P")
+            pBloquear.classList.add("bloquearCon");
+            pBloquear.setAttribute("id", "bloquearCon");
+            pBloquear.setAttribute("onclick", "BloquearCon(" + idCon + ")")
+            var textArc = document.createTextNode("Bloquear")
+        pBloquear.appendChild(textArc);
     cuadrito.appendChild(pEliminar);
-    cuadrito.appendChild(pArchivar);
-    cuadrito.appendChild(pFavorito);
+    cuadrito.appendChild(pBloquear);
     lado.appendChild(puntitos);
     puntitos.appendChild(iconPun);
     puntitos.appendChild(cuadrito);
@@ -68,6 +63,7 @@ function obtenerContactos(){
         method: "GET",
         url: "http://localhost:3000/inicio/contactos/todos/" + idUs
     }).done(function (res) {
+        console.log(res)
         var datos = res.data;
         datos.map(item => {
             console.log(item);
@@ -80,6 +76,7 @@ function obtenerContactos(){
     });
 }
 
+////////////////////////CHATS ELEMENTOS Y AJAX///////////////////////////////////
 
 function crearElementosChats(idUsua, nombreUsua) {
 var ultimoMensaje="Holaaa";
@@ -115,23 +112,26 @@ var ultimoMensaje="Holaaa";
     iconMas.classList.add("fa-ellipsis-v")
     var divCuadrito = document.createElement("DIV");
     divCuadrito.classList.add("cuadrito")
-    divCuadrito.classList.add("cuadroChat")
+    divCuadrito.classList.add("cuadroChats")
     divCuadrito.setAttribute("id", "cuadroChats");
     var pEliminar = document.createElement("P")
-    pEliminar.classList.add("eliminarChat");
-    pEliminar.setAttribute("id", "eliminarChat");
-    var textEli = document.createTextNode("Eliminar")
-    pEliminar.appendChild(textEli);
+            pEliminar.classList.add("eliminarChat");
+            pEliminar.setAttribute("id", "eliminarChat");
+            var textEli = document.createTextNode("Eliminar")
+            pEliminar.setAttribute("onclick", "eliminarChat(" + idUsua + ")")
+        pEliminar.appendChild(textEli);
     var pArchivar = document.createElement("P")
-    pArchivar.classList.add("archivarChat");
-    pArchivar.setAttribute("id", "archivarChat");
-    var textArc = document.createTextNode("Archivar")
-    pArchivar.appendChild(textArc);
+            pArchivar.classList.add("archivarChat");
+            pArchivar.setAttribute("id", "archivarChat");
+            var textArc = document.createTextNode("Archivar")
+            pArchivar.setAttribute("onclick", "ArchivarChat(" + idUsua + ")")
+        pArchivar.appendChild(textArc);
     var pFavorito = document.createElement("P")
-    pFavorito.classList.add("favoritoChat");
-    pFavorito.setAttribute("id", "favoritoChat");
-    var textFav = document.createTextNode("Favorito")
-    pFavorito.appendChild(textFav);
+            pFavorito.classList.add("favoritoChat");
+            pFavorito.setAttribute("id", "favoritoChat");
+            var textFav = document.createTextNode("Favorito")
+            pFavorito.setAttribute("onclick", "favoritoChat(" + idUsua + ")")
+        pFavorito.appendChild(textFav);
     divCuadrito.appendChild(pEliminar);
     divCuadrito.appendChild(pArchivar);
     divCuadrito.appendChild(pFavorito);
@@ -142,7 +142,7 @@ var ultimoMensaje="Holaaa";
 
     contenedores.appendChild(contenedor);
 }
-///////////////////AJAX OBTENER CONVERSACIONES////////////////
+///////////////////AJAX OBTENER CONVERSACIONES CHATS////////////////
 $.ajax({
     method: "GET",
     url: "http://localhost:3000/inicio/chat/conversaciones/" + idUs
@@ -153,10 +153,12 @@ $.ajax({
     datos.map(item => {
         // console.log(item);
         var itemIdU = item.idUsuario
-        var itemNomU = item.userNombre
+        var itemNomU = item.contNombre
         crearElementosChats(itemIdU, itemNomU);
     });
 });
+////////////////////////////////////////////////////////////////////
+
 
 /////////// CREACION DE CUADORS DE EMENSAJES ////////////////////////
 var time = "12:30";
@@ -209,6 +211,8 @@ buttonEnviar.addEventListener("click", function () {
 //         });
 //     });
 // }
+
+//////////////////////CUADRO AGREGAR////////////////////////////
 var botnAgregar = document.getElementById("agregarContacto");
 botnAgregar.addEventListener("click", function(){
    var correoCon = document.getElementById("correoCon").value
@@ -219,7 +223,7 @@ botnAgregar.addEventListener("click", function(){
 
     ajax(nombreCon,correoCon)
 })
-
+    /////////////////////AJAX AGREGAR////////////
 function ajax(nombreCon,correoCon){
         $.ajax({
             method: "POST",
@@ -242,14 +246,41 @@ function ajax(nombreCon,correoCon){
                      obtenerContactos();
         })
 }
+///////////////////////////////////////////////////////////////////////
 
 
-$.ajax({
-    method: "GET",
-    url: "http://localhost:3000/inicio/chats/salas/" + idUs
-}).done(function (res) {
-    console.log(res);
-    var datos = res.data;
-    datos.map(item => {
-    });
-});
+// $.ajax({
+//     method: "GET",
+//     url: "http://localhost:3000/inicio/chats/salas/" + idUs
+// }).done(function (res) {
+//     console.log(res);
+//     var datos = res.data;
+//     datos.map(item => {
+//     });
+// });
+
+
+function eliminarChat(idChat){
+        $.ajax({
+            method: "DELETE",
+            url: "http://localhost:3000/inicio/chat/conversaciones/eliminar",
+            data:{
+                "idUsuario": ""+idUs+"",
+                "idContacto": ""+idChat+""
+            }
+        }).done(function(res){
+            console.log(res)
+            var status = res.status;
+
+            if(status==1){
+                Swal({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Usuario eliminado',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
+        })
+}
