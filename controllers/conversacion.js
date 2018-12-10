@@ -113,10 +113,10 @@ exports.getConversacionesNormales = (req, res)=>{
    var db = mysql.createConnection(dbconn);
 
    var query = `SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
-   ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
-   AND c.idUsuario = cv.idUsuario AND cv.convEstado = 1 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
-   JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
-   ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 1;`
+   ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario AND cv.convEstado = 1 LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+   AND c.idUsuario = cv.idUsuario UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+   JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario  AND cv.convEstado = 1 LEFT JOIN contacto c 
+   ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto;`
 
    db.query(query, (error, results)=>{
 
@@ -152,10 +152,10 @@ exports.getConversacionesArchivadas = (req, res)=>{
    var db = mysql.createConnection(dbconn);
 
    var query = `SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
-                 ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
-                 AND c.idUsuario = cv.idUsuario AND cv.convEstado = 2 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
-                 JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
-                 ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 2;`;
+                 ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario AND cv.convEstado = 2 LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+                 AND c.idUsuario = cv.idUsuario UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+                 JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario AND cv.convEstado = 2 LEFT JOIN contacto c 
+                 ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto;`;
 
    db.query(query, (error, results)=>{
 
@@ -191,10 +191,10 @@ exports.getConversacionesFavoritas = (req, res)=>{
    var db = mysql.createConnection(dbconn);
 
    var query = `SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
-                 ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
-                 AND c.idUsuario = cv.idUsuario AND cv.convEstado = 3 UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
-                 JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario LEFT JOIN contacto c 
-                 ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto AND cv.convEstado = 3;`;
+                 ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario AND cv.convEstado = 3 LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
+                 AND c.idUsuario = cv.idUsuario UNION SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u
+                 JOIN conversacion cv ON cv.idContacto = '${req.params.idUsuario}' AND cv.idUsuario = u.idUsuario AND cv.convEstado = 3 LEFT JOIN contacto c 
+                 ON  c.idContacto = u.idUsuario AND c.idUsuario = cv.idContacto;`;
 
    db.query(query, (error, results)=>{
 
