@@ -68,6 +68,9 @@ router.route( '/inicio/chat/conversaciones/archivar' )
 router.route( '/inicio/chat/conversaciones/eliminar' )
     .delete(ctrlConversaciones.eliminar);
 
+router.route( '/inicio/chat/conversaciones/favoritear' )
+    .post(ctrlConversaciones.favoritear);
+
 //RUTAS DEL CONTROLADOR DE MENSAJES
 var ctrlMensajes = require('./controllers/mensajes');
 

@@ -25,7 +25,6 @@ io.on('connection', (client)=>{
             mensaje : data.mensaje
           })
           .then(function (response) {
-            console.log("aqui esta el then ==============================");
             client.broadcast.to(data.sala).emit('mensajeNuevo', {
                 usuario : data.usuario,
                 mensaje : data.mensaje

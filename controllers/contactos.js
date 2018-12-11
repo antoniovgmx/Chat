@@ -148,9 +148,9 @@ exports.eliminarContacto = (req, res)=>{
     });
 }
 
-exports.bloquearContacto = ()=>{
+exports.bloquearContacto = (req, res)=>{
     var db = mysql.createConnection(dbconn);
-    db.query(`UPDATE contacto SET contEstado = 2 WHERE idUsuario = '${req.body.idUsuario}' AND idContacto = '${req.body.idContacto}';`, (error, results, fields)=>{
+    db.query(`UPDATE contacto SET contEstado = 0 WHERE idUsuario = '${req.body.idUsuario}' AND idContacto = '${req.body.idContacto}';`, (error, results, fields)=>{
         if(error){
             db.end();
             return res.json({
