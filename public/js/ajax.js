@@ -399,27 +399,27 @@ function ArchivarChat(idChat) {
 
     })
 }
-// function favritoChat(idChat) {
-//     $.ajax({
-//         method: "PUT",
-//         url: "http://localhost:3000/inicio/chat/conversaciones/archivar",
-//         data: {
-//             idUsuario: idUs,
-//             idContacto: idChat
-//         }
-//     }).done(function (res) {
-//         console.log(res)
-//         var status = res.status;
+function favoritoChat(idChat) {
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:3000/inicio/chat/conversaciones/favoritear",
+        data: {
+            idUsuario: idUs,
+            idContacto: idChat
+        }
+    }).done(function (res) {
+        console.log(res)
+        var status = res.status;
 
-//         if (status == 1) {
-//             Swal({
-//                 position: 'center',
-//                 type: 'success',
-//                 title: 'Chat archivado',
-//                 showConfirmButton: false,
-//                 timer: 1500
-//             })
-//         }
+        if (status == 1) {
+            Swal({
+                position: 'center',
+                type: 'success',
+                title: 'Chat archivado',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
 
-//     })
-// }
+    })
+}

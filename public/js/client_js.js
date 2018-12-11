@@ -138,29 +138,69 @@ function chat(idDestino) {
             ultimoId = idDestino;
  }
 
+var idMayor
+var idMenor
+var buttonEnviar = document.getElementById('enviar');
+ buttonEnviar.addEventListener("click", function () {
+                 var mensaje2 = document.getElementById("mensajeT").value
+                 var enviado = document.createElement("DIV");
+                 enviado.classList.add("recibido");
+                 var divMsg = document.createElement("div");
+                 divMsg.classList.add("mensajeR");
+                 var pMensaje = document.createElement("P");
+                 enviado.appendChild(divMsg);
+                 var textnode = document.createTextNode(mensaje2);
+                 pMensaje.appendChild(textnode);
 
+                 divMsg.appendChild(pMensaje);
 
+                 var divEliminar = document.createElement("div");
+                 divEliminar.classList.add("basura");
+                 var icon = document.createElement("i");
+                 icon.classList.add("far");
+                 icon.classList.add("fa-trash-alt");
+                 icon.classList.add("basuraR");
+                 divEliminar.appendChild(icon);
+                 enviado.appendChild(divEliminar);
 
+                 var divHora = document.createElement("div");
+                 divHora.classList.add("horaR");
+                 var hora = document.createElement("p");
+                 var text = document.createTextNode(time)
+                 hora.appendChild(text);
+                 divHora.appendChild(hora);
+                 enviado.appendChild(divHora);
+                 document.getElementById("mensajes").appendChild(enviado);
+                 ///////////////////////////////scroll hasta abajo//////////////////////////////////////////////////
+                 var divH = document.getElementById("mensajes").scrollHeight;
+                 document.getElementById("mensajes").scrollTop = divH;
 
+                 if(ultimoId<idUs){
+                    idMayor=idUs
+                    idMenor=ultimoId
+                 }else{
+                     idMayor = ultimoId
+                     idMenor = idUs
 
+                 }
 
+            socket.emit('enviarMensaje', {
+                sala: ""+idMenor+","+idMayor+"",
+                usuario: idUs,
+                mensaje: mensaje2
+            }, (resp) => {
 
+                if (resp.status == 0) {
+                    console.log('Ocurrió un error');
+                } else {
+                    console.log('Tú:', resp.mensaje);
+                }
+            });
 
-
+             });
 
 //ADD EVENT LISTENER DE 'CLICK' DE BOTÓN DE ENVIAR
-socket.emit('enviarMensaje', {
-    sala : 'VARIABLE DE LA SALA DE CHAT',
-    usuario : 'NOMBRE DEL USUARIO',
-    mensaje : 'VARIABLE QUE CONTIENE EL MENSAJE ESCRITO'
-}, (resp)=>{
 
-    if(resp.status == 0){
-        console.log('Ocurrió un error');
-    } else {
-        console.log('Tú:', resp.mensaje);
-    }
-});
 
 socket.on('mensajeNuevo', (data)=>{
     //LOGICA PARA DESPLEGAR EL MENSAJE
