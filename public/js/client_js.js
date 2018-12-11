@@ -188,7 +188,7 @@ var buttonEnviar = document.getElementById('enviar');
                 sala: ""+idMenor+","+idMayor+"",
                 idUsuario: idUs,
                 mensaje: mensaje2,
-                idContacto: idDestino
+                idContacto: ultimoId
             }, (resp) => {
 
                 if (resp.status == 0) {
