@@ -49,7 +49,7 @@ exports.newMensaje = (req, res)=>{
     }
 
     var db = mysql.createConnection(dbconn);
-    db.query(`INSERT INTO mensaje (idUsuario, idContacto, msgTexto, msgMultimedia) VALUES ('${req.params.idUsuario}','${req.params.idContacto}',"${req.body.mensaje}","FOTO");`, (error, results, fields)=>{
+    db.query(`INSERT INTO mensaje (idUsuario, idContacto, msgTexto, msgMultimedia) VALUES ('${req.body.idUsuario}','${req.body.idContacto}',"${req.body.mensaje}","FOTO");`, (error, results, fields)=>{
         db.end();
         if(error){
             return res.json({
