@@ -186,8 +186,9 @@ var buttonEnviar = document.getElementById('enviar');
 
             socket.emit('enviarMensaje', {
                 sala: ""+idMenor+","+idMayor+"",
-                usuario: idUs,
-                mensaje: mensaje2
+                idUsuario: idUs,
+                mensaje: mensaje2,
+                idContacto: idDestino
             }, (resp) => {
 
                 if (resp.status == 0) {
