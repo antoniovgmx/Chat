@@ -161,56 +161,56 @@ $.ajax({
 
 
 /////////// CREACION DE CUADORS DE EMENSAJES ////////////////////////
-var time = "12:30";
-var buttonEnviar = document.getElementById('enviar');
-buttonEnviar.addEventListener("click", function () {
-    var mensaje = document.getElementById("mensajeT").value
-    var enviado = document.createElement("DIV");
-    enviado.classList.add("recibido");
-    var divMsg = document.createElement("div");
-    divMsg.classList.add("mensajeR");
-    var pMensaje = document.createElement("P");
-    enviado.appendChild(divMsg);
-    var textnode = document.createTextNode(mensaje);
-    pMensaje.appendChild(textnode);
+// var time = "12:30";
+// var buttonEnviar = document.getElementById('enviar');
+// buttonEnviar.addEventListener("click", function () {
+//     var mensaje = document.getElementById("mensajeT").value
+//     var enviado = document.createElement("DIV");
+//     enviado.classList.add("recibido");
+//     var divMsg = document.createElement("div");
+//     divMsg.classList.add("mensajeR");
+//     var pMensaje = document.createElement("P");
+//     enviado.appendChild(divMsg);
+//     var textnode = document.createTextNode(mensaje);
+//     pMensaje.appendChild(textnode);
 
-    divMsg.appendChild(pMensaje);
+//     divMsg.appendChild(pMensaje);
 
-    var divEliminar = document.createElement("div");
-    divEliminar.classList.add("basura");
-    var icon = document.createElement("i");
-    icon.classList.add("far");
-    icon.classList.add("fa-trash-alt");
-    icon.classList.add("basuraR");
-    divEliminar.appendChild(icon);
-    enviado.appendChild(divEliminar);
+//     var divEliminar = document.createElement("div");
+//     divEliminar.classList.add("basura");
+//     var icon = document.createElement("i");
+//     icon.classList.add("far");
+//     icon.classList.add("fa-trash-alt");
+//     icon.classList.add("basuraR");
+//     divEliminar.appendChild(icon);
+//     enviado.appendChild(divEliminar);
 
-    var divHora = document.createElement("div");
-    divHora.classList.add("horaR");
-    var hora = document.createElement("p");
-    var text = document.createTextNode(time)
-    hora.appendChild(text);
-    divHora.appendChild(hora);
-    enviado.appendChild(divHora);
-    document.getElementById("mensajes").appendChild(enviado);
-    ///////////////////////////////scroll hasta abajo//////////////////////////////////////////////////
-    var divH = document.getElementById("mensajes").scrollHeight;
-    document.getElementById("mensajes").scrollTop = divH;
-});
+//     var divHora = document.createElement("div");
+//     divHora.classList.add("horaR");
+//     var hora = document.createElement("p");
+//     var text = document.createTextNode(time)
+//     hora.appendChild(text);
+//     divHora.appendChild(hora);
+//     enviado.appendChild(divHora);
+//     document.getElementById("mensajes").appendChild(enviado);
+//     ///////////////////////////////scroll hasta abajo//////////////////////////////////////////////////
+//     var divH = document.getElementById("mensajes").scrollHeight;
+//     document.getElementById("mensajes").scrollTop = divH;
+// });
 
-function chat(idDestino) {
-    $.ajax({
-        method: "GET",
-        url: "/inicio/chat/mensajes/todos/" + idUs + "/" + idDestino
-    }).done(function (res) {
-        var datos = res.data;
-        var ultimoMensaje = "holaaa";
-        datos.map(item => {
-            console.log(item);
+// function chat(idDestino) {
+//     $.ajax({
+//         method: "GET",
+//         url: "/inicio/chat/mensajes/todos/" + idUs + "/" + idDestino
+//     }).done(function (res) {
+//         var datos = res.data;
+//         var ultimoMensaje = "holaaa";
+//         datos.map(item => {
+//             console.log(item);
 
-        });
-    });
-}
+//         });
+//     });
+// }
 
 //////////////////////CUADRO AGREGAR////////////////////////////
 var botnAgregar = document.getElementById("agregarContacto");
@@ -377,7 +377,7 @@ archi.addEventListener("click", function () {
 
 function ArchivarChat(idChat) {
     $.ajax({
-        method: "DELETE",
+        method: "PUT",
         url: "http://localhost:3000/inicio/chat/conversaciones/archivar",
         data: {
             idUsuario: idUs,
@@ -399,3 +399,27 @@ function ArchivarChat(idChat) {
 
     })
 }
+// function favritoChat(idChat) {
+//     $.ajax({
+//         method: "PUT",
+//         url: "http://localhost:3000/inicio/chat/conversaciones/archivar",
+//         data: {
+//             idUsuario: idUs,
+//             idContacto: idChat
+//         }
+//     }).done(function (res) {
+//         console.log(res)
+//         var status = res.status;
+
+//         if (status == 1) {
+//             Swal({
+//                 position: 'center',
+//                 type: 'success',
+//                 title: 'Chat archivado',
+//                 showConfirmButton: false,
+//                 timer: 1500
+//             })
+//         }
+
+//     })
+// }
