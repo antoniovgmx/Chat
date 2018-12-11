@@ -170,7 +170,7 @@ exports.nuevaConversacion = (req, res)=>{
 
     var db = mysql.createConnection(dbconn);
 
-    db.query(`NEW CONVERSACION QUERYTEXT`, (error, results, fields)=>{
+    db.query(`CALL nvaConv("${idConversacion}",'${req.body.idUsuario}','${req.body.idDestinatario}');`, (error, results, fields)=>{
         if(error){
             db.end();
             return res.json({
