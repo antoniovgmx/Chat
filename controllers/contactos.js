@@ -44,7 +44,7 @@ exports.getContactos = (req, res)=>{
 
 exports.addContacto = (req, res)=>{
 
-    if(!req.body.correo){
+    if(!req.body.correo || !req.body.idUsuario || !req.body.nombre){
         return res.json({
             status : 0,
             msg : 'El campo de correo es necesario',

@@ -25,8 +25,8 @@ io.on('connection', (client)=>{
             mensaje : data.mensaje
           })
           .then(function (response) {
+            console.log(response);
             client.broadcast.to(data.sala).emit('mensajeNuevo', {
-                usuario : data.usuario,
                 mensaje : data.mensaje
             });
             callback({ status : 1, mensaje : data.mensaje });
