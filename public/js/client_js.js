@@ -113,7 +113,7 @@ function chat(idDestino) {
                                     var icon = document.createElement("i");
                                     icon.classList.add("far");
                                     icon.classList.add("fa-trash-alt");
-                                    icon.classList.add("basura");
+                                    icon.classList.add("basuraE");
                                     divEliminar.appendChild(icon);
                                     enviado.appendChild(divEliminar);
 
@@ -205,6 +205,41 @@ var buttonEnviar = document.getElementById('enviar');
 
 socket.on('mensajeNuevo', (data)=>{
     //LOGICA PARA DESPLEGAR EL MENSAJE
+
+
+         var recibido = document.createElement("DIV");
+                                    recibido.classList.add("recibido");
+                                    var divMsg = document.createElement("div");
+                                    divMsg.classList.add("mensajeR");
+                                    var pMensaje = document.createElement("P");
+                                    recibido.appendChild(divMsg);
+                                    var textnode = document.createTextNode(data.mensaje);
+                                    pMensaje.appendChild(textnode);
+
+
+                                    divMsg.appendChild(pMensaje);
+
+                                    var divEliminar = document.createElement("div");
+                                    divEliminar.classList.add("basura");
+                                    var icon = document.createElement("i");
+                                    icon.classList.add("far");
+                                    icon.classList.add("fa-trash-alt");
+                                    icon.classList.add("basuraR");
+                                    divEliminar.appendChild(icon);
+                                    recibido.appendChild(divEliminar);
+
+                                    var divHora = document.createElement("div");
+                                    divHora.classList.add("horaR");
+                                    var hora = document.createElement("p");
+                                    var text = document.createTextNode(time)
+                                    hora.appendChild(text);
+                                    divHora.appendChild(hora);
+                                    recibido.appendChild(divHora);
+                                    document.getElementById("mensajes").appendChild(recibido);
+                                     var divH = document.getElementById("mensajes").scrollHeight;
+                                     document.getElementById("mensajes").scrollTop = divH;
+
+
     console.log(`${data.usuario} : ${data.mensaje}`);
 });
 

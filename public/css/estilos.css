@@ -349,14 +349,22 @@ footer{
 }
 .basura{
     margin-left: 20px;
-    margin-top: 3%;
+    /* margin-top: 3%; */
     cursor: pointer;
     font-size: 1rem;
     color: rgba(128, 128, 128, 0.568);
 }
+.basuraE{
+     float: left;
+     margin-left: 20px;
+     margin-top: 3%;
+     color: rgba(128, 128, 128, 0.568);
+}
 .hora{
     font-size: .7rem;
-    margin-top: 15px;
+    text-align: left;
+    margin-top: 45px;
+    margin-right: 92%;
 }
 .recibido{
     width: 100%;
@@ -386,6 +394,7 @@ footer{
     font-size: .7rem;
     /* float: right; */
     /* position: relative; */
+    text-align: right;
     margin-top: 45px;
     margin-left: 92%;
 }
