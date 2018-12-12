@@ -17,7 +17,8 @@ exports.getMensajes = (req, res)=>{
     var db = mysql.createConnection(dbconn);
     db.query(`SELECT m.idMensaje, m.idUsuario, m.idContacto, m.msgTexto, m.msgMultimedia, m.msgFecha AS fecha, m.msgEstado  FROM mensaje m
               JOIN contacto c ON m.idUsuario = '${req.params.idUsuario}' AND m.idContacto = '${req.params.idContacto}' AND c.contEstado = 1
-              UNION  SELECT m.idMensaje, m.idUsuario, m.idContacto, m.msgTexto, m.msgMultimedia, m.msgFecha AS fecha, m.msgEstado  FROM mensaje m
+              AND (m.msgEstado = 1 OR m.msgEstado = 2) UNION  SELECT m.idMensaje, m.idUsuario, m.idContacto, m.msgTexto, 
+              m.msgMultimedia, m.msgFecha AS fecha, m.msgEstado  FROM mensaje m
               JOIN contacto c ON m.idUsuario = '${req.params.idContacto}' AND m.idContacto = '${req.params.idUsuario}' 
               AND (m.msgEstado = 1 OR m.msgEstado = 2) AND c.contEstado = 1 ORDER BY fecha ASC;`, (error, results, fields)=>{
         if(error){
