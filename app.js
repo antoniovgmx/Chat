@@ -54,7 +54,7 @@ router.route( '/inicio/chat/conversaciones/normales/:idUsuario' )
     .get(ctrlConversaciones.getConversacionesNormales);
 
 router.route( '/inicio/chat/conversaciones/archivadas/:idUsuario' )
-    .get(ctrlConversaciones.getConversacionesFavoritas);
+    .get(ctrlConversaciones.getConversacionesArchivadas);
 
 router.route( '/inicio/chat/conversaciones/favoritas/:idUsuario' )
     .get(ctrlConversaciones.getConversacionesFavoritas);
