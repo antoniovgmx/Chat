@@ -88,8 +88,13 @@ var ctrlUsuarios = require( './controllers/usuarios' );
 
 router.route( '/api/usuarios/registro' )
     .post(ctrlUsuarios.registro);
+
 router.route( '/api/usuarios/login' )
     .post(ctrlUsuarios.login);
+
+router.route( '/api/usuarios/autenticacion' )
+    .post(ctrlUsuarios.auth);
+    
 router.route( '/api/usuarios/getDatos/:correo' )
     .get(ctrlUsuarios.getDatos);
 

@@ -12,8 +12,10 @@ var dbconn  = {
 
 exports.dbconn = dbconn;
 
+const jwt = require('jsonwebtoken');
 
-exports.getDataContactos = (req, res)=>{
+exports.getDataContactos = (req, res)=>{  
+
     var db = mysql.createConnection(dbconn);
     db.query(`SELECT * FROM contacto;`, (error, results, fields)=>{
         if(error){
@@ -34,6 +36,7 @@ exports.getDataContactos = (req, res)=>{
 }
 
 exports.getDataUsuarios = (req, res)=>{
+
     var db = mysql.createConnection(dbconn);
     db.query(`SELECT * FROM usuario;`, (error, results, fields)=>{
         if(error){
@@ -59,6 +62,7 @@ exports.getDataUsuarios = (req, res)=>{
 }
 
 exports.getDataMensajes = (req, res)=>{
+
     var db = mysql.createConnection(dbconn);
     db.query(`SELECT * FROM mensaje;`, (error, results, fields)=>{
         if(error){
