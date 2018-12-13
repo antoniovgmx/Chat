@@ -2,6 +2,8 @@ var socket = io();
 var datos
 
 var idUs = localStorage.getItem("idUs");
+var token = localStorage.getItem("token");
+
 socket.on('connect', ()=>{
     console.log('Conectado al servidor');
 

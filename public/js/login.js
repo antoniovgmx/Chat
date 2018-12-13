@@ -40,9 +40,18 @@ function mostrarInicio() {
 			}).done(function (res1) {
 				console.log(res1);
 				var tokeen= res1.token
-				console.log(tokeen)
+				var datos = res1.data
+
+				var map = Object.entries(new Object(res1.data))
+				for (var [key, value] of map) {
+					if(key == "idUsuario"){
+						var idUs= value;
+						localStorage.setItem("idUs",idUs)
+					}
+				}
 				if(res1.status==1){
 					localStorage.setItem("token", tokeen);
+					localStorage.setItem("correo", usua);
 					redireccionar();
 				}else{
 					Swal({

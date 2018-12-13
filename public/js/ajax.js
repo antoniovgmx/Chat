@@ -1,6 +1,7 @@
 //////////////CONTACTOS/////////////////////////////////////////////////
 var correo = "aixa@gmail.com";
 var idUs = localStorage.getItem("idUs");
+var token = localStorage.getItem("token");
 
 obtenerContactos();
 
@@ -60,20 +61,36 @@ function crearElementosContactos(idCon, nomCon) {
 //////////////////////////AJAX OBTENER CONTACTOS////////////////////////////////
 function obtenerContactos(){
     $.ajax({
-        method: "GET",
-        url: "http://localhost:3000/inicio/contactos/todos/" + idUs
+        method: "POST",
+        url: "/api/usuarios/autenticacion",
+        data:{
+            token: token
+        }  
     }).done(function (res) {
         console.log(res)
-        var datos = res.data;
-        datos.map(item => {
-            console.log(item);
+        if (res.status == 403) {
+           window.location.href = "http://localhost:3000";
+        } else {
+            if (res.status == 200) {
+               $.ajax({
+                   method: "GET",
+                   url: "http://localhost:3000/inicio/contactos/todos/" + idUs
+               }).done(function (res) {
+                   console.log(res)
+                   var datos = res.data;
+                   datos.map(item => {
+                       console.log(item);
 
-            var itemNombre = item.contNombre
-            var itemId = item.idContacto
-
-            crearElementosContactos(itemId, itemNombre);
-        });
-    });
+                       var itemNombre = item.contNombre
+                       var itemId = item.idContacto
+                       crearElementosContactos(itemId, itemNombre);
+                   });
+               });
+                
+            }
+        }
+    })
+    
 }
 
 ////////////////////////CHATS ELEMENTOS Y AJAX///////////////////////////////////
@@ -144,30 +161,36 @@ var ultimoMensaje="Holaaa";
 }
 ///////////////////AJAX OBTENER CONVERSACIONES CHATS////////////////
 $.ajax({
-    method: "GET",
-    url: "http://localhost:3000/inicio/chat/conversaciones/normales/" + idUs
+    method: "POST",
+    url: "/api/usuarios/autenticacion",
+    data:{
+        token: token
+    }
 }).done(function (res) {
-    console.log(res);
-    var datos1 = res.data1;
-    var datos2 = res.data2;
-    var data1 = new Object(datos1);
-    console.log(data1)
-    console.log(datos2)
-    var map1 = new Map(Object.entries(datos1));
-    console.log(map1);
-    for (var [key, value] of map1) {
-        console.log(key + " = " + value);
-        if(key == "idUsuario"){
-            var idCon = value
-            console.log("id",idCon)
-        }
-        if(key=="contNombre"){
-            var nombreChat = value
-            console.log("nombre",nombreChat)
+    console.log(res)
+    if (res.status == 403) {
+       window.location.href = "http://localhost:3000";
+    } else {
+        if (res.status == 200) {
+              $.ajax({
+                  method: "GET",
+                  url: "http://localhost:3000/inicio/chat/conversaciones/normales/" + idUs
+              }).done(function (res) {
+                  console.log(res);
+                  var datos = res.data
+                  datos.map(item => {
+                      var idCon = item.idUsuario;
+                      var nombreChat = item.userNombre;
+                      crearElementosChats(idCon, nombreChat);
+                  })
+
+              });
         }
     }
-    crearElementosChats(idCon,nombreChat);
-});
+})
+
+
+
 ////////////////////////////////////////////////////////////////////
 
 
@@ -236,26 +259,44 @@ botnAgregar.addEventListener("click", function(){
 })
     /////////////////////AJAX AGREGAR////////////
 function ajax(nombreCon,correoCon){
-        $.ajax({
-            method: "POST",
-            url: "/inicio/contactos/agregar",
-            data: {
-                "nombre": "" + nombreCon + "",
-                "correo": "" + correoCon + "",
-                "idUsuario": "" + idUs + ""
-            }
-        }).done(function (res) {
-            /////////////////////////CREAR HIJO////////////////////////
+$.ajax({
+    method: "POST",
+    url: "/api/usuarios/autenticacion",
+    data:{
+        token: token
+    }
+    
+}).done(function (res) {
+    console.log(res)
+    if (res.status == 403) {
+        window.location.href = "http://localhost:3000";
+    } else {
+        if (res.status == 200) {
+            $.ajax({
+                method: "POST",
+                url: "/inicio/contactos/agregar",
+                data: {
+                    "nombre": "" + nombreCon + "",
+                    "correo": "" + correoCon + "",
+                    "idUsuario": "" + idUs + ""
+                }
+            }).done(function (res) {
+                /////////////////////////CREAR HIJO////////////////////////
                 var data = res.data;
                 console.log(res.data);
                 var divCon = document.getElementById("contenedoresCon");
-               var numDivs= divCon.childElementCount;
+                var numDivs = divCon.childElementCount;
                 console.log(numDivs);
-                    for(var x=1;x<numDivs;x++){
-                        divCon.removeChild(divCon.lastChild);
-                    }
-                     obtenerContactos();
-        })
+                for (var x = 1; x < numDivs; x++) {
+                    divCon.removeChild(divCon.lastChild);
+                }
+                obtenerContactos();
+            })
+        }
+    }
+})
+
+        
 }
 ///////////////////////////////////////////////////////////////////////
 
@@ -272,28 +313,47 @@ function ajax(nombreCon,correoCon){
 
 
 function eliminarChat(idChat){
-        $.ajax({
-            method: "DELETE",
-            url: "http://localhost:3000/inicio/chat/conversaciones/eliminar",
-            data:{
-                idUsuario: idUs,
-                idContacto: idChat
-            }
-        }).done(function(res){
-            console.log(res)
-            var status = res.status;
 
-            if(status==1){
-                Swal({
-                    position: 'center',
-                    type: 'success',
-                    title: 'Chat eliminado',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }
+$.ajax({
+    method: "POST",
+    url: "/api/usuarios/autenticacion",
+    data:{
+        token: token
+    }
+   
+}).done(function (res) {
+    console.log(res)
+    if (res.status == 403) {
+        window.location.href = "http://localhost:3000";
+    } else {
+        if (res.status == 200) {
+           $.ajax({
+               method: "DELETE",
+               url: "http://localhost:3000/inicio/chat/conversaciones/eliminar",
+               data: {
+                   idUsuario: idUs,
+                   idContacto: idChat
+               }
+           }).done(function (res) {
+               console.log(res)
+               var status = res.status;
 
-        })
+               if (status == 1) {
+                   Swal({
+                       position: 'center',
+                       type: 'success',
+                       title: 'Chat eliminado',
+                       showConfirmButton: false,
+                       timer: 1500
+                   })
+               }
+
+           })
+        }
+    }
+})
+
+        
 }
 
 var fav = document.getElementById("favoritos")
@@ -304,25 +364,42 @@ fav.addEventListener("click",function(){
     todos.style.color="grey"
     archi.style.background = "none";
     archi.style.color = "grey"
-    $.ajax({
-        method: "GET",
-        url: "http://localhost:3000/inicio/chat/conversaciones/favoritas/"+ idUs
-    }).done(function(res){
-        console.log(res)
-        var divCon = document.getElementById("contenedores");
-        var numDivs = divCon.childElementCount;
-        for (var x = 0; x < numDivs; x++) {
-            divCon.removeChild(divCon.lastChild);
+$.ajax({
+    method: "POST",
+    url: "/api/usuarios/autenticacion",
+    data:{
+        token: token
+    }  
+}).done(function (res) {
+    console.log(res)
+    if (res.status == 403) {
+        window.location.href = "http://localhost:3000";
+    } else {
+        if (res.status == 200) {
+           $.ajax({
+               method: "GET",
+               url: "http://localhost:3000/inicio/chat/conversaciones/favoritas/" + idUs
+           }).done(function (res) {
+               console.log(res)
+               var divCon = document.getElementById("contenedores");
+               var numDivs = divCon.childElementCount;
+               for (var x = 0; x < numDivs; x++) {
+                   divCon.removeChild(divCon.lastChild);
+               }
+               var datos = res.data;
+               var ultimoMensaje = "holaaa";
+               datos.map(item => {
+                   // console.log(item);
+                   var itemIdU = item.idUsuario
+                   var itemNomU = item.contNombre
+                   crearElementosChats(itemIdU, itemNomU);
+               });
+           })
         }
-        var datos = res.data;
-        var ultimoMensaje = "holaaa";
-        datos.map(item => {
-            // console.log(item);
-            var itemIdU = item.idUsuario
-            var itemNomU = item.contNombre
-            crearElementosChats(itemIdU, itemNomU);
-        });
-    })
+    }
+})
+
+    
     
 })
 
@@ -334,25 +411,42 @@ todos.addEventListener("click", function () {
     fav.style.color = "grey"
     archi.style.background = "none";
     archi.style.color = "grey"
-    $.ajax({
-        method: "GET",
-        url: "http://localhost:3000/inicio/chat/conversaciones/normales/" + idUs
-    }).done(function (res) {
-        console.log(res)
-        var divCon = document.getElementById("contenedores");
-        var numDivs = divCon.childElementCount;
-        for (var x = 0; x < numDivs; x++) {
-            divCon.removeChild(divCon.lastChild);
+$.ajax({
+    method: "POST",
+    url: "/api/usuarios/autenticacion",
+    data:{
+         token: token
+    }
+}).done(function (res) {
+    console.log(res)
+    if (res.status == 403) {
+        window.location.href = "http://localhost:3000";
+    } else {
+        if (res.status == 200) {
+           $.ajax({
+               method: "GET",
+               url: "http://localhost:3000/inicio/chat/conversaciones/normales/" + idUs
+           }).done(function (res) {
+               console.log(res)
+               var divCon = document.getElementById("contenedores");
+               var numDivs = divCon.childElementCount;
+               for (var x = 0; x < numDivs; x++) {
+                   divCon.removeChild(divCon.lastChild);
+               }
+               var datos = res.data;
+               var ultimoMensaje = "holaaa";
+               datos.map(item => {
+                   // console.log(item);
+                   var itemIdU = item.idUsuario
+                   var itemNomU = item.contNombre
+                   crearElementosChats(itemIdU, itemNomU);
+               });
+           })
         }
-        var datos = res.data;
-        var ultimoMensaje = "holaaa";
-        datos.map(item => {
-            // console.log(item);
-            var itemIdU = item.idUsuario
-            var itemNomU = item.contNombre
-            crearElementosChats(itemIdU, itemNomU);
-        });
-    })
+    }
+})
+
+   
 
 })
 
@@ -364,75 +458,127 @@ archi.addEventListener("click", function () {
     fav.style.color = "grey"
     todos.style.background = "none";
     todos.style.color = "grey"
-    $.ajax({
-        method: "GET",
-        url: "http://localhost:3000/inicio/chat/conversaciones/archivadas/" + idUs
-    }).done(function (res) {
-        console.log(res)
-        var divCon = document.getElementById("contenedores");
-        var numDivs = divCon.childElementCount;
-        for (var x = 0; x < numDivs; x++) {
-            divCon.removeChild(divCon.lastChild);
-        }
-        var datos = res.data;
-        var ultimoMensaje = "holaaa";
-        datos.map(item => {
-            // console.log(item);
-            var itemIdU = item.idUsuario
-            var itemNomU = item.contNombre
-            crearElementosChats(itemIdU, itemNomU);
-        });
-    })
+$.ajax({
+    method: "POST",
+    url: "/api/usuarios/autenticacion",
+    data:{
+        token: token
+    }
+}).done(function (res) {
+    console.log(res)
+    if (res.status == 403) {
+        window.location.href = "http://localhost:3000";
+    } else {
+        if (res.status == 200) {
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:3000/inicio/chat/conversaciones/archivadas/" + idUs
+            }).done(function (res) {
+                console.log(res)
+                var divCon = document.getElementById("contenedores");
+                var numDivs = divCon.childElementCount;
+                for (var x = 0; x < numDivs; x++) {
+                    divCon.removeChild(divCon.lastChild);
+                }
+                var datos = res.data;
+                var ultimoMensaje = "holaaa";
+                datos.map(item => {
+                    // console.log(item);
+                    var itemIdU = item.idUsuario
+                    var itemNomU = item.contNombre
+                    crearElementosChats(itemIdU, itemNomU);
+                });
+            })
 
+        }
+    }
+})
+    
 })
 
 function ArchivarChat(idChat) {
-    $.ajax({
-        method: "PUT",
-        url: "http://localhost:3000/inicio/chat/conversaciones/archivar",
-        data: {
-            idUsuario: idUs,
-            idContacto: idChat
-        }
-    }).done(function (res) {
-        console.log(res)
-        var status = res.status;
 
-        if (status == 1) {
-            Swal({
-                position: 'center',
-                type: 'success',
-                title: 'Chat archivado',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        }
+$.ajax({
+    method: "POST",
+    url: "/api/usuarios/autenticacion",
+    data:{
+        token: token
+    }
+}).done(function (res) {
+    console.log(res)
+    if (res.status == 403) {
+        window.location.href = "http://localhost:3000/inicio.html";
+    } else {
+        if (res.status == 200) {
+              $.ajax({
+                  method: "PUT",
+                  url: "http://localhost:3000/inicio/chat/conversaciones/archivar",
+                  data: {
+                      idUsuario: idUs,
+                      idContacto: idChat
+                  }
+              }).done(function (res) {
+                  console.log(res)
+                  var status = res.status;
 
-    })
+                  if (status == 1) {
+                      Swal({
+                          position: 'center',
+                          type: 'success',
+                          title: 'Chat archivado',
+                          showConfirmButton: false,
+                          timer: 1500
+                      })
+                  }
+
+              })
+        }
+    }
+})
+  
 }
 function favoritoChat(idChat) {
+
     $.ajax({
         method: "POST",
-        url: "http://localhost:3000/inicio/chat/conversaciones/favoritear",
-        data: {
-            idUsuario: idUs,
-            idContacto: idChat
+        url: "/api/usuarios/autenticacion",
+        data:{
+            token: token
         }
     }).done(function (res) {
         console.log(res)
-        var status = res.status;
+        if (res.status == 403) {
+            window.location.href = "http://localhost:3000/inicio.html";
+        } else {
+            if (res.status == 200) {
+                $.ajax({
+                    method: "POST",
+                    url: "http://localhost:3000/inicio/chat/conversaciones/favoritear",
+                    data: {
+                        idUsuario: idUs,
+                        idContacto: idChat
+                    }
+                }).done(function (res) {
+                    console.log(res)
+                    var status = res.status;
 
-        if (status == 1) {
-            Swal({
-                position: 'center',
-                type: 'success',
-                title: 'Chat archivado',
-                showConfirmButton: false,
-                timer: 1500
-            })
+                    if (status == 1) {
+                        Swal({
+                            position: 'center',
+                            type: 'success',
+                            title: 'Chat archivado',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+
+                })
+            }
         }
-
     })
+    
 }
 
-
+function datosUsuario (){
+    
+}
