@@ -42,10 +42,6 @@ exports.getConversacionesNormales = (req, res)=>{
         });
     }
 
-    results1 = null;
-    results2 = null;
-    results3 = null;
-
    var db = mysql.createConnection(dbconn);
    var query = `SELECT u.idUsuario, u.userCorreo, c.contNombre, cv.convNombre FROM usuario u JOIN conversacion cv 
    ON cv.idUsuario = '${req.params.idUsuario}' AND cv.idContacto = u.idUsuario AND cv.convEstado = 1 LEFT JOIN contacto c ON  c.idContacto = u.idUsuario 
@@ -64,57 +60,132 @@ exports.getConversacionesNormales = (req, res)=>{
             data : []
         });
     } else {
-        results1 = results[0];
-        
-        var query2 = `SELECT DISTINCT (SELECT idMensaje FROM mensaje WHERE idUsuario = ${req.params.idUsuario} 
-        AND idContacto = ${results1.idUsuario} AND (msgEstado = 1 OR msgEstado = 2) ORDER BY msgFecha DESC LIMIT 1) AS idMensaje, 
-        (SELECT count(msgEstado)
-        FROM mensaje 
-        WHERE idUsuario = ${req.params.idUsuario} AND idContacto = ${results1.idUsuario} AND msgEstado = 1 LIMIT 1) 
-        AS cantidad FROM mensaje;`;
-
-        db.query(query2, (error, results)=>{
-            if(error){
-                db.end();
-                return res.json({
-                    status : 0,
-                    msg : 'Ocurrió un error en la consulta 2',
-                    consulta : query2,
-                    data : error
-                });
-            } else {
-                results2 = results[0];
-
-
-                var query3 = `SELECT msgTexto, msgMultimedia, msgFecha FROM mensaje WHERE idMensaje = ${results2.idMensaje};`;
-
-                db.query(query3, (error, results)=>{
-                    if(error){
-                        db.end();
-                        return res.json({
-                            status : 0,
-                            msg : 'Ocurrió un error en la consulta 3',
-                            consulta : query3,
-                            data : []
-                        });
-                    } else {
-                        results3 = results[0];
-
-                        db.end();
-
-                        return res.json({
-                            status : 1,
-                            msg : 'Conversaciones normales',
-                            data1 : results1,
-                            data2 : results2,
-                            data3 : results3
-                        });
-                    }
-                });   
-            }        
+        db.end();
+        return res.json({
+            status : 1,
+            msg : 'Consulta exitosa',
+            data : results
         });
+
+        // errorUniversal = false;
+
+        // results.forEach(result => {
+
+        //     if(errorUniversal){
+        //         return res.json({ status : 0 })
+        //     }
+
+        //     console.log(result.idUsuario);
+            
+
+        //     var query2 = `SELECT DISTINCT (SELECT idMensaje FROM mensaje WHERE idUsuario = ${req.params.idUsuario} 
+        //         AND idContacto = ${result.idUsuario} AND (msgEstado = 1 OR msgEstado = 2) ORDER BY msgFecha DESC LIMIT 1) AS idMensaje, 
+        //         (SELECT count(msgEstado)
+        //         FROM mensaje 
+        //         WHERE idUsuario = ${req.params.idUsuario} AND idContacto = ${result.idUsuario} AND msgEstado = 1 LIMIT 1) 
+        //         AS cantidad FROM mensaje;`;
+        
+        //         db.query(query2, (error, results)=>{
+        //             if(error){
+        //                 db.end();
+        //                 errorUniversal = true;
+        //                 return res.json({
+        //                     status : 0,
+        //                     msg : 'Ocurrió un error en la consulta 2',
+        //                     consulta : query2,
+        //                     data : error
+        //                 });
+        //                 console.log('yeet');
+        //             } else {
+        //                 results2 += results;
+                        
+        //                 console.log('yeet');
+
+        //                 // var query3 = `SELECT msgTexto, msgMultimedia, msgFecha FROM mensaje WHERE idMensaje = ${result.idMensaje};`;
+    
+        //                 // db.query(query3, (error, results)=>{
+        //                 //     if(error){
+        //                 //         db.end();
+        //                 //         return res.json({
+        //                 //             status : 0,
+        //                 //             msg : 'Ocurrió un error en la consulta 3',
+        //                 //             consulta : query3,
+        //                 //             data : []
+        //                 //         });
+        //                 //     } else {
+        //                 //         results3 += results;
+        
+                            
+        //                 //     }
+        //                 // });
+
+                        
+        
+                           
+        //             }        
+        //         });
+
+        // });
+
+        
+        // var query2 = `SELECT DISTINCT (SELECT idMensaje FROM mensaje WHERE idUsuario = ${req.params.idUsuario} 
+        // AND idContacto = ${results1.idUsuario} AND (msgEstado = 1 OR msgEstado = 2) ORDER BY msgFecha DESC LIMIT 1) AS idMensaje, 
+        // (SELECT count(msgEstado)
+        // FROM mensaje 
+        // WHERE idUsuario = ${req.params.idUsuario} AND idContacto = ${results1.idUsuario} AND msgEstado = 1 LIMIT 1) 
+        // AS cantidad FROM mensaje;`;
+
+        // db.query(query2, (error, results)=>{
+        //     if(error){
+        //         db.end();
+        //         return res.json({
+        //             status : 0,
+        //             msg : 'Ocurrió un error en la consulta 2',
+        //             consulta : query2,
+        //             data : error
+        //         });
+        //     } else {
+        //         results2 = results;
+
+
+        //         var query3 = `SELECT msgTexto, msgMultimedia, msgFecha FROM mensaje WHERE idMensaje = ${results2.idMensaje};`;
+
+        //         db.query(query3, (error, results)=>{
+        //             if(error){
+        //                 db.end();
+        //                 return res.json({
+        //                     status : 0,
+        //                     msg : 'Ocurrió un error en la consulta 3',
+        //                     consulta : query3,
+        //                     data : []
+        //                 });
+        //             } else {
+        //                 results3 = results;
+
+        //                 db.end();
+
+        //                 return res.json({
+        //                     status : 1,
+        //                     msg : 'Conversaciones normales',
+        //                     data1 : results1,
+        //                     data2 : results2,
+        //                     data3 : results3
+        //                 });
+        //             }
+        //         });   
+        //     }        
+        // });
     }
    });
+//    db.end();
+        
+//     return res.json({
+//         status : 1,
+//         msg : 'Conversaciones normales',
+//         data1 : results1,
+//         data2 : results2,
+//         data3 : results3
+//     });
 }
 
 exports.getConversacionesArchivadas = (req, res)=>{
@@ -126,9 +197,6 @@ exports.getConversacionesArchivadas = (req, res)=>{
         });
     }
 
-    results1 = null;
-    results2 = null;
-    results3 = null;
 
    var db = mysql.createConnection(dbconn);
 
@@ -150,55 +218,60 @@ exports.getConversacionesArchivadas = (req, res)=>{
             data : []
         });
     } else {
-        results1 = results[0];
-        
-        var query2 = `SELECT DISTINCT (SELECT idMensaje FROM mensaje WHERE idUsuario = ${req.params.idUsuario} 
-        AND idContacto = ${results1.idUsuario} AND (msgEstado = 1 OR msgEstado = 2) ORDER BY msgFecha DESC LIMIT 1) AS idMensaje, 
-        (SELECT count(msgEstado)
-        FROM mensaje 
-        WHERE idUsuario = ${req.params.idUsuario} AND idContacto = ${results1.idUsuario} AND msgEstado = 1 LIMIT 1) 
-        AS cantidad FROM mensaje;`;
-
-        db.query(query2, (error, results)=>{
-            if(error){
-                db.end();
-                return res.json({
-                    status : 0,
-                    msg : 'Ocurrió un error en la consulta 2',
-                    consulta : query2,
-                    data : error
-                });
-            } else {
-                results2 = results[0];
-
-
-                var query3 = `SELECT msgTexto, msgMultimedia, msgFecha FROM mensaje WHERE idMensaje = ${results2.idMensaje};`;
-
-                db.query(query3, (error, results)=>{
-                    if(error){
-                        db.end();
-                        return res.json({
-                            status : 0,
-                            msg : 'Ocurrió un error en la consulta 3',
-                            consulta : query3,
-                            data : []
-                        });
-                    } else {
-                        results3 = results[0];
-
-                        db.end();
-
-                        return res.json({
-                            status : 1,
-                            msg : 'Conversaciones archivadas',
-                            data1 : results1,
-                            data2 : results2,
-                            data3 : results3
-                        });
-                    }
-                });   
-            }        
+        db.end();
+        return res.json({
+            status : 1,
+            msg : 'Consulta exitosa',
+            data : results
         });
+        
+        // var query2 = `SELECT DISTINCT (SELECT idMensaje FROM mensaje WHERE idUsuario = ${req.params.idUsuario} 
+        // AND idContacto = ${results1.idUsuario} AND (msgEstado = 1 OR msgEstado = 2) ORDER BY msgFecha DESC LIMIT 1) AS idMensaje, 
+        // (SELECT count(msgEstado)
+        // FROM mensaje 
+        // WHERE idUsuario = ${req.params.idUsuario} AND idContacto = ${results1.idUsuario} AND msgEstado = 1 LIMIT 1) 
+        // AS cantidad FROM mensaje;`;
+
+        // db.query(query2, (error, results)=>{
+        //     if(error){
+        //         db.end();
+        //         return res.json({
+        //             status : 0,
+        //             msg : 'Ocurrió un error en la consulta 2',
+        //             consulta : query2,
+        //             data : error
+        //         });
+        //     } else {
+        //         results2 = results[0];
+
+
+        //         var query3 = `SELECT msgTexto, msgMultimedia, msgFecha FROM mensaje WHERE idMensaje = ${results2.idMensaje};`;
+
+        //         db.query(query3, (error, results)=>{
+        //             if(error){
+        //                 db.end();
+        //                 return res.json({
+        //                     status : 0,
+        //                     msg : 'Ocurrió un error en la consulta 3',
+        //                     consulta : query3,
+        //                     data : []
+        //                 });
+        //             } else {
+        //                 results3 = results[0];
+
+        //                 db.end();
+
+        //                 return res.json({
+        //                     status : 1,
+        //                     msg : 'Conversaciones archivadas',
+        //                     data1 : results1,
+        //                     data2 : results2,
+        //                     data3 : results3
+        //                 });
+        //             }
+        //         });   
+        //     }        
+        // });
     }
    });
 }
@@ -231,54 +304,61 @@ exports.getConversacionesFavoritas = (req, res)=>{
         });
     } else {
         results1 = results[0];
-        
-        var query2 = `SELECT DISTINCT (SELECT idMensaje FROM mensaje WHERE idUsuario = ${req.params.idUsuario} 
-        AND idContacto = ${results1.idUsuario} AND (msgEstado = 1 OR msgEstado = 2) ORDER BY msgFecha DESC LIMIT 1) AS idMensaje, 
-        (SELECT count(msgEstado)
-        FROM mensaje 
-        WHERE idUsuario = ${req.params.idUsuario} AND idContacto = ${results1.idUsuario} AND msgEstado = 1 LIMIT 1) 
-        AS cantidad FROM mensaje;`;
 
-        db.query(query2, (error, results)=>{
-            if(error){
-                db.end();
-                return res.json({
-                    status : 0,
-                    msg : 'Ocurrió un error en la consulta 2',
-                    consulta : query2,
-                    data : error
-                });
-            } else {
-                results2 = results[0];
-
-
-                var query3 = `SELECT msgTexto, msgMultimedia, msgFecha FROM mensaje WHERE idMensaje = ${results2.idMensaje};`;
-
-                db.query(query3, (error, results)=>{
-                    if(error){
-                        db.end();
-                        return res.json({
-                            status : 0,
-                            msg : 'Ocurrió un error en la consulta 3',
-                            consulta : query3,
-                            data : []
-                        });
-                    } else {
-                        results3 = results[0];
-
-                        db.end();
-
-                        return res.json({
-                            status : 1,
-                            msg : 'Conversaciones favoritas',
-                            data1 : results1,
-                            data2 : results2,
-                            data3 : results3
-                        });
-                    }
-                });   
-            }        
+        db.end();
+        return res.json({
+            status : 1,
+            msg : 'Consulta exitosa',
+            data : results
         });
+        
+        // var query2 = `SELECT DISTINCT (SELECT idMensaje FROM mensaje WHERE idUsuario = ${req.params.idUsuario} 
+        // AND idContacto = ${results1.idUsuario} AND (msgEstado = 1 OR msgEstado = 2) ORDER BY msgFecha DESC LIMIT 1) AS idMensaje, 
+        // (SELECT count(msgEstado)
+        // FROM mensaje 
+        // WHERE idUsuario = ${req.params.idUsuario} AND idContacto = ${results1.idUsuario} AND msgEstado = 1 LIMIT 1) 
+        // AS cantidad FROM mensaje;`;
+
+        // db.query(query2, (error, results)=>{
+        //     if(error){
+        //         db.end();
+        //         return res.json({
+        //             status : 0,
+        //             msg : 'Ocurrió un error en la consulta 2',
+        //             consulta : query2,
+        //             data : error
+        //         });
+        //     } else {
+        //         results2 = results[0];
+
+
+        //         var query3 = `SELECT msgTexto, msgMultimedia, msgFecha FROM mensaje WHERE idMensaje = ${results2.idMensaje};`;
+
+        //         db.query(query3, (error, results)=>{
+        //             if(error){
+        //                 db.end();
+        //                 return res.json({
+        //                     status : 0,
+        //                     msg : 'Ocurrió un error en la consulta 3',
+        //                     consulta : query3,
+        //                     data : []
+        //                 });
+        //             } else {
+        //                 results3 = results[0];
+
+        //                 db.end();
+
+        //                 return res.json({
+        //                     status : 1,
+        //                     msg : 'Conversaciones favoritas',
+        //                     data1 : results1,
+        //                     data2 : results2,
+        //                     data3 : results3
+        //                 });
+        //             }
+        //         });   
+        //     }        
+        // });
     }
 
    });
