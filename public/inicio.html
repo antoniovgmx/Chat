@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="package/dist/sweetalert2.all.min.js"></script>
-    <title>Document</title>
+    <title>Inicio</title>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="js/funciones.js" defer></script>
 <script type="text/javascript" src="js/client_js.js" defer></script>
 <script type="text/javascript" src="js/ajax.js" defer></script>
 <script type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
 <link rel="stylesheet" href="css/estilos.css">
+    <link rel="shortcut icon" href="../img/rocket.png" />
     <link href="https://fonts.googleapis.com/css?family=Lato|Noto+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
@@ -122,8 +123,16 @@
         </div>
         </div>
     </div>
-
-<div class="todo CONVER" id="CONVER">
+<div class="info" id="info" style="display: flex">
+    <div id="center">
+        <h1 id="colori">¡Hola de nuevo!</h1>
+        <hr id="colori">
+        <div id="image-icon"></div>
+        <h2 id="colori">¿Quienes ver una conversación?</h2>
+        <h3 id="colori">¡Estás en el lugar adecuado!</h3>
+    </div>
+</div>
+<div class="todo CONVER" id="CONVER" style="display: none;">
     <nav class="cabecera">
         <div class="izquierda">
             <div class="atras" id="atras">

@@ -60,6 +60,8 @@ var ultimoId
 
 function chat(idDestino) {
     $("#CONVER").css("display","block");
+    $("#info").css("display","none");
+
     if (wid < 768) {
         $("#abajo").css("display","none")
     }

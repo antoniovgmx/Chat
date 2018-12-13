@@ -751,6 +751,42 @@ footer{
                border-top: 0;
                border-right: 0;
     }
+    .info{
+               display: flex;
+               background: #F7F7F7;
+               position: relative;
+               border-style: solid;
+               float: right;
+               width: 61.4%;
+               /* border: 1px; */
+               border-left-width: 1px;
+               border-color: gainsboro;
+               border-bottom: 0;
+               height: 100vh;
+               border-top: 0;
+               border-right: 0;
+               justify-content: center;
+               align-items: center;
+               text-align: center;
+    }
+    #image-icon{
+        height: 150px;
+        width: 200px;
+        background-color: red;
+        margin-left: 60px;
+        background: url(../img/rocket.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    #colori{
+        color: #808084;
+    }
+    .center{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
      footer{
          position: relative;
          width: 4%;
