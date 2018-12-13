@@ -590,13 +590,16 @@ $.ajax({
     datos.map(item =>{
         var nombre = item.userNombre
         var correo =item.userCorreo
+        var pass = item.userPassword
             var inputNombre = document.getElementById("nombreUs")
             var inputCorreo = document.getElementById("correoUs")
+            var password = document.getElementById("contra")
 
             inputNombre.removeAttribute("placeholder")
+            inputNombre.setAttribute("value",nombre)
             inputCorreo.removeAttribute("placeholder")
-            inputCorreo.removeAttribute("value")
-
+                password.removeAttribute("value",pass)
+                password.removeAttribute("placeholder")
             inputNombre.setAttribute("placeholder",nombre)
             inputCorreo.setAttribute("placeholder",correo)
             inputCorreo.setAttribute("value",correo)
@@ -604,3 +607,22 @@ $.ajax({
 })
 
 
+document.getElementById("salir").addEventListener("click",function(){
+
+    Swal({
+        title: 'Cerrar Sesión',
+        text: "¿Deseas cerrar sesión",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'si'
+    }).then((result) => {
+        if (result.value) {
+            window.location.href = "http://localhost:3000/inicio.html";
+            localStorage.clear();
+        }
+    })
+    
+
+})

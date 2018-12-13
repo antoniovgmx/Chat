@@ -31,8 +31,9 @@ socket.on('disconnect', ()=>{
 
  $(document).on("click", "div.texto", function () {
      console.log(this);
-     var nombre = $(this).find("h3").get(0);
-     console.log(nombre);
+     var nombre = $(this).find("h3").text();
+     var nombrePe = document.getElementById("nombrePer")
+     nombrePe.innerHTML= ""+nombre+""
  });
 
 var sala
@@ -71,7 +72,7 @@ function chat(idDestino) {
 
     var divCon = document.getElementById("mensajes");
     var numDivs = divCon.childElementCount;
-    for (var x = 1; x < numDivs; x++) {
+    for (var x = 0; x < numDivs; x++) {
         divCon.removeChild(divCon.lastChild);
     }
     $.ajax({
@@ -90,9 +91,12 @@ function chat(idDestino) {
         var mes = fecha.getMonth()
         var dia = fecha.getDay()
         var año = fecha.getFullYear()
-
+            document.getElementById("Coon").style.display="block"
         var date = ""+dia+"/"+mes+"/"+año+""
             console.log(date,"FECHA")
+        Fecha(date)
+
+
         var horas = fecha.getHours()
         var minutos = fecha.getMinutes();
         var time = ""+horas+":"+minutos+""
@@ -340,4 +344,17 @@ function conversacionNueva(idDestinatario) {
             chat(idDestinatario)
         }
     })
+}
+
+function Fecha(fecha){
+
+    var divMs = document.getElementById("mensajes")
+   var divDate = document.createElement("DIV");
+   divDate.classList.add("fecha");
+    var date = document.createElement("H5")
+    var dateT = document.createTextNode(fecha);
+    date.appendChild(dateT);
+    divDate.appendChild(date);
+    divMs.appendChild(divDate)
+
 }

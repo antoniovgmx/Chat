@@ -28,6 +28,9 @@ body{
     width: 100%;
     height: 100%;
 }
+#Coon, #nooo{
+    display: none;
+}
 .titulo{
     /* top: -600px; */
     position: relative;
@@ -563,7 +566,7 @@ footer{
     height: 40px;
     border-radius: 11px 11px 11px 11px;
     width: 180px;
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
     padding: 0 16px;
     border: none;
     border-bottom: 2px solid #EEEEEE;
@@ -665,7 +668,9 @@ footer{
     .form input{
         width: 210px;
     }
-
+    .mensajeT ::-webkit-input-placeholder {
+        color: gray;
+    }
     .nombreUsuario,
     .contra {
         width: 6rem;
