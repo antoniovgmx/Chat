@@ -180,8 +180,9 @@ $.ajax({
                   console.log(res);
                   var datos = res.data
                   datos.map(item => {
+                      console.log(item)
                       var idCon = item.idUsuario;
-                      var nombreChat = item.userNombre;
+                      var nombreChat = item.contNombre;
                       crearElementosChats(idCon, nombreChat);
                   })
 
@@ -603,15 +604,3 @@ $.ajax({
 })
 
 
-function conversacionNueva(idDestinatario){
-    $.ajax({
-        method: "POST",
-        url: "http://localhost:3000/inicio/chat/conversaciones/nuevaConversacion",
-        data:{
-            idDestinatario: idDestinatario,
-            idUsuario: idUs
-        }
-    }).done(function(res){
-        
-    })
-}

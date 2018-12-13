@@ -40,7 +40,29 @@ var sala
 // var idUs = 2;
 var ultimoId 
 
+
+ var wid = document.body.clientWidth
+ console.log(wid);
+
+ window.addEventListener("resize", function () {
+     wid = document.body.clientWidth;
+     console.log(wid);
+     document.getElementById('abajo').style.display = "block";
+     var co = document.getElementById("CONVER")
+     if ((co.style.display = "block") && (wid < 768)) {
+         document.getElementById('abajo').style.display = "none";
+     } else {
+         document.getElementById('abajo').style.display = "block";
+     }
+ });
+
+
 function chat(idDestino) {
+    $("#CONVER").css("display","block");
+    if (wid < 768) {
+        $("#abajo").css("display","none")
+    }
+
     document.getElementById("mensajeT").value ="";
     if(ultimoId==idDestino){
         ultimoId = idDestino;
@@ -89,6 +111,9 @@ var idMayor
 var idMenor
 var buttonEnviar = document.getElementById('enviar');
  buttonEnviar.addEventListener("click", function () {
+     var tiempo = new Date();
+     var time = ""+tiempo.getHours()+":"+tiempo.getMinutes()+"";
+
                  var mensaje2 = document.getElementById("mensajeT").value
                  var enviado = document.createElement("DIV");
                  enviado.classList.add("recibido");
@@ -301,3 +326,18 @@ function eliminarMensaje(divEl, x) {
     });
 }
 
+function conversacionNueva(idDestinatario) {
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:3000/inicio/chat/conversaciones/nuevaConversacion",
+        data: {
+            idDestinatario: idDestinatario,
+            idUsuario: idUs
+        }
+    }).done(function (res) {
+        if(res.status== 1){
+            console.log(res);
+            chat(idDestinatario)
+        }
+    })
+}
