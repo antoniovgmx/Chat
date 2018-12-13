@@ -249,16 +249,18 @@ $.ajax({
 // }
 
 //////////////////////CUADRO AGREGAR////////////////////////////
-var botnAgregar = document.getElementById("agregarContacto");
-botnAgregar.addEventListener("click", function(){
-   var correoCon = document.getElementById("correoCon").value
-   var nombreCon = document.getElementById("nombreCon").value
-    console.log(idUs);
-   console.log(correoCon);
-   console.log(nombreCon);
+// var botnAgregar = document.getElementById("agregarContacto");
+// botnAgregar.addEventListener("click", function(){
+    $(document).on("click", "#agregarContacto", function(){
+        var correoCon = document.getElementById("correoCon").value
+        var nombreCon = document.getElementById("nombreCon").value
+        console.log(idUs);
+        console.log(correoCon);
+        console.log(nombreCon);
 
-    ajax(nombreCon,correoCon)
-})
+        ajax(nombreCon, correoCon)
+    })
+   
     /////////////////////AJAX AGREGAR////////////
 function ajax(nombreCon,correoCon){
             $.ajax({
@@ -615,8 +617,8 @@ function bloquearCon(idCon){
         method:"PUT",
         url: "http://localhost:3000/inicio/contactos/bloquear",
         data:{
-            idUsuario= idUs,
-            idContacto= idCon
+            idUsuario: idUs,
+            idContacto: idCon
         }
     }).done(function(res){
 
