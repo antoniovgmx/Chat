@@ -1,6 +1,6 @@
 //////////////CONTACTOS/////////////////////////////////////////////////
 var correo = "aixa@gmail.com";
-var idUs = 2
+var idUs = localStorage.getItem("idUs");
 
 obtenerContactos();
 
@@ -148,14 +148,25 @@ $.ajax({
     url: "http://localhost:3000/inicio/chat/conversaciones/normales/" + idUs
 }).done(function (res) {
     console.log(res);
-    var datos = res.data;
-    var ultimoMensaje = "holaaa";
-    datos.map(item => {
-        // console.log(item);
-        var itemIdU = item.idUsuario
-        var itemNomU = item.contNombre
-        crearElementosChats(itemIdU, itemNomU);
-    });
+    var datos1 = res.data1;
+    var datos2 = res.data2;
+    var data1 = new Object(datos1);
+    console.log(data1)
+    console.log(datos2)
+    var map1 = new Map(Object.entries(datos1));
+    console.log(map1);
+    for (var [key, value] of map1) {
+        console.log(key + " = " + value);
+        if(key == "idUsuario"){
+            var idCon = value
+            console.log("id",idCon)
+        }
+        if(key=="contNombre"){
+            var nombreChat = value
+            console.log("nombre",nombreChat)
+        }
+    }
+    crearElementosChats(idCon,nombreChat);
 });
 ////////////////////////////////////////////////////////////////////
 

@@ -1,7 +1,7 @@
 var socket = io();
 var datos
 
-
+var idUs = localStorage.getItem("idUs");
 socket.on('connect', ()=>{
     console.log('Conectado al servidor');
 
@@ -33,7 +33,7 @@ socket.on('disconnect', ()=>{
 
 var sala
 // var nombre
-var idUs = 2;
+// var idUs = 2;
 var ultimoId 
 
 function chat(idDestino) {

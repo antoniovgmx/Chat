@@ -68,7 +68,7 @@ exports.newMensaje = (req, res)=>{
     });
 };
 
-exports.eliminarMensaje = ()=>{
+exports.eliminarMensaje = (req,res)=>{
 
     if(!req.body.idMensaje){
         return res.json({

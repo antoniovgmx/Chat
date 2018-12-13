@@ -25,8 +25,6 @@ function mostrarInicio() {
 	//  var usua = document.getElementById("logUser").value;
 
 	function login() {
-		alert("hhhhh")
-		
 		var pass = document.getElementById("logPassword").value;
 		var usua = document.getElementById("logUser").value;
 			console.log(usua);
@@ -39,8 +37,24 @@ function mostrarInicio() {
 					"correo": ""+usua+"",
 					"password": ""+pass+""
 				}
-			}).done(function (res) {
-				console.log(res);
+			}).done(function (res1) {
+				console.log(res1);
+				var tokeen= res1.token
+				console.log(tokeen)
+				if(res1.status==1){
+					localStorage.setItem("token", tokeen);
+					redireccionar();
+				}else{
+					Swal({
+						position: 'center',
+						type: 'error',
+						title: 'Error al iniciar sesión',
+						heightAuto: false,
+						width: '20%',
+						showConfirmButton: false,
+						timer: 1500
+					})
+				}
 			})
 			
 		} else {
@@ -71,6 +85,7 @@ function mostrarInicio() {
 			var password = document.getElementById('nPassword1').value;
 			var confirPassword = document.getElementById('nPassword2').value;
 
+			
 
 			if (correo == '' || password == '' || nombre == '' || confirPassword == '') {
 				Swal(
@@ -112,15 +127,23 @@ function mostrarInicio() {
 												showConfirmButton: false,
 												timer: 1500
 											})
+											var datos = res.data;
+											console.log(datos);
+											var data1= new Object(datos)
+											// var data1 = Array.from(datos)
+											var map1 = new Map(Object.entries(data1));
+											console.log(map1);
+											for (var [key, value] of map1) {
+												if (key == "insertId") {
+													var idCon = value
+													console.log("id", idCon)
+													var idUs = idCon
+													localStorage.setItem("idUs", idUs);
+												}
+											}
+											
+											redireccionar();
 										}
-										var datos = res.data;
-										console.log(datos);
-										var dara = Array.from(datos)
-										 data.map(item => {
-											var idUs = item.insertId;
-											localStorage.setItem("idUs", idUs);
-										 })
-										 redireccionar();
 									})
 							}}
 						}
@@ -128,7 +151,7 @@ function mostrarInicio() {
 			}
 
 			function redireccionar() {
-				window.locationf = "http://localhost:3000/inicio.html";
+				window.location.href = "http://localhost:3000/inicio.html";
 			}
 
 		
