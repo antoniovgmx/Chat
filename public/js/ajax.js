@@ -261,19 +261,6 @@ botnAgregar.addEventListener("click", function(){
 })
     /////////////////////AJAX AGREGAR////////////
 function ajax(nombreCon,correoCon){
-$.ajax({
-    method: "POST",
-    url: "/api/usuarios/autenticacion",
-    data:{
-        token: token
-    }
-    
-}).done(function (res) {
-    console.log(res)
-    if (res.status == 403) {
-        window.location.href = "http://localhost:3000";
-    } else {
-        if (res.status == 200) {
             $.ajax({
                 method: "POST",
                 url: "/inicio/contactos/agregar",
@@ -295,11 +282,6 @@ $.ajax({
                 obtenerContactos();
             })
         }
-    }
-})
-
-        
-}
 ///////////////////////////////////////////////////////////////////////
 
 
@@ -619,10 +601,24 @@ document.getElementById("salir").addEventListener("click",function(){
         confirmButtonText: 'si'
     }).then((result) => {
         if (result.value) {
-            window.location.href = "http://localhost:3000/inicio.html";
+            window.location.href = "http://localhost:3000";
             localStorage.clear();
         }
     })
     
 
 })
+
+
+function bloquearCon(idCon){
+    $.ajax({
+        method:"PUT",
+        url: "http://localhost:3000/inicio/contactos/bloquear",
+        data:{
+            idUsuario= idUs,
+            idContacto= idCon
+        }
+    }).done(function(res){
+
+    })
+}
