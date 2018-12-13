@@ -98,6 +98,8 @@ router.route( '/api/usuarios/autenticacion' )
 router.route( '/api/usuarios/getDatos/:correo' )
     .get(ctrlUsuarios.getDatos);
 
+router.route('/inicio/chat/conversaciones/nuevaConversacion')
+    .post(ctrlConversaciones.nuevaConversacion);
 //ARCHIVO DE CONTROL DE SOCKETS
 module.exports.io = socketIO(server);
 require('./server/socket/socket.js');
@@ -108,3 +110,5 @@ app.use(express.static(publicPath), router);
 server.listen(port, ()=>{
     console.log(`listening on port: ${port}`);
 });
+
+

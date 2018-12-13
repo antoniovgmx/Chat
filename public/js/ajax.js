@@ -2,6 +2,7 @@
 var correo = "aixa@gmail.com";
 var idUs = localStorage.getItem("idUs");
 var token = localStorage.getItem("token");
+var correoStorage = localStorage.getItem("correo");
 
 obtenerContactos();
 
@@ -579,6 +580,38 @@ function favoritoChat(idChat) {
     
 }
 
-function datosUsuario (){
-    
+$.ajax({
+    method:"GET",
+    url: "http://localhost:3000/api/usuarios/getDatos/"+correoStorage
+}).done(function (res){
+    console.log(res)
+    var datos = res.data
+    datos.map(item =>{
+        var nombre = item.userNombre
+        var correo =item.userCorreo
+            var inputNombre = document.getElementById("nombreUs")
+            var inputCorreo = document.getElementById("correoUs")
+
+            inputNombre.removeAttribute("placeholder")
+            inputCorreo.removeAttribute("placeholder")
+            inputCorreo.removeAttribute("value")
+
+            inputNombre.setAttribute("placeholder",nombre)
+            inputCorreo.setAttribute("placeholder",correo)
+            inputCorreo.setAttribute("value",correo)
+    })
+})
+
+
+function conversacionNueva(idDestinatario){
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:3000/inicio/chat/conversaciones/nuevaConversacion",
+        data:{
+            idDestinatario: idDestinatario,
+            idUsuario: idUs
+        }
+    }).done(function(res){
+        
+    })
 }
