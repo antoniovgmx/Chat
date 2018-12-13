@@ -4,6 +4,7 @@
 
 var bcrypt = require('bcrypt');
 var mysql = require('mysql');
+const jwt = require('jsonwebtoken');
 const { dbconn } = require('./db_connection');
 
 
@@ -60,6 +61,7 @@ exports.login = ( req, res )=>{
             data : []
         });
     }
+
     var db = mysql.createConnection(dbconn);
     db.query(`SELECT idUsuario, userCorreo, userPassword FROM usuario WHERE userCorreo="${req.body.correo}";`,
         (error, results, fields)=>{
@@ -71,8 +73,10 @@ exports.login = ( req, res )=>{
                 data : []
             });
         }
-        // var hashedInputPassword = bcrypt.hashSync(req.body.password, 10);
-        if(results.userPassword != req.body.password){
+
+        console.log(bcrypt.compareSync(req.body.password, results[0].userPassword));
+
+        if(bcrypt.compareSync(req.body.password, results[0].userPassword) == false){
             db.end();
             return res.json({
                 status : 0,
@@ -81,21 +85,32 @@ exports.login = ( req, res )=>{
             });
         }
         db.end();
-        res.json({
-            status : 1,
-            msg : 'Usuario autenticado de forma correcta',
-            data : results
-        });
 
+        jwt.sign({usuario : results[0]}, 'perrito', (err, token) => {
+            res.json({
+                status : 1,
+                msg : 'Usuario autenticado de forma correcta',
+                data : results[0],
+                token
+            }); 
+        });
     });
 }
 
-// dbconn.query(`SELECT * FROM usuario`,
-// (error, results, fields)=>{
-//    if(error) throw error;
-//    console.log(results);
-        
-// });
+exports.auth = (req, res)=>{
+    try {
+        var decoded = jwt.verify(req.body.token, 'perrito');
+    } catch(err) {
+        return res.json({
+            status : 403,
+            msg : 'Acceso denegado, login requerido'
+        });
+    }
+    return res.json({
+        status : 200,
+        msg : 'Autenticación correcta'
+    });
+}
 
 exports.getDatos = (req, res)=>{
     if(!req.params.correo){

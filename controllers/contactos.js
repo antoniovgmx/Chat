@@ -19,7 +19,7 @@ exports.getContactos = (req, res)=>{
         });
     }
     var db = mysql.createConnection(dbconn);
-    db.query(`SELECT idContacto, contNombre FROM contacto WHERE idUsuario = ${req.params.idUsuario} AND contEstado = 1;`, (error, results, fields)=>{
+    db.query(`SELECT idContacto, contNombre FROM contacto WHERE idUsuario = ${req.params.idUsuario} AND contEstado = 1 ORDER BY contNombre ASC;`, (error, results, fields)=>{
        
        db.end();
         if(error){
