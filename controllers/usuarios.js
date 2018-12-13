@@ -99,8 +99,10 @@ exports.login = ( req, res )=>{
 
 exports.auth = (req, res)=>{
     try {
-        var decoded = jwt.verify(req.body.token, 'perrito');
+        console.log(req.body.token);
+        jwt.verify(req.body.token, 'perrito');
     } catch(err) {
+        console.log(err);
         return res.json({
             status : 403,
             msg : 'Acceso denegado, login requerido'
