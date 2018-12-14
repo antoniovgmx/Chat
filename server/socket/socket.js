@@ -37,19 +37,27 @@ io.on('connection', (client)=>{
           });
     });
 
-    client.on('eliminarMensaje', ( data )=>{
+    client.on('eliminarMensaje', ( data, callback )=>{
+
+      console.log(data);
 
         axiosConfig.post('/api/mensajes/eliminar', {
             idMensaje : data.idMensaje
           })
           .then(function (response) {
+            console.log('ggggg');
             client.broadcast.to(data.sala).emit('mensajeEliminado', {
                 idMensaje : data.idMensaje
             });
             callback({ status : 1, idMensaje : data.idMensaje });
           })
           .catch(function (error) {
-            callback({ status : 0, mensaje : 'Ocurrió un error al eliminar el mensaje', error });
+            callback({
+              status : 0,
+              msg : 'Ocurrió un error al eliminar el mensaje',
+              data : []
+            });
+            // callback({ status : 0, mensaje : 'Ocurrió un error al eliminar el mensaje', error });
           });
 
     });

@@ -396,12 +396,14 @@ exports.nuevaConversacion = (req, res)=>{
         }
         db.end();
         if(!results){
+            db.end();
             return res.json({
                 status : 0,
                 msg : 'Usuario no encontrado',
                 data : []
             });
         } else {
+            db.end();
             return res.json({
                 status : 1,
                 msg : 'Conversación archivada',

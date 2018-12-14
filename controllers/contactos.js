@@ -88,12 +88,14 @@ exports.addContacto = (req, res)=>{
                 return;
             }
             if(!results){
+                db.end();
                 res.json({
                     status : 0,
                     msg : 'Usuario no encontrado',
                     data : []
                 });
             } else {
+                db.end();
                 res.json({
                     status : 1,
                     msg : 'Usuario agregado',
